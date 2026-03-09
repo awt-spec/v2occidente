@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Workflow, FolderSearch, Users, BarChart3, Globe, Code2, Puzzle, MonitorSmartphone } from "lucide-react";
+import { Workflow, FolderSearch, Users, BarChart3, Globe, Code2, Puzzle } from "lucide-react";
 
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -88,9 +88,9 @@ const SolutionOverview = () => (
               color: "from-[hsl(var(--flow-orange))] to-[hsl(var(--sysde-red))]",
             },
             {
-              icon: MonitorSmartphone,
-              title: "Acceso Multi-Plataforma",
-              desc: "Funciona en cualquier navegador y dispositivo sin instalación. Responsive y adaptable.",
+              icon: Globe,
+              title: "100% Web",
+              desc: "Funciona en cualquier navegador sin instalación. Responsive y adaptable a cualquier dispositivo.",
               color: "from-[hsl(var(--flow-purple))] to-[hsl(var(--flow-blue))]",
             },
           ].map((item, i) => (

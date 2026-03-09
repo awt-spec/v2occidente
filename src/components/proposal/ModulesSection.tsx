@@ -506,7 +506,7 @@ const workflows = [
               { icon: Code2, title: "API REST", desc: "Endpoints seguros para ERPs y sistemas externos", color: "blue" as const, active: true },
               { icon: Globe, title: "Embed Web", desc: "iframes y componentes para el sitio de Occidente", color: "teal" as const, active: true },
               { icon: Puzzle, title: "Webhooks", desc: "Notificaciones en tiempo real a sistemas externos", color: "orange" as const, active: false },
-              { icon: MonitorSmartphone, title: "Multi-Plataforma", desc: "Navegador, móvil, tablet — sin instalación", color: "purple" as const, active: true },
+              { icon: Globe, title: "100% Web", desc: "Acceso desde cualquier navegador, sin instalación", color: "purple" as const, active: true },
             ].map((item) => (
               <FlowCard key={item.title} color={item.color} className="relative">
                 <div className="absolute top-2 right-2">
