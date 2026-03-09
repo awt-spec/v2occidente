@@ -9,7 +9,7 @@ const documentContent = `
 # FileMaster: Expediente Digital — Propuesta para AFPC Occidente
 
 ## Información Principal:
-- **Cliente**: AFP Occidente
+- **Cliente**: AFPC Occidente
 - **Solución**: FileMaster - Expediente Digital
 - **Empresa**: SYSDE / Gurunet
 
