@@ -16,7 +16,7 @@ const documentContent = `
 ## Expediente Digital de SYSDE:
 SYSDE es experto en la digitalización de procesos empresariales a través de su plataforma de Expediente Digital, FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
 
-### Flujos para AFP Occidente:
+### Flujos para AFPC Occidente:
 - **Flujo de Afiliación**: Digitalización completa del proceso de afiliación, desde la recepción de documentos hasta la aprobación y registro del afiliado.
 - **Procesos ISO**: Implementación de flujos que cumplan con los estándares ISO requeridos, garantizando trazabilidad y control documental.
 - **Flujos Adicionales**: Cualquier proceso que AFP Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
