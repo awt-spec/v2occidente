@@ -4,7 +4,8 @@ import {
   Workflow, FileText, History, Shield, Users, Gavel,
   ArrowDown, Table2, Filter, Settings2, Plus, Pencil,
   Layers, MousePointerClick, Download, Clock, Search,
-  FolderOpen, CheckCircle2, ClipboardList
+  FolderOpen, CheckCircle2, ClipboardList,
+  FolderSearch, BarChart3, Code2, Globe, Puzzle, MonitorSmartphone
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
