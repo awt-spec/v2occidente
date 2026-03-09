@@ -22,7 +22,7 @@ SYSDE es experto en la digitalización de procesos empresariales a través de su
 - **Flujos Adicionales**: Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
 
 ### Primer Flujo:
-SYSDE realizará la implementación del primer flujo digital para AFP Occidente, configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE.
+SYSDE realizará la implementación del primer flujo digital para AFPC Occidente, configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE.
 
 ## Gestión de Flujos Digitales:
 - Diseño de flujos con etapas, decisiones y asignaciones automáticas
