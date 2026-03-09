@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, CreditCard, FileCheck, Calendar, Shield, Infinity, Zap, HeadphonesIcon } from "lucide-react";
+import { CheckCircle2, CreditCard, FileCheck, Calendar, Shield, Infinity, Zap, HeadphonesIcon, Workflow, Star, Users } from "lucide-react";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 } as const,
@@ -45,33 +45,83 @@ const EconomicProposal = () => {
           </span>
         </motion.div>
 
-        {/* Pricing Card */}
+        {/* Pricing Table */}
         <motion.div {...fade(0.15)} className="mb-12">
           <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="grid grid-cols-2 bg-sysde-red text-primary-foreground">
-              <div className="px-6 py-4 font-semibold text-center border-r border-primary-foreground/20">Hito</div>
-              <div className="px-6 py-4 font-semibold text-center">Precio USD</div>
-            </div>
-            <div className="grid grid-cols-2 bg-card">
-              <div className="px-6 py-5 text-center text-foreground font-medium border-r border-border">
-                {annual ? "Suscripción Anual para 20 usuarios" : "Suscripción Mensual para 20 usuarios"}
+            <div className="bg-sysde-red text-primary-foreground">
+              <div className="grid grid-cols-3 text-center">
+                <div className="px-4 py-4 font-semibold border-r border-primary-foreground/20">Concepto</div>
+                <div className="px-4 py-4 font-semibold border-r border-primary-foreground/20">Detalle</div>
+                <div className="px-4 py-4 font-semibold">Precio USD</div>
               </div>
-              <div className="px-6 py-5 text-center">
-                {annual ? (
-                  <div>
-                    <span className="text-muted-foreground line-through text-sm mr-2">USD ${(monthlyPrice * 12).toLocaleString()}.00</span>
-                    <span className="text-foreground font-bold text-xl">USD ${annualTotal.toLocaleString()}.00</span>
-                    <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes · Ahorro de ${(monthlyPrice * 12 - annualTotal).toLocaleString()}/año</p>
-                  </div>
-                ) : (
-                  <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
-                )}
+            </div>
+            <div className="divide-y divide-border">
+              <div className="grid grid-cols-3 text-center">
+                <div className="px-4 py-4 text-foreground font-medium border-r border-border flex items-center justify-center">
+                  {annual ? "Suscripción Anual" : "Suscripción Mensual"}
+                </div>
+                <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
+                  20 usuarios + 1 flujo digital incluido
+                </div>
+                <div className="px-4 py-4 flex items-center justify-center">
+                  {annual ? (
+                    <div className="text-center">
+                      <span className="text-muted-foreground line-through text-sm mr-2">USD ${(monthlyPrice * 12).toLocaleString()}</span>
+                      <span className="text-foreground font-bold text-xl">USD ${annualTotal.toLocaleString()}</span>
+                      <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
+                    </div>
+                  ) : (
+                    <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
+                  )}
+                </div>
+              </div>
+              <div className="grid grid-cols-3 text-center bg-muted/30">
+                <div className="px-4 py-4 text-foreground font-medium border-r border-border flex items-center justify-center">
+                  Flujo adicional
+                </div>
+                <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
+                  Cada flujo extra diseñado e implementado por SYSDE
+                </div>
+                <div className="px-4 py-4 flex items-center justify-center">
+                  <span className="text-foreground font-bold text-xl">USD $99.00</span>
+                  <span className="text-xs text-muted-foreground ml-1">/mes</span>
+                </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Suscripción Ilimitada */}
+        {/* FileMaster Champions */}
+        <motion.div {...fade(0.18)} className="mb-12">
+          <div className="p-6 rounded-2xl border-2 border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[hsl(var(--flow-orange))] to-[hsl(var(--sysde-red))]" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-[hsl(var(--flow-orange))] flex items-center justify-center">
+                <Star className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <div>
+                <h4 className="font-bold text-foreground text-lg">FileMaster Champions</h4>
+                <p className="text-sm text-muted-foreground">Diseña tus propios flujos con apoyo experto</p>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
+            </p>
+            <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-foreground">$30</p>
+                <p className="text-xs text-muted-foreground">USD / flujo</p>
+              </div>
+              <div className="w-px h-10 bg-border" />
+              <div className="text-sm text-muted-foreground">
+                <p className="font-medium text-foreground mb-1">Acompañamiento por flujo</p>
+                <p className="text-xs">Un Champion te guía en el diseño, configuración y puesta en marcha de cada flujo que tu equipo cree.</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Soporte, Capacitación y Evolución Ilimitados */}
         <motion.div {...fade(0.2)} className="mb-12">
           <div className="p-8 rounded-2xl border-2 border-sysde-red/20 bg-card relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-sysde" />
@@ -80,20 +130,20 @@ const EconomicProposal = () => {
                 <Infinity className="h-6 w-6 text-sysde-red" />
               </div>
               <div>
-                <h4 className="font-bold text-foreground text-xl">Suscripción Ilimitada</h4>
-                <p className="text-sm text-muted-foreground">Todo incluido, sin costos ocultos</p>
+                <h4 className="font-bold text-foreground text-xl">Soporte, Capacitación y Evolución Ilimitados</h4>
+                <p className="text-sm text-muted-foreground">Incluido en tu suscripción, sin límites</p>
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
               {[
                 { icon: Zap, text: "Licenciamiento de FileMaster" },
-                { icon: CheckCircle2, text: "20 usuarios incluidos" },
-                { icon: HeadphonesIcon, text: "Capacitación progresiva" },
-                { icon: Shield, text: "Mantenimiento evolutivo" },
+                { icon: Users, text: "20 usuarios incluidos" },
+                { icon: HeadphonesIcon, text: "Capacitación progresiva ilimitada" },
+                { icon: Shield, text: "Mantenimiento evolutivo ilimitado" },
                 { icon: CheckCircle2, text: "Infraestructura en la nube (Azure)" },
-                { icon: CheckCircle2, text: "Consultor de acompañamiento" },
+                { icon: CheckCircle2, text: "Soporte y acompañamiento ilimitado" },
                 { icon: CheckCircle2, text: "Acceso web desde cualquier navegador" },
-                { icon: CheckCircle2, text: "Implementación del primer flujo digital" },
+                { icon: Workflow, text: "1 flujo digital incluido en la suscripción" },
               ].map((item, i) => (
                 <motion.div
                   key={item.text}
