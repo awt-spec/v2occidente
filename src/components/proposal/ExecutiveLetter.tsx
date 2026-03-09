@@ -31,7 +31,7 @@ const ExecutiveLetter = () => {
               {
                 icon: Settings,
                 title: "Procesos ISO",
-                desc: "Implementación de flujos que cumplan con los estándares ISO requeridos por AFP Occidente, garantizando trazabilidad y control documental.",
+                desc: "Implementación de flujos que cumplan con los estándares ISO requeridos por AFPC Occidente, garantizando trazabilidad y control documental.",
               },
               {
                 icon: GitBranch,
