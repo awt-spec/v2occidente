@@ -19,7 +19,7 @@ SYSDE es experto en la digitalización de procesos empresariales a través de su
 ### Flujos para AFPC Occidente:
 - **Flujo de Afiliación**: Digitalización completa del proceso de afiliación, desde la recepción de documentos hasta la aprobación y registro del afiliado.
 - **Procesos ISO**: Implementación de flujos que cumplan con los estándares ISO requeridos, garantizando trazabilidad y control documental.
-- **Flujos Adicionales**: Cualquier proceso que AFP Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
+- **Flujos Adicionales**: Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
 
 ### Primer Flujo:
 SYSDE realizará la implementación del primer flujo digital para AFP Occidente, configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE.
