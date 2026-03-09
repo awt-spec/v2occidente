@@ -4,7 +4,6 @@ import sysdeLogoSrc from "@/assets/sysde-logo.png";
 
 const sections = [
   { label: "Plataforma", href: "#presentacion" },
-  { label: "Gestión", href: "#solucion" },
   { label: "Funcionalidades", href: "#modulos" },
   { label: "Infraestructura", href: "#beneficios" },
   { label: "Visión", href: "#vision" },
