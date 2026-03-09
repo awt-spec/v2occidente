@@ -26,7 +26,7 @@ const SolutionOverview = () => (
           {
             icon: Workflow,
             title: "Diseño de Flujos",
-            desc: "Modelado visual de procesos con etapas, decisiones y asignaciones automáticas. Cada flujo se adapta a las reglas de negocio de AFP Occidente.",
+            desc: "Modelado visual de procesos con etapas, decisiones y asignaciones automáticas. Cada flujo se adapta a las reglas de negocio de AFPC Occidente.",
           },
           {
             icon: FolderSearch,
