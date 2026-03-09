@@ -80,7 +80,7 @@ const EconomicProposal = () => {
                   Flujo adicional
                 </div>
                 <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
-                  Cada flujo extra diseñado e implementado por SYSDE
+                  Cada flujo adicional creado por AFP Occidente
                 </div>
                 <div className="px-4 py-4 flex items-center justify-center">
                   <span className="text-foreground font-bold text-xl">USD $99.00</span>
