@@ -36,7 +36,7 @@ const VisionAndTimeline = () => (
           {
             icon: Target,
             title: "Foco en el Negocio",
-            desc: "Garantizar el Plan de Proyecto, permitiendo a AFP Occidente focalizarse en sus factores clave de negocio mientras SYSDE gestiona la solución tecnológica.",
+            desc: "Garantizar el Plan de Proyecto, permitiendo a AFPC Occidente focalizarse en sus factores clave de negocio mientras SYSDE gestiona la solución tecnológica.",
           },
           {
             icon: TrendingUp,
