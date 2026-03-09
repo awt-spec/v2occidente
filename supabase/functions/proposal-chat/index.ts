@@ -6,7 +6,7 @@ const corsHeaders = {
 };
 
 const documentContent = `
-# FileMaster: Expediente Digital — Propuesta para AFP Occidente
+# FileMaster: Expediente Digital — Propuesta para AFPC Occidente
 
 ## Información Principal:
 - **Cliente**: AFP Occidente
