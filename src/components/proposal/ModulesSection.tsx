@@ -321,93 +321,229 @@ const ModulesSection = () => {
           </p>
         </motion.div>
 
-        {/* Gestión de Flujos */}
-        <div className="grid sm:grid-cols-2 gap-6 mb-16">
-          {[
-            { icon: Workflow, title: "Diseño de Flujos", desc: "Modelado visual de procesos con etapas, decisiones y asignaciones automáticas. Cada flujo se adapta a las reglas de negocio de AFP Occidente." },
-            { icon: FolderSearch, title: "Expediente Completo", desc: "Cada caso cuenta con un expediente digital que centraliza documentos, historial de acciones, responsables y estados en un solo lugar." },
-            { icon: Users, title: "Asignación y Roles", desc: "Los casos se asignan automáticamente o manualmente a los usuarios correspondientes, con perfiles y permisos definidos por rol." },
-            { icon: BarChart3, title: "Estados Automáticos", desc: "El sistema actualiza automáticamente el estado de cada expediente conforme avanza en el flujo, garantizando visibilidad en tiempo real." },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 25, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="p-7 rounded-2xl border border-border bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center mb-4">
-                <item.icon className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+        {/* ── DIAGRAMA: Gestión de Flujos ── */}
+        <motion.div {...fade()} className="mb-20">
+          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Gestión de Flujos Digitales</h3>
+          <p className="text-sm text-muted-foreground text-center mb-8">Todo es configurable y editable sin código</p>
 
-        {/* Integraciones */}
-        <motion.div {...fade()} className="mb-16">
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Integraciones y Conectividad</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-            FileMaster se integra con los sistemas existentes de AFP Occidente mediante APIs y componentes embebibles.
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: Code2, title: "API REST", desc: "Endpoints seguros para conectar con sistemas externos, ERPs y bases de datos de terceros.", color: "from-[hsl(var(--flow-blue))] to-[hsl(var(--flow-purple))]" },
-              { icon: Globe, title: "Embed Web", desc: "Embebe FileMaster directamente en el sitio web de AFP Occidente con iframes o componentes.", color: "from-[hsl(var(--flow-teal))] to-[hsl(var(--flow-green))]" },
-              { icon: Puzzle, title: "Webhooks", desc: "Notificaciones en tiempo real a sistemas externos cuando ocurren eventos en los flujos.", color: "from-[hsl(var(--flow-orange))] to-[hsl(var(--sysde-red))]" },
-              { icon: MonitorSmartphone, title: "Acceso Multi-Plataforma", desc: "Funciona en cualquier navegador y dispositivo sin instalación. Responsive y adaptable.", color: "from-[hsl(var(--flow-purple))] to-[hsl(var(--flow-blue))]" },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group relative p-5 rounded-2xl border border-border bg-card overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${item.color} opacity-60 group-hover:opacity-100 transition-opacity`} />
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3`}>
-                  <item.icon className="h-5 w-5 text-primary-foreground" />
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
+            <div className="max-w-xl mx-auto">
+              {/* Diseño de Flujos */}
+              <FlowCard color="blue">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Workflow className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
+                    <span className="font-bold text-sm text-foreground">Diseño de Flujos</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-blue)/0.3)] transition-colors"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-orange)/0.3)] transition-colors"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-purple)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-purple)/0.3)] transition-colors"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-purple))]" /></span>
+                  </div>
                 </div>
-                <h4 className="font-semibold text-foreground text-sm mb-1">{item.title}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  {["Etapas", "Decisiones", "Asignaciones"].map((t) => (
+                    <span key={t} className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+                      <Settings2 className="h-3 w-3" />{t}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-[10px] text-[hsl(var(--flow-blue))] mt-3 text-center">Editable -- Adapta cada flujo a las reglas de negocio</p>
+              </FlowCard>
+
+              <FlowArrow />
+
+              {/* Expediente Completo */}
+              <FlowCard color="purple">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <FolderSearch className="h-5 w-5 text-[hsl(var(--flow-purple))]" />
+                    <span className="font-bold text-sm text-foreground">Expediente Completo</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  {[
+                    { label: "Documentos del caso", color: "orange" as const },
+                    { label: "Historial de acciones", color: "blue" as const },
+                    { label: "Responsables asignados", color: "green" as const },
+                    { label: "Estados y resoluciones", color: "teal" as const },
+                  ].map((s) => {
+                    const borderColors = {
+                      orange: "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))]",
+                      blue: "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))]",
+                      green: "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))]",
+                      teal: "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))]",
+                    };
+                    return (
+                      <div key={s.label} className={`flex items-center justify-between text-xs px-3 py-2 rounded-lg border ${borderColors[s.color]}`}>
+                        <span className="text-foreground font-medium">{s.label}</span>
+                        <div className="flex gap-1">
+                          <Pencil className="h-3 w-3 text-muted-foreground" />
+                          <Settings2 className="h-3 w-3 text-muted-foreground" />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-[10px] text-[hsl(var(--flow-purple))] mt-3 text-center">Configurable -- Centraliza todo en un solo lugar</p>
+              </FlowCard>
+
+              <FlowArrow />
+
+              {/* Asignación y Roles */}
+              <FlowCard color="green">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-[hsl(var(--flow-green))]" />
+                    <span className="font-bold text-sm text-foreground">Asignación y Roles</span>
+                  </div>
+                  <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-green)/0.2)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-green))]" /></span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Automática</span>
+                  <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Manual</span>
+                  <span className="col-span-2 bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+                    <Shield className="h-3 w-3" /> Permisos por rol editables
+                  </span>
+                </div>
+                <p className="text-[10px] text-[hsl(var(--flow-green))] mt-3 text-center">Editable -- Define perfiles y permisos por usuario</p>
+              </FlowCard>
+
+              <FlowArrow />
+
+              {/* Estados Automáticos */}
+              <FlowCard color="orange">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-[hsl(var(--flow-orange))]" />
+                    <span className="font-bold text-sm text-foreground">Estados Automáticos</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+                  {["Nuevo", "En proceso", "Revisión", "Aprobado", "Cerrado"].map((s, i) => (
+                    <div key={s} className="flex items-center gap-1.5 shrink-0">
+                      <span className={`px-2 py-1 rounded-md text-[10px] font-medium border ${
+                        i === 0 ? "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))] text-[hsl(var(--flow-blue))]" :
+                        i === 1 ? "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] text-[hsl(var(--flow-orange))]" :
+                        i === 2 ? "border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] text-[hsl(var(--flow-purple))]" :
+                        i === 3 ? "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))] text-[hsl(var(--flow-green))]" :
+                        "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))] text-[hsl(var(--flow-teal))]"
+                      }`}>{s}</span>
+                      {i < 4 && <ArrowDown className="h-3 w-3 text-muted-foreground/40 rotate-[-90deg]" />}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 border border-dashed border-[hsl(var(--flow-orange)/0.3)] rounded-lg px-2 py-1.5 text-[10px] text-[hsl(var(--flow-orange))] text-center">
+                  + Agregar nuevo estado personalizado
+                </div>
+                <p className="text-[10px] text-[hsl(var(--flow-orange))] mt-2 text-center">Editable -- Crea tus propios estados y transiciones</p>
+              </FlowCard>
+            </div>
           </div>
         </motion.div>
 
-        {/* Ciclo de vida */}
-        <motion.div {...fade()} className="mb-16">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Ciclo de Vida del Expediente</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { step: "1", title: "Creación", desc: "Ingreso del caso y documentos iniciales" },
-              { step: "2", title: "Procesamiento", desc: "Ejecución de etapas según el flujo definido" },
-              { step: "3", title: "Revisión", desc: "Validación y aprobación por supervisores" },
-              { step: "4", title: "Cierre", desc: "Resolución y archivo del expediente" },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: i * 0.12 }}
-                className="p-5 rounded-xl bg-card border border-border text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-8 h-8 rounded-full bg-sysde-red/10 flex items-center justify-center mx-auto mb-3">
-                  <span className="text-sysde-red font-bold text-sm">{item.step}</span>
+        {/* ── DIAGRAMA: Ciclo de Vida del Expediente ── */}
+        <motion.div {...fade()} className="mb-20">
+          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Ciclo de Vida del Expediente</h3>
+          <p className="text-sm text-muted-foreground text-center mb-8">Cada etapa es configurable y adaptable a tus procesos</p>
+
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
+            <div className="max-w-xl mx-auto">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-purple))]" />
+                <span className="text-xs text-muted-foreground">Flujo 100% editable</span>
+              </div>
+
+              {[
+                { step: "1", title: "Creación", desc: "Ingreso del caso y documentos iniciales", color: "blue" as const, icon: Plus },
+                { step: "2", title: "Procesamiento", desc: "Ejecución de etapas según el flujo definido", color: "orange" as const, icon: Workflow },
+                { step: "3", title: "Revisión", desc: "Validación y aprobación por supervisores", color: "purple" as const, icon: CheckCircle2 },
+                { step: "4", title: "Cierre", desc: "Resolución y archivo del expediente", color: "green" as const, icon: FileText },
+              ].map((item, i) => (
+                <div key={item.step}>
+                  <FlowCard color={item.color}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center">
+                          <span className="text-xs font-bold text-foreground">{item.step}</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-foreground">{item.title}</p>
+                          <p className="text-[11px] text-muted-foreground">{item.desc}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center cursor-pointer hover:shadow transition-shadow"><Pencil className="h-3 w-3 text-muted-foreground" /></span>
+                        <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center cursor-pointer hover:shadow transition-shadow"><Settings2 className="h-3 w-3 text-muted-foreground" /></span>
+                      </div>
+                    </div>
+                  </FlowCard>
+                  {i < 3 && <FlowArrow />}
                 </div>
-                <h4 className="font-semibold text-foreground text-sm mb-1">{item.title}</h4>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </motion.div>
-            ))}
+              ))}
+              <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] rounded-xl p-4 text-center cursor-pointer hover:bg-[hsl(var(--flow-purple-light))] transition-colors">
+                <p className="text-sm text-[hsl(var(--flow-purple))] font-medium">+ Agregar nueva etapa al flujo</p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── DIAGRAMA: Integraciones ── */}
+        <motion.div {...fade()} className="mb-20">
+          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Integraciones y Conectividad</h3>
+          <p className="text-sm text-muted-foreground text-center mb-8">Configura las integraciones que necesites para tu operación</p>
+
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
+            <div className="max-w-xl mx-auto">
+              <FlowCard color="neutral" className="mb-4">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[hsl(var(--flow-blue))] to-[hsl(var(--flow-purple))] flex items-center justify-center">
+                    <Puzzle className="h-4 w-4 text-primary-foreground" />
+                  </div>
+                  <span className="font-bold text-sm text-foreground">Centro de Integraciones</span>
+                  <span className="ml-auto w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.15)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon: Code2, title: "API REST", desc: "Endpoints seguros para ERPs y sistemas externos", color: "blue" as const, active: true },
+                    { icon: Globe, title: "Embed Web", desc: "iframes y componentes para el sitio de Occidente", color: "teal" as const, active: true },
+                    { icon: Puzzle, title: "Webhooks", desc: "Notificaciones en tiempo real a sistemas externos", color: "orange" as const, active: false },
+                    { icon: MonitorSmartphone, title: "Multi-Plataforma", desc: "Navegador, móvil, tablet — sin instalación", color: "purple" as const, active: true },
+                  ].map((item) => (
+                    <FlowCard key={item.title} color={item.color} className="relative">
+                      <div className="absolute top-2 right-2">
+                        <div className={`w-2.5 h-2.5 rounded-full ${item.active ? "bg-[hsl(var(--flow-green))]" : "bg-muted-foreground/30"}`} />
+                      </div>
+                      <item.icon className="h-5 w-5 text-foreground mb-2" />
+                      <p className="text-xs font-semibold text-foreground mb-0.5">{item.title}</p>
+                      <p className="text-[10px] text-muted-foreground leading-tight">{item.desc}</p>
+                      <div className="flex gap-1 mt-2">
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Configurar</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Editar</span>
+                      </div>
+                    </FlowCard>
+                  ))}
+                </div>
+              </FlowCard>
+              <div className="border-2 border-dashed border-[hsl(var(--flow-teal)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-teal-light))] transition-colors">
+                <p className="text-sm text-[hsl(var(--flow-teal))] font-medium">+ Agregar nueva integración</p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
         {/* Workflow Tabs */}
-        <motion.div {...fade(0.1)}>
+        <motion.div {...fade(0.1)} className="mb-16">
+          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Diagramas de Flujo Interactivos</h3>
+          <p className="text-sm text-muted-foreground text-center mb-8">Explora cómo funciona cada módulo del sistema</p>
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {workflows.map((w) => (
               <button
@@ -440,66 +576,62 @@ const ModulesSection = () => {
           </div>
         </motion.div>
 
-        {/* Capacidades adicionales */}
-        <div className="grid sm:grid-cols-3 gap-4 mt-16 mb-16">
-          {[
-            { icon: FileText, title: "Gestión Documental", desc: "Carga, almacenamiento y consulta de documentos asociados a cada expediente." },
-            { icon: History, title: "Historial Completo", desc: "Visualización cronológica de todas las acciones realizadas en cada caso." },
-            { icon: Shield, title: "Seguridad y Permisos", desc: "Control granular de acceso por rol, garantizando que cada usuario vea solo lo que le corresponde." },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="p-5 rounded-2xl border border-border bg-card hover:shadow-lg transition-shadow"
-            >
-              <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center mb-3">
-                <item.icon className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <h4 className="font-semibold text-foreground text-sm mb-1">{item.title}</h4>
-              <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Roles */}
+        {/* ── DIAGRAMA: Roles y Perfiles ── */}
         <motion.div {...fade()}>
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Roles y Perfiles de Usuario</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Shield, title: "Supervisor",
-                desc: "Configura flujos, asigna casos, aprueba o rechaza decisiones y supervisa el avance de todos los expedientes.",
-                color: "text-sysde-red", bg: "bg-sysde-red/10",
-              },
-              {
-                icon: Users, title: "Operador",
-                desc: "Ejecuta las tareas asignadas dentro del flujo, carga documentos y registra las gestiones correspondientes.",
-                color: "text-muted-foreground", bg: "bg-muted",
-              },
-              {
-                icon: Gavel, title: "Auditor",
-                desc: "Acceso de lectura para revisión de expedientes, bitácoras y cumplimiento de procesos ISO.",
-                color: "text-sysde-red", bg: "bg-sysde-red/10",
-              },
-            ].map((role, i) => (
-              <motion.div
-                key={role.title}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="p-7 rounded-2xl border border-border bg-card"
-              >
-                <div className={`w-10 h-10 rounded-xl ${role.bg} flex items-center justify-center mb-4`}>
-                  <role.icon className={`h-5 w-5 ${role.color}`} />
-                </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">{role.title}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{role.desc}</p>
-              </motion.div>
-            ))}
+          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Roles y Perfiles de Usuario</h3>
+          <p className="text-sm text-muted-foreground text-center mb-8">Configura los permisos y accesos de cada rol</p>
+
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
+            <div className="max-w-2xl mx-auto">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-green))]" />
+                <span className="text-xs text-muted-foreground">Permisos editables por rol</span>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  {
+                    icon: Shield, title: "Supervisor", color: "orange" as const,
+                    perms: ["Configurar flujos", "Asignar casos", "Aprobar/Rechazar", "Ver todo"],
+                  },
+                  {
+                    icon: Users, title: "Operador", color: "blue" as const,
+                    perms: ["Ejecutar tareas", "Cargar documentos", "Registrar gestiones", "Ver asignados"],
+                  },
+                  {
+                    icon: Gavel, title: "Auditor", color: "green" as const,
+                    perms: ["Lectura completa", "Revisar bitácora", "Cumplimiento ISO", "Exportar datos"],
+                  },
+                ].map((role) => (
+                  <FlowCard key={role.title} color={role.color}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <role.icon className="h-5 w-5 text-foreground" />
+                        <span className="font-bold text-sm text-foreground">{role.title}</span>
+                      </div>
+                      <div className="flex gap-1">
+                        <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Pencil className="h-2.5 w-2.5 text-muted-foreground" /></span>
+                        <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Settings2 className="h-2.5 w-2.5 text-muted-foreground" /></span>
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {role.perms.map((p) => (
+                        <div key={p} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className="h-3 w-3 text-[hsl(var(--flow-green))]" />
+                          {p}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-2 border border-dashed border-border rounded px-2 py-1 text-[10px] text-muted-foreground text-center">
+                      + Agregar permiso
+                    </div>
+                  </FlowCard>
+                ))}
+              </div>
+              <div className="mt-4 border-2 border-dashed border-[hsl(var(--flow-green)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-green-light))] transition-colors">
+                <p className="text-sm text-[hsl(var(--flow-green))] font-medium">+ Agregar nuevo rol personalizado</p>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
