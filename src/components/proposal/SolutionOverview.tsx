@@ -17,7 +17,7 @@ const SolutionOverview = () => (
           Gestión de Flujos Digitales
         </h3>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Herramientas completas para el diseño, ejecución y supervisión de flujos de trabajo digitales adaptados a AFP Occidente.
+          Herramientas completas para el diseño, ejecución y supervisión de flujos de trabajo digitales adaptados a AFPC Occidente.
         </p>
       </motion.div>
 
