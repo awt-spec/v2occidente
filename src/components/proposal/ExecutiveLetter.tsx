@@ -36,7 +36,7 @@ const ExecutiveLetter = () => {
               {
                 icon: GitBranch,
                 title: "Flujos Adicionales",
-                desc: "Cualquier proceso que AFP Occidente requiera digitalizar puede ser modelado e implementado en FileMaster, adaptándose a las reglas de negocio específicas.",
+                desc: "Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster, adaptándose a las reglas de negocio específicas.",
               },
             ].map((item, i) => (
               <motion.div
