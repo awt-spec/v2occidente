@@ -5,7 +5,8 @@ import {
   ArrowDown, Table2, Filter, Settings2, Plus, Pencil,
   Layers, MousePointerClick, Download, Clock, Search,
   FolderOpen, CheckCircle2, ClipboardList,
-  FolderSearch, BarChart3, Code2, Globe, Puzzle, MonitorSmartphone
+  FolderSearch, BarChart3, Code2, Globe, Puzzle, MonitorSmartphone,
+  RefreshCw
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
@@ -45,7 +46,7 @@ const FlowCard = ({
   );
 };
 
-const Badge = ({ label, color }: { label: string; color: string }) => (
+const BadgeTag = ({ label, color }: { label: string; color: string }) => (
   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-primary-foreground ${color}`}>
     <Workflow className="h-3 w-3" />
     {label}
@@ -53,16 +54,190 @@ const Badge = ({ label, color }: { label: string; color: string }) => (
 );
 
 const workflows = [
+  // ── Gestión de Flujos ──
+  {
+    id: "gestion",
+    label: "Gestión de Flujos",
+    icon: Workflow,
+    color: "bg-[hsl(var(--flow-blue))]",
+    content: () => (
+      <div className="max-w-xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">Gestión de Flujos Digitales</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-blue))]" />
+          <span className="text-xs text-muted-foreground">Todo es editable</span>
+        </div>
+
+        <FlowCard color="blue">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Workflow className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
+              <span className="font-bold text-sm text-foreground">Diseño de Flujos</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-purple)/0.2)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-purple))]" /></span>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-xs">
+            {["Etapas", "Decisiones", "Asignaciones"].map((t) => (
+              <span key={t} className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+                <Settings2 className="h-3 w-3" />{t}
+              </span>
+            ))}
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-blue))] mt-3 text-center">Editable -- Adapta cada flujo a las reglas de negocio</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="purple">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <FolderSearch className="h-5 w-5 text-[hsl(var(--flow-purple))]" />
+              <span className="font-bold text-sm text-foreground">Expediente Completo</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            {[
+              { label: "Documentos del caso", c: "orange" as const },
+              { label: "Historial de acciones", c: "blue" as const },
+              { label: "Responsables asignados", c: "green" as const },
+              { label: "Estados y resoluciones", c: "teal" as const },
+            ].map((s) => {
+              const bc = {
+                orange: "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))]",
+                blue: "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))]",
+                green: "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))]",
+                teal: "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))]",
+              };
+              return (
+                <div key={s.label} className={`flex items-center justify-between text-xs px-3 py-2 rounded-lg border ${bc[s.c]}`}>
+                  <span className="text-foreground font-medium">{s.label}</span>
+                  <div className="flex gap-1"><Pencil className="h-3 w-3 text-muted-foreground" /><Settings2 className="h-3 w-3 text-muted-foreground" /></div>
+                </div>
+              );
+            })}
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-purple))] mt-3 text-center">Configurable -- Centraliza todo en un solo lugar</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="green">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-[hsl(var(--flow-green))]" />
+              <span className="font-bold text-sm text-foreground">Asignación y Roles</span>
+            </div>
+            <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-green)/0.2)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-green))]" /></span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Automática</span>
+            <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Manual</span>
+            <span className="col-span-2 bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+              <Shield className="h-3 w-3" /> Permisos por rol editables
+            </span>
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-green))] mt-3 text-center">Editable -- Define perfiles y permisos por usuario</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="orange">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-[hsl(var(--flow-orange))]" />
+              <span className="font-bold text-sm text-foreground">Estados Automáticos</span>
+            </div>
+            <div className="flex gap-1">
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+            {["Nuevo", "En proceso", "Revisión", "Aprobado", "Cerrado"].map((s, i) => (
+              <div key={s} className="flex items-center gap-1.5 shrink-0">
+                <span className={`px-2 py-1 rounded-md text-[10px] font-medium border ${
+                  i === 0 ? "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))] text-[hsl(var(--flow-blue))]" :
+                  i === 1 ? "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] text-[hsl(var(--flow-orange))]" :
+                  i === 2 ? "border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] text-[hsl(var(--flow-purple))]" :
+                  i === 3 ? "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))] text-[hsl(var(--flow-green))]" :
+                  "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))] text-[hsl(var(--flow-teal))]"
+                }`}>{s}</span>
+                {i < 4 && <ArrowDown className="h-3 w-3 text-muted-foreground/40 rotate-[-90deg]" />}
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 border border-dashed border-[hsl(var(--flow-orange)/0.3)] rounded-lg px-2 py-1.5 text-[10px] text-[hsl(var(--flow-orange))] text-center">
+            + Agregar nuevo estado personalizado
+          </div>
+        </FlowCard>
+      </div>
+    ),
+  },
+  // ── Ciclo de Vida ──
+  {
+    id: "ciclo",
+    label: "Ciclo de Vida",
+    icon: RefreshCw,
+    color: "bg-[hsl(var(--flow-purple))]",
+    content: () => (
+      <div className="max-w-xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">Ciclo de Vida del Expediente</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-purple))]" />
+          <span className="text-xs text-muted-foreground">Flujo 100% editable</span>
+        </div>
+        {[
+          { step: "1", title: "Creación", desc: "Ingreso del caso y documentos iniciales", color: "blue" as const },
+          { step: "2", title: "Procesamiento", desc: "Ejecución de etapas según el flujo definido", color: "orange" as const },
+          { step: "3", title: "Revisión", desc: "Validación y aprobación por supervisores", color: "purple" as const },
+          { step: "4", title: "Cierre", desc: "Resolución y archivo del expediente", color: "green" as const },
+        ].map((item, i) => (
+          <div key={item.step}>
+            <FlowCard color={item.color}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center">
+                    <span className="text-xs font-bold text-foreground">{item.step}</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-foreground">{item.title}</p>
+                    <p className="text-[11px] text-muted-foreground">{item.desc}</p>
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center"><Pencil className="h-3 w-3 text-muted-foreground" /></span>
+                  <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center"><Settings2 className="h-3 w-3 text-muted-foreground" /></span>
+                </div>
+              </div>
+            </FlowCard>
+            {i < 3 && <FlowArrow />}
+          </div>
+        ))}
+        <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] rounded-xl p-4 text-center cursor-pointer hover:bg-[hsl(var(--flow-purple-light))] transition-colors">
+          <p className="text-sm text-[hsl(var(--flow-purple))] font-medium">+ Agregar nueva etapa al flujo</p>
+        </div>
+      </div>
+    ),
+  },
+  // ── Colecciones ──
   {
     id: "colecciones",
     label: "Colecciones",
     icon: Layers,
-    color: "bg-[hsl(var(--flow-purple))]",
+    color: "bg-[hsl(var(--flow-orange))]",
     content: () => (
       <div className="max-w-lg mx-auto">
         <h4 className="text-xl font-bold text-foreground text-center mb-1">Lista de Colecciones (FILEMASTER)</h4>
         <div className="flex items-center justify-center gap-2 mb-8">
-          <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-purple))]" />
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-orange))]" />
           <span className="text-xs text-muted-foreground">100% Personalizable</span>
         </div>
         <FlowCard color="blue" className="text-center">
@@ -106,7 +281,7 @@ const workflows = [
             ))}
           </div>
           <p className="text-xs text-[hsl(var(--flow-purple))] mt-3 text-center">
-            Workflow No-Code — Sin código — Diseña el workflow perfecto para tu operación
+            Workflow No-Code -- Sin código -- Diseña el workflow perfecto
           </p>
         </FlowCard>
         <FlowArrow />
@@ -117,16 +292,17 @@ const workflows = [
       </div>
     ),
   },
+  // ── Ficha del Expediente ──
   {
     id: "ficha",
     label: "Ficha del Expediente",
     icon: ClipboardList,
-    color: "bg-[hsl(var(--flow-blue))]",
+    color: "bg-[hsl(var(--flow-teal))]",
     content: () => (
       <div className="max-w-lg mx-auto">
         <h4 className="text-xl font-bold text-foreground text-center mb-1">Ficha Básica del Expediente</h4>
         <div className="flex items-center justify-center gap-2 mb-8">
-          <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-purple))]" />
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-teal))]" />
           <span className="text-xs text-muted-foreground">Secciones y campos dinámicos</span>
         </div>
         <FlowCard color="neutral">
@@ -139,7 +315,7 @@ const workflows = [
             </div>
           </div>
           <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-3">
-            {["● Estado Actual", "⏱ Vence el día", "Días en estado", "Días retraso", "Condición", "👥 Usuarios"].map((t) => (
+            {["Estado Actual", "Vence el día", "Días en estado", "Días retraso", "Condición", "Usuarios"].map((t) => (
               <span key={t} className="bg-muted/50 rounded px-2 py-1">{t}</span>
             ))}
           </div>
@@ -150,7 +326,7 @@ const workflows = [
           </div>
         </FlowCard>
         <p className="text-xs text-center text-muted-foreground my-3">
-          📋 Secciones del Expediente <span className="text-[hsl(var(--flow-blue))]">(Configurables por cliente)</span>
+          Secciones del Expediente <span className="text-[hsl(var(--flow-blue))]">(Configurables por cliente)</span>
         </p>
         <div className="space-y-2.5">
           {[
@@ -171,22 +347,23 @@ const workflows = [
             </FlowCard>
           ))}
         </div>
-        <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] rounded-xl p-4 text-center">
-          <p className="text-sm text-[hsl(var(--flow-purple))]">+ Agregar nueva sección</p>
+        <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-teal)/0.3)] rounded-xl p-4 text-center">
+          <p className="text-sm text-[hsl(var(--flow-teal))]">+ Agregar nueva sección</p>
         </div>
       </div>
     ),
   },
+  // ── Generar Documento ──
   {
     id: "documentos",
-    label: "Generar Documento",
+    label: "Documentos",
     icon: FileText,
-    color: "bg-[hsl(var(--flow-orange))]",
+    color: "bg-[hsl(var(--sysde-red))]",
     content: () => (
       <div className="max-w-lg mx-auto">
         <h4 className="text-xl font-bold text-foreground text-center mb-1">Generar Documento</h4>
         <div className="flex items-center justify-center gap-2 mb-8">
-          <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-orange))]" />
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--sysde-red))]" />
           <span className="text-xs text-muted-foreground">Plantillas personalizables</span>
         </div>
         <FlowCard color="blue" className="text-center">
@@ -233,16 +410,17 @@ const workflows = [
       </div>
     ),
   },
+  // ── Bitácora ──
   {
     id: "bitacora",
     label: "Bitácora",
     icon: History,
-    color: "bg-[hsl(var(--flow-teal))]",
+    color: "bg-[hsl(var(--flow-green))]",
     content: () => (
       <div className="max-w-lg mx-auto">
         <h4 className="text-xl font-bold text-foreground text-center mb-1">Historial de Cambios (Bitácora)</h4>
         <div className="flex items-center justify-center gap-2 mb-8">
-          <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-teal))]" />
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-green))]" />
           <span className="text-xs text-muted-foreground">Filtros y eventos configurables</span>
         </div>
         <FlowCard color="teal" className="text-center">
@@ -302,16 +480,124 @@ const workflows = [
       </div>
     ),
   },
+  // ── Integraciones ──
+  {
+    id: "integraciones",
+    label: "Integraciones",
+    icon: Puzzle,
+    color: "bg-[hsl(var(--flow-teal))]",
+    content: () => (
+      <div className="max-w-xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">Integraciones y Conectividad</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-teal))]" />
+          <span className="text-xs text-muted-foreground">Configura las integraciones que necesites</span>
+        </div>
+        <FlowCard color="neutral">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[hsl(var(--flow-blue))] to-[hsl(var(--flow-purple))] flex items-center justify-center">
+              <Puzzle className="h-4 w-4 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-sm text-foreground">Centro de Integraciones</span>
+            <span className="ml-auto w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.15)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { icon: Code2, title: "API REST", desc: "Endpoints seguros para ERPs y sistemas externos", color: "blue" as const, active: true },
+              { icon: Globe, title: "Embed Web", desc: "iframes y componentes para el sitio de Occidente", color: "teal" as const, active: true },
+              { icon: Puzzle, title: "Webhooks", desc: "Notificaciones en tiempo real a sistemas externos", color: "orange" as const, active: false },
+              { icon: MonitorSmartphone, title: "Multi-Plataforma", desc: "Navegador, móvil, tablet — sin instalación", color: "purple" as const, active: true },
+            ].map((item) => (
+              <FlowCard key={item.title} color={item.color} className="relative">
+                <div className="absolute top-2 right-2">
+                  <div className={`w-2.5 h-2.5 rounded-full ${item.active ? "bg-[hsl(var(--flow-green))]" : "bg-muted-foreground/30"}`} />
+                </div>
+                <item.icon className="h-5 w-5 text-foreground mb-2" />
+                <p className="text-xs font-semibold text-foreground mb-0.5">{item.title}</p>
+                <p className="text-[10px] text-muted-foreground leading-tight">{item.desc}</p>
+                <div className="flex gap-1 mt-2">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Configurar</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Editar</span>
+                </div>
+              </FlowCard>
+            ))}
+          </div>
+        </FlowCard>
+        <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-teal)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-teal-light))] transition-colors">
+          <p className="text-sm text-[hsl(var(--flow-teal))] font-medium">+ Agregar nueva integración</p>
+        </div>
+      </div>
+    ),
+  },
+  // ── Roles y Perfiles ──
+  {
+    id: "roles",
+    label: "Roles",
+    icon: Shield,
+    color: "bg-[hsl(var(--flow-green))]",
+    content: () => (
+      <div className="max-w-2xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">Roles y Perfiles de Usuario</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-green))]" />
+          <span className="text-xs text-muted-foreground">Permisos editables por rol</span>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            {
+              icon: Shield, title: "Supervisor", color: "orange" as const,
+              perms: ["Configurar flujos", "Asignar casos", "Aprobar/Rechazar", "Ver todo"],
+            },
+            {
+              icon: Users, title: "Operador", color: "blue" as const,
+              perms: ["Ejecutar tareas", "Cargar documentos", "Registrar gestiones", "Ver asignados"],
+            },
+            {
+              icon: Gavel, title: "Auditor", color: "green" as const,
+              perms: ["Lectura completa", "Revisar bitácora", "Cumplimiento ISO", "Exportar datos"],
+            },
+          ].map((role) => (
+            <FlowCard key={role.title} color={role.color}>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <role.icon className="h-5 w-5 text-foreground" />
+                  <span className="font-bold text-sm text-foreground">{role.title}</span>
+                </div>
+                <div className="flex gap-1">
+                  <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Pencil className="h-2.5 w-2.5 text-muted-foreground" /></span>
+                  <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Settings2 className="h-2.5 w-2.5 text-muted-foreground" /></span>
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                {role.perms.map((p) => (
+                  <div key={p} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <CheckCircle2 className="h-3 w-3 text-[hsl(var(--flow-green))]" />
+                    {p}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 border border-dashed border-border rounded px-2 py-1 text-[10px] text-muted-foreground text-center">
+                + Agregar permiso
+              </div>
+            </FlowCard>
+          ))}
+        </div>
+        <div className="mt-4 border-2 border-dashed border-[hsl(var(--flow-green)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-green-light))] transition-colors">
+          <p className="text-sm text-[hsl(var(--flow-green))] font-medium">+ Agregar nuevo rol personalizado</p>
+        </div>
+      </div>
+    ),
+  },
 ];
 
 const ModulesSection = () => {
-  const [activeTab, setActiveTab] = useState("colecciones");
+  const [activeTab, setActiveTab] = useState("gestion");
   const active = workflows.find((w) => w.id === activeTab)!;
 
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container px-6 max-w-5xl">
-        <motion.div {...fade()} className="text-center mb-16">
+        <motion.div {...fade()} className="text-center mb-12">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-sysde-red mb-2">Funcionalidades</h2>
           <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
             Gestión y Workflow No-Code
@@ -321,229 +607,7 @@ const ModulesSection = () => {
           </p>
         </motion.div>
 
-        {/* ── DIAGRAMA: Gestión de Flujos ── */}
-        <motion.div {...fade()} className="mb-20">
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Gestión de Flujos Digitales</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8">Todo es configurable y editable sin código</p>
-
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
-            <div className="max-w-xl mx-auto">
-              {/* Diseño de Flujos */}
-              <FlowCard color="blue">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <Workflow className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
-                    <span className="font-bold text-sm text-foreground">Diseño de Flujos</span>
-                  </div>
-                  <div className="flex gap-1">
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-blue)/0.3)] transition-colors"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-orange)/0.3)] transition-colors"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-purple)/0.2)] flex items-center justify-center cursor-pointer hover:bg-[hsl(var(--flow-purple)/0.3)] transition-colors"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-purple))]" /></span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  {["Etapas", "Decisiones", "Asignaciones"].map((t) => (
-                    <span key={t} className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
-                      <Settings2 className="h-3 w-3" />{t}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-[10px] text-[hsl(var(--flow-blue))] mt-3 text-center">Editable -- Adapta cada flujo a las reglas de negocio</p>
-              </FlowCard>
-
-              <FlowArrow />
-
-              {/* Expediente Completo */}
-              <FlowCard color="purple">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <FolderSearch className="h-5 w-5 text-[hsl(var(--flow-purple))]" />
-                    <span className="font-bold text-sm text-foreground">Expediente Completo</span>
-                  </div>
-                  <div className="flex gap-1">
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  {[
-                    { label: "Documentos del caso", color: "orange" as const },
-                    { label: "Historial de acciones", color: "blue" as const },
-                    { label: "Responsables asignados", color: "green" as const },
-                    { label: "Estados y resoluciones", color: "teal" as const },
-                  ].map((s) => {
-                    const borderColors = {
-                      orange: "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))]",
-                      blue: "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))]",
-                      green: "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))]",
-                      teal: "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))]",
-                    };
-                    return (
-                      <div key={s.label} className={`flex items-center justify-between text-xs px-3 py-2 rounded-lg border ${borderColors[s.color]}`}>
-                        <span className="text-foreground font-medium">{s.label}</span>
-                        <div className="flex gap-1">
-                          <Pencil className="h-3 w-3 text-muted-foreground" />
-                          <Settings2 className="h-3 w-3 text-muted-foreground" />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <p className="text-[10px] text-[hsl(var(--flow-purple))] mt-3 text-center">Configurable -- Centraliza todo en un solo lugar</p>
-              </FlowCard>
-
-              <FlowArrow />
-
-              {/* Asignación y Roles */}
-              <FlowCard color="green">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-[hsl(var(--flow-green))]" />
-                    <span className="font-bold text-sm text-foreground">Asignación y Roles</span>
-                  </div>
-                  <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-green)/0.2)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-green))]" /></span>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Automática</span>
-                  <span className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground">Manual</span>
-                  <span className="col-span-2 bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
-                    <Shield className="h-3 w-3" /> Permisos por rol editables
-                  </span>
-                </div>
-                <p className="text-[10px] text-[hsl(var(--flow-green))] mt-3 text-center">Editable -- Define perfiles y permisos por usuario</p>
-              </FlowCard>
-
-              <FlowArrow />
-
-              {/* Estados Automáticos */}
-              <FlowCard color="orange">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-[hsl(var(--flow-orange))]" />
-                    <span className="font-bold text-sm text-foreground">Estados Automáticos</span>
-                  </div>
-                  <div className="flex gap-1">
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
-                    <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
-                  {["Nuevo", "En proceso", "Revisión", "Aprobado", "Cerrado"].map((s, i) => (
-                    <div key={s} className="flex items-center gap-1.5 shrink-0">
-                      <span className={`px-2 py-1 rounded-md text-[10px] font-medium border ${
-                        i === 0 ? "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))] text-[hsl(var(--flow-blue))]" :
-                        i === 1 ? "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] text-[hsl(var(--flow-orange))]" :
-                        i === 2 ? "border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] text-[hsl(var(--flow-purple))]" :
-                        i === 3 ? "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))] text-[hsl(var(--flow-green))]" :
-                        "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))] text-[hsl(var(--flow-teal))]"
-                      }`}>{s}</span>
-                      {i < 4 && <ArrowDown className="h-3 w-3 text-muted-foreground/40 rotate-[-90deg]" />}
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-2 border border-dashed border-[hsl(var(--flow-orange)/0.3)] rounded-lg px-2 py-1.5 text-[10px] text-[hsl(var(--flow-orange))] text-center">
-                  + Agregar nuevo estado personalizado
-                </div>
-                <p className="text-[10px] text-[hsl(var(--flow-orange))] mt-2 text-center">Editable -- Crea tus propios estados y transiciones</p>
-              </FlowCard>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── DIAGRAMA: Ciclo de Vida del Expediente ── */}
-        <motion.div {...fade()} className="mb-20">
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Ciclo de Vida del Expediente</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8">Cada etapa es configurable y adaptable a tus procesos</p>
-
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
-            <div className="max-w-xl mx-auto">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-purple))]" />
-                <span className="text-xs text-muted-foreground">Flujo 100% editable</span>
-              </div>
-
-              {[
-                { step: "1", title: "Creación", desc: "Ingreso del caso y documentos iniciales", color: "blue" as const, icon: Plus },
-                { step: "2", title: "Procesamiento", desc: "Ejecución de etapas según el flujo definido", color: "orange" as const, icon: Workflow },
-                { step: "3", title: "Revisión", desc: "Validación y aprobación por supervisores", color: "purple" as const, icon: CheckCircle2 },
-                { step: "4", title: "Cierre", desc: "Resolución y archivo del expediente", color: "green" as const, icon: FileText },
-              ].map((item, i) => (
-                <div key={item.step}>
-                  <FlowCard color={item.color}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center">
-                          <span className="text-xs font-bold text-foreground">{item.step}</span>
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-foreground">{item.title}</p>
-                          <p className="text-[11px] text-muted-foreground">{item.desc}</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-1">
-                        <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center cursor-pointer hover:shadow transition-shadow"><Pencil className="h-3 w-3 text-muted-foreground" /></span>
-                        <span className="w-6 h-6 rounded-lg bg-card border border-border flex items-center justify-center cursor-pointer hover:shadow transition-shadow"><Settings2 className="h-3 w-3 text-muted-foreground" /></span>
-                      </div>
-                    </div>
-                  </FlowCard>
-                  {i < 3 && <FlowArrow />}
-                </div>
-              ))}
-              <div className="mt-3 border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] rounded-xl p-4 text-center cursor-pointer hover:bg-[hsl(var(--flow-purple-light))] transition-colors">
-                <p className="text-sm text-[hsl(var(--flow-purple))] font-medium">+ Agregar nueva etapa al flujo</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── DIAGRAMA: Integraciones ── */}
-        <motion.div {...fade()} className="mb-20">
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Integraciones y Conectividad</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8">Configura las integraciones que necesites para tu operación</p>
-
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
-            <div className="max-w-xl mx-auto">
-              <FlowCard color="neutral" className="mb-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[hsl(var(--flow-blue))] to-[hsl(var(--flow-purple))] flex items-center justify-center">
-                    <Puzzle className="h-4 w-4 text-primary-foreground" />
-                  </div>
-                  <span className="font-bold text-sm text-foreground">Centro de Integraciones</span>
-                  <span className="ml-auto w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.15)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { icon: Code2, title: "API REST", desc: "Endpoints seguros para ERPs y sistemas externos", color: "blue" as const, active: true },
-                    { icon: Globe, title: "Embed Web", desc: "iframes y componentes para el sitio de Occidente", color: "teal" as const, active: true },
-                    { icon: Puzzle, title: "Webhooks", desc: "Notificaciones en tiempo real a sistemas externos", color: "orange" as const, active: false },
-                    { icon: MonitorSmartphone, title: "Multi-Plataforma", desc: "Navegador, móvil, tablet — sin instalación", color: "purple" as const, active: true },
-                  ].map((item) => (
-                    <FlowCard key={item.title} color={item.color} className="relative">
-                      <div className="absolute top-2 right-2">
-                        <div className={`w-2.5 h-2.5 rounded-full ${item.active ? "bg-[hsl(var(--flow-green))]" : "bg-muted-foreground/30"}`} />
-                      </div>
-                      <item.icon className="h-5 w-5 text-foreground mb-2" />
-                      <p className="text-xs font-semibold text-foreground mb-0.5">{item.title}</p>
-                      <p className="text-[10px] text-muted-foreground leading-tight">{item.desc}</p>
-                      <div className="flex gap-1 mt-2">
-                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Configurar</span>
-                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-card border border-border text-muted-foreground">Editar</span>
-                      </div>
-                    </FlowCard>
-                  ))}
-                </div>
-              </FlowCard>
-              <div className="border-2 border-dashed border-[hsl(var(--flow-teal)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-teal-light))] transition-colors">
-                <p className="text-sm text-[hsl(var(--flow-teal))] font-medium">+ Agregar nueva integración</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Workflow Tabs */}
-        <motion.div {...fade(0.1)} className="mb-16">
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Diagramas de Flujo Interactivos</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8">Explora cómo funciona cada módulo del sistema</p>
+        <motion.div {...fade(0.1)}>
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {workflows.map((w) => (
               <button
@@ -573,65 +637,6 @@ const ModulesSection = () => {
                 {active.content()}
               </motion.div>
             </AnimatePresence>
-          </div>
-        </motion.div>
-
-        {/* ── DIAGRAMA: Roles y Perfiles ── */}
-        <motion.div {...fade()}>
-          <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Roles y Perfiles de Usuario</h3>
-          <p className="text-sm text-muted-foreground text-center mb-8">Configura los permisos y accesos de cada rol</p>
-
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
-            <div className="max-w-2xl mx-auto">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <Badge label="Workflow No-Code" color="bg-[hsl(var(--flow-green))]" />
-                <span className="text-xs text-muted-foreground">Permisos editables por rol</span>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-4">
-                {[
-                  {
-                    icon: Shield, title: "Supervisor", color: "orange" as const,
-                    perms: ["Configurar flujos", "Asignar casos", "Aprobar/Rechazar", "Ver todo"],
-                  },
-                  {
-                    icon: Users, title: "Operador", color: "blue" as const,
-                    perms: ["Ejecutar tareas", "Cargar documentos", "Registrar gestiones", "Ver asignados"],
-                  },
-                  {
-                    icon: Gavel, title: "Auditor", color: "green" as const,
-                    perms: ["Lectura completa", "Revisar bitácora", "Cumplimiento ISO", "Exportar datos"],
-                  },
-                ].map((role) => (
-                  <FlowCard key={role.title} color={role.color}>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        <role.icon className="h-5 w-5 text-foreground" />
-                        <span className="font-bold text-sm text-foreground">{role.title}</span>
-                      </div>
-                      <div className="flex gap-1">
-                        <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Pencil className="h-2.5 w-2.5 text-muted-foreground" /></span>
-                        <span className="w-5 h-5 rounded bg-card border border-border flex items-center justify-center"><Settings2 className="h-2.5 w-2.5 text-muted-foreground" /></span>
-                      </div>
-                    </div>
-                    <div className="space-y-1.5">
-                      {role.perms.map((p) => (
-                        <div key={p} className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <CheckCircle2 className="h-3 w-3 text-[hsl(var(--flow-green))]" />
-                          {p}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-2 border border-dashed border-border rounded px-2 py-1 text-[10px] text-muted-foreground text-center">
-                      + Agregar permiso
-                    </div>
-                  </FlowCard>
-                ))}
-              </div>
-              <div className="mt-4 border-2 border-dashed border-[hsl(var(--flow-green)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-green-light))] transition-colors">
-                <p className="text-sm text-[hsl(var(--flow-green))] font-medium">+ Agregar nuevo rol personalizado</p>
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>
