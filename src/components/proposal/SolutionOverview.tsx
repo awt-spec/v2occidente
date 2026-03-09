@@ -65,7 +65,7 @@ const SolutionOverview = () => (
       <motion.div {...fade} className="mb-16">
         <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Integraciones y Conectividad</h3>
         <p className="text-sm text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-          FileMaster se integra con los sistemas existentes de AFP Occidente mediante APIs y componentes embebibles.
+          FileMaster se integra con los sistemas existentes de AFPC Occidente mediante APIs y componentes embebibles.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
