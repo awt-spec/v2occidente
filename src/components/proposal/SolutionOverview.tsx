@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Workflow, FolderSearch, Users, BarChart3, Globe, Code2, Puzzle, MonitorSmartphone } from "lucide-react";
+import { Workflow, FolderSearch, Users, BarChart3, Globe, Code2, Puzzle } from "lucide-react";
 
 const fade = {
   initial: { opacity: 0, y: 20 },
