@@ -31,7 +31,7 @@ const VisionAndTimeline = () => (
           {
             icon: Rocket,
             title: "Time to Market",
-            desc: "Apoyar a AFP Occidente a digitalizar sus procesos en muy corto plazo, con una plataforma probada que se adapta a sus necesidades específicas.",
+            desc: "Apoyar a AFPC Occidente a digitalizar sus procesos en muy corto plazo, con una plataforma probada que se adapta a sus necesidades específicas.",
           },
           {
             icon: Target,
