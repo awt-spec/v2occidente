@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, CreditCard, FileCheck, Calendar, Shield, Infinity, Zap, HeadphonesIcon } from "lucide-react";
+import { CheckCircle2, CreditCard, FileCheck, Calendar, Shield, Infinity, Zap, HeadphonesIcon, Workflow, Star, Users } from "lucide-react";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 } as const,
