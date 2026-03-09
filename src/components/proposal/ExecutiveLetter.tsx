@@ -26,7 +26,7 @@ const ExecutiveLetter = () => {
               {
                 icon: FileText,
                 title: "Flujo de Afiliación",
-                desc: "Digitalización completa del proceso de afiliación de AFP Occidente, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
+                desc: "Digitalización completa del proceso de afiliación de AFPC Occidente, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
               },
               {
                 icon: Settings,
