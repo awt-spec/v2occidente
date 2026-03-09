@@ -44,6 +44,17 @@
     --sysde-blue-dark: 210 10% 40%;
     --sysde-dark: 210 20% 15%;
 
+    --flow-purple: 270 60% 65%;
+    --flow-purple-light: 270 60% 95%;
+    --flow-blue: 210 70% 55%;
+    --flow-blue-light: 210 70% 95%;
+    --flow-green: 155 60% 45%;
+    --flow-green-light: 155 60% 93%;
+    --flow-orange: 30 85% 55%;
+    --flow-orange-light: 30 85% 93%;
+    --flow-teal: 175 60% 45%;
+    --flow-teal-light: 175 60% 93%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
