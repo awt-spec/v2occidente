@@ -8,6 +8,14 @@ const fade = {
   transition: { duration: 0.6 },
 };
 
+const timelineRows = [
+  { stage: "0", task: "Creación de la nueva instancia", weeks: [true, false, false, false] },
+  { stage: "1", task: "Implementación del primer flujo digital", weeks: [true, true, false, false] },
+  { stage: "2", task: "Ajustes de personalización al flujo", weeks: [false, true, true, false] },
+  { stage: "3", task: "Capacitación progresiva y técnica", weeks: [false, false, true, true] },
+  { stage: "4", task: "Acompañamiento post implementación", weeks: [false, false, false, true] },
+];
+
 const VisionAndTimeline = () => (
   <section className="py-20 md:py-28 bg-gradient-sysde text-primary-foreground">
     <div className="container px-6 max-w-5xl">
@@ -38,15 +46,19 @@ const VisionAndTimeline = () => (
         ].map((v, i) => (
           <motion.div
             key={v.title}
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 25, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.15 }}
-            className="text-center p-6"
+            className="text-center p-6 rounded-2xl hover:bg-primary-foreground/5 transition-colors duration-300"
           >
-            <div className="w-14 h-14 rounded-2xl bg-primary-foreground/15 flex items-center justify-center mx-auto mb-5">
+            <motion.div
+              className="w-14 h-14 rounded-2xl bg-primary-foreground/15 flex items-center justify-center mx-auto mb-5"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <v.icon className="h-6 w-6" />
-            </div>
+            </motion.div>
             <h3 className="text-lg font-semibold mb-2">{v.title}</h3>
             <p className="text-sm opacity-75 leading-relaxed">{v.desc}</p>
           </motion.div>
@@ -70,32 +82,45 @@ const VisionAndTimeline = () => (
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { stage: "0", task: "Creación de la nueva instancia", weeks: [true, false, false, false] },
-                  { stage: "1", task: "Implementación del primer flujo digital", weeks: [true, true, false, false] },
-                  { stage: "2", task: "Ajustes de personalización al flujo", weeks: [false, true, true, false] },
-                  { stage: "3", task: "Capacitación progresiva y técnica", weeks: [false, false, true, true] },
-                  { stage: "4", task: "Acompañamiento post implementación", weeks: [false, false, false, true] },
-                ].map((row, i) => (
-                  <tr key={row.stage} className="border-b border-primary-foreground/10">
+                {timelineRows.map((row, i) => (
+                  <motion.tr
+                    key={row.stage}
+                    className="border-b border-primary-foreground/10"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, delay: i * 0.12 }}
+                  >
                     <td className="py-3 px-4 font-mono font-bold">{row.stage}</td>
                     <td className="py-3 px-4">{row.task}</td>
                     {row.weeks.map((active, wi) => (
                       <td key={wi} className="py-3 px-2 text-center">
                         {active && (
-                          <div className={`w-6 h-2 rounded-full mx-auto ${i % 2 === 0 ? 'bg-primary-foreground' : 'bg-primary-foreground/50'}`} />
+                          <motion.div
+                            className={`w-6 h-2.5 rounded-full mx-auto ${i % 2 === 0 ? 'bg-primary-foreground' : 'bg-primary-foreground/50'}`}
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: i * 0.12 + wi * 0.08 }}
+                          />
                         )}
                       </td>
                     ))}
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        <p className="text-xs text-center mt-4 opacity-60">
+        <motion.p
+          className="text-xs text-center mt-4 opacity-60"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+        >
           Implementación ON-CLOUD — 4 semanas estimadas
-        </p>
+        </motion.p>
       </motion.div>
     </div>
   </section>
