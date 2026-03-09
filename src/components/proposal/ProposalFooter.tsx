@@ -14,7 +14,7 @@ const ProposalFooter = () => (
           <img src={sysdeLogoSrc} alt="SYSDE" className="h-8 brightness-0 invert" />
           <div>
             <p className="font-semibold text-primary-foreground">SYSDE Inc.</p>
-            <p className="text-xs opacity-60">FileMaster: Expediente Digital para AFP Occidente</p>
+            <p className="text-xs opacity-60">FileMaster: Expediente Digital para AFPC Occidente</p>
           </div>
         </div>
       </motion.div>

@@ -78,7 +78,7 @@ const SolutionOverview = () => (
             {
               icon: Globe,
               title: "Embed Web",
-              desc: "Embebe FileMaster directamente en el sitio web de AFP Occidente con iframes o componentes.",
+              desc: "Embebe FileMaster directamente en el sitio web de AFPC Occidente con iframes o componentes.",
               color: "from-[hsl(var(--flow-teal))] to-[hsl(var(--flow-green))]",
             },
             {

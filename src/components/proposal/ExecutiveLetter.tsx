@@ -65,7 +65,7 @@ const ExecutiveLetter = () => {
           >
             <h4 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wider text-sysde-red">Primer Flujo: Implementación por SYSDE</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SYSDE realizará la implementación del primer flujo digital para AFP Occidente. Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, asegurando la correcta adopción de la plataforma y capacitando al equipo de AFP Occidente en el uso de FileMaster.
+              SYSDE realizará la implementación del primer flujo digital para AFPC Occidente. Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, asegurando la correcta adopción de la plataforma y capacitando al equipo de AFPC Occidente en el uso de FileMaster.
             </p>
           </motion.div>
         </motion.div>

@@ -69,7 +69,7 @@ const ProposalHero = () => (
           className="text-sm"
         >
           <p className="opacity-80 max-w-2xl leading-relaxed">
-            Desarrollo e implementación de flujos digitales para AFP Occidente: Afiliación, procesos ISO y más.
+            Desarrollo e implementación de flujos digitales para AFPC Occidente: Afiliación, procesos ISO y más.
           </p>
         </motion.div>
       </motion.div>
