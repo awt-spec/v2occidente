@@ -58,7 +58,7 @@ const ProposalHero = () => (
           <div className="w-px bg-primary-foreground/20 hidden sm:block" />
           <div>
             <span className="text-sm opacity-70 block mb-1">Preparado para:</span>
-            <span className="font-bold text-lg">AFP OCCIDENTE</span>
+            <span className="font-bold text-lg">AFPC OCCIDENTE</span>
           </div>
         </motion.div>
 
