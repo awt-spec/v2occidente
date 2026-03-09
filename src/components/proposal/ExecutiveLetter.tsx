@@ -26,17 +26,17 @@ const ExecutiveLetter = () => {
               {
                 icon: FileText,
                 title: "Flujo de Afiliación",
-                desc: "Digitalización completa del proceso de afiliación de AFP Occidente, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
+                desc: "Digitalización completa del proceso de afiliación de AFPC Occidente, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
               },
               {
                 icon: Settings,
                 title: "Procesos ISO",
-                desc: "Implementación de flujos que cumplan con los estándares ISO requeridos por AFP Occidente, garantizando trazabilidad y control documental.",
+                desc: "Implementación de flujos que cumplan con los estándares ISO requeridos por AFPC Occidente, garantizando trazabilidad y control documental.",
               },
               {
                 icon: GitBranch,
                 title: "Flujos Adicionales",
-                desc: "Cualquier proceso que AFP Occidente requiera digitalizar puede ser modelado e implementado en FileMaster, adaptándose a las reglas de negocio específicas.",
+                desc: "Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster, adaptándose a las reglas de negocio específicas.",
               },
             ].map((item, i) => (
               <motion.div
@@ -65,7 +65,7 @@ const ExecutiveLetter = () => {
           >
             <h4 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wider text-sysde-red">Primer Flujo: Implementación por SYSDE</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SYSDE realizará la implementación del primer flujo digital para AFP Occidente. Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, asegurando la correcta adopción de la plataforma y capacitando al equipo de AFP Occidente en el uso de FileMaster.
+              SYSDE realizará la implementación del primer flujo digital para AFPC Occidente. Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, asegurando la correcta adopción de la plataforma y capacitando al equipo de AFPC Occidente en el uso de FileMaster.
             </p>
           </motion.div>
         </motion.div>

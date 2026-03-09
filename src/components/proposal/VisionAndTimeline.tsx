@@ -31,17 +31,17 @@ const VisionAndTimeline = () => (
           {
             icon: Rocket,
             title: "Time to Market",
-            desc: "Apoyar a AFP Occidente a digitalizar sus procesos en muy corto plazo, con una plataforma probada que se adapta a sus necesidades específicas.",
+            desc: "Apoyar a AFPC Occidente a digitalizar sus procesos en muy corto plazo, con una plataforma probada que se adapta a sus necesidades específicas.",
           },
           {
             icon: Target,
             title: "Foco en el Negocio",
-            desc: "Garantizar el Plan de Proyecto, permitiendo a AFP Occidente focalizarse en sus factores clave de negocio mientras SYSDE gestiona la solución tecnológica.",
+            desc: "Garantizar el Plan de Proyecto, permitiendo a AFPC Occidente focalizarse en sus factores clave de negocio mientras SYSDE gestiona la solución tecnológica.",
           },
           {
             icon: TrendingUp,
             title: "Crecimiento Eficiente",
-            desc: "Colaborar con AFP Occidente para soportar el crecimiento de su negocio a través de flujos digitales robustos con la flexibilidad de adaptar las reglas de negocio.",
+            desc: "Colaborar con AFPC Occidente para soportar el crecimiento de su negocio a través de flujos digitales robustos con la flexibilidad de adaptar las reglas de negocio.",
           },
         ].map((v, i) => (
           <motion.div

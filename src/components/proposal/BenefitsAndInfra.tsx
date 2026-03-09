@@ -101,7 +101,7 @@ const BenefitsAndInfra = () => {
             </div>
             <h4 className="font-bold text-foreground mb-3">Premisas</h4>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Si es necesaria la integración con sistemas de terceros, AFP Occidente deberá plantearlos para que sean analizados por SYSDE y en común acuerdo definir dicha gestión y su precio.
+              Si es necesaria la integración con sistemas de terceros, AFPC Occidente deberá plantearlos para que sean analizados por SYSDE y en común acuerdo definir dicha gestión y su precio.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Se incluye el acompañamiento por parte de un consultor que brindará respuesta a las consultas de los usuarios una vez implementada la solución.

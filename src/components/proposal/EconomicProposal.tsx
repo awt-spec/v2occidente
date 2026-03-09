@@ -27,7 +27,7 @@ const EconomicProposal = () => {
             Inversión Económica
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Modalidad SaaS (Software as a Service) que permite a AFP Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
+            Modalidad SaaS (Software as a Service) que permite a AFPC Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
           </p>
         </motion.div>
 
@@ -80,7 +80,7 @@ const EconomicProposal = () => {
                   Flujo adicional
                 </div>
                 <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
-                  Cada flujo adicional creado por AFP Occidente
+                  Cada flujo adicional creado por AFPC Occidente
                 </div>
                 <div className="px-4 py-4 flex items-center justify-center">
                   <span className="text-foreground font-bold text-xl">USD $99.00</span>
@@ -105,7 +105,7 @@ const EconomicProposal = () => {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
+              AFPC Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
             </p>
             <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
               <div className="text-center">

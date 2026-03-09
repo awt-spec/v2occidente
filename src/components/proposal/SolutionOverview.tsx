@@ -17,7 +17,7 @@ const SolutionOverview = () => (
           Gestión de Flujos Digitales
         </h3>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Herramientas completas para el diseño, ejecución y supervisión de flujos de trabajo digitales adaptados a AFP Occidente.
+          Herramientas completas para el diseño, ejecución y supervisión de flujos de trabajo digitales adaptados a AFPC Occidente.
         </p>
       </motion.div>
 
@@ -26,7 +26,7 @@ const SolutionOverview = () => (
           {
             icon: Workflow,
             title: "Diseño de Flujos",
-            desc: "Modelado visual de procesos con etapas, decisiones y asignaciones automáticas. Cada flujo se adapta a las reglas de negocio de AFP Occidente.",
+            desc: "Modelado visual de procesos con etapas, decisiones y asignaciones automáticas. Cada flujo se adapta a las reglas de negocio de AFPC Occidente.",
           },
           {
             icon: FolderSearch,
@@ -65,7 +65,7 @@ const SolutionOverview = () => (
       <motion.div {...fade} className="mb-16">
         <h3 className="text-2xl font-bold text-foreground mb-2 text-center">Integraciones y Conectividad</h3>
         <p className="text-sm text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-          FileMaster se integra con los sistemas existentes de AFP Occidente mediante APIs y componentes embebibles.
+          FileMaster se integra con los sistemas existentes de AFPC Occidente mediante APIs y componentes embebibles.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
@@ -78,7 +78,7 @@ const SolutionOverview = () => (
             {
               icon: Globe,
               title: "Embed Web",
-              desc: "Embebe FileMaster directamente en el sitio web de AFP Occidente con iframes o componentes.",
+              desc: "Embebe FileMaster directamente en el sitio web de AFPC Occidente con iframes o componentes.",
               color: "from-[hsl(var(--flow-teal))] to-[hsl(var(--flow-green))]",
             },
             {

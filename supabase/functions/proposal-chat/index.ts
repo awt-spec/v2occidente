@@ -6,23 +6,23 @@ const corsHeaders = {
 };
 
 const documentContent = `
-# FileMaster: Expediente Digital — Propuesta para AFP Occidente
+# FileMaster: Expediente Digital — Propuesta para AFPC Occidente
 
 ## Información Principal:
-- **Cliente**: AFP Occidente
+- **Cliente**: AFPC Occidente
 - **Solución**: FileMaster - Expediente Digital
 - **Empresa**: SYSDE / Gurunet
 
 ## Expediente Digital de SYSDE:
 SYSDE es experto en la digitalización de procesos empresariales a través de su plataforma de Expediente Digital, FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
 
-### Flujos para AFP Occidente:
+### Flujos para AFPC Occidente:
 - **Flujo de Afiliación**: Digitalización completa del proceso de afiliación, desde la recepción de documentos hasta la aprobación y registro del afiliado.
 - **Procesos ISO**: Implementación de flujos que cumplan con los estándares ISO requeridos, garantizando trazabilidad y control documental.
-- **Flujos Adicionales**: Cualquier proceso que AFP Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
+- **Flujos Adicionales**: Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster.
 
 ### Primer Flujo:
-SYSDE realizará la implementación del primer flujo digital para AFP Occidente, configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE.
+SYSDE realizará la implementación del primer flujo digital para AFPC Occidente, configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE.
 
 ## Gestión de Flujos Digitales:
 - Diseño de flujos con etapas, decisiones y asignaciones automáticas
@@ -97,7 +97,7 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const systemPrompt = `Eres un asistente especializado en la propuesta de FileMaster: Expediente Digital de SYSDE para AFP Occidente. Responde preguntas sobre esta propuesta de manera clara, profesional y útil.
+    const systemPrompt = `Eres un asistente especializado en la propuesta de FileMaster: Expediente Digital de SYSDE para AFPC Occidente. Responde preguntas sobre esta propuesta de manera clara, profesional y útil.
 
 INFORMACIÓN DEL DOCUMENTO:
 ${documentContent}
