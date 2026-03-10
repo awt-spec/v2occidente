@@ -54,7 +54,7 @@ const ProposalHero = () => (
         >
           <div>
             <span className="text-sm opacity-70 block mb-1">Preparado por:</span>
-            <img src={sysdeLogoWhite} alt="SYSDE" className="h-8" />
+            <span className="font-bold text-lg">SYSDE</span>
           </div>
           <div className="w-px bg-primary-foreground/20 hidden sm:block" />
           <div>
