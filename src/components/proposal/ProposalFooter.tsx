@@ -11,7 +11,7 @@ const ProposalFooter = () => (
         className="flex flex-col md:flex-row items-center justify-between gap-6"
       >
         <div className="flex items-center gap-3">
-          <img src={sysdeLogoWhite} alt="SYSDE" className="h-8" />
+          <img src={sysdeLogoWhite} alt="SYSDE" className="h-16" />
           <div>
             <p className="font-semibold text-primary-foreground">SYSDE Inc.</p>
             <p className="text-xs opacity-60">FileMaster: Expediente Digital para AFPC Occidente</p>
