@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import sysdeLogoWhite from "@/assets/sysde-logo-white.png";
 
 const ProposalHero = () => (
   <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-sysde text-primary-foreground overflow-hidden">
@@ -53,12 +54,17 @@ const ProposalHero = () => (
         >
           <div>
             <span className="text-sm opacity-70 block mb-1">Preparado por:</span>
-            <span className="font-bold text-lg">SYSDE</span>
+            <img src={sysdeLogoWhite} alt="SYSDE" className="h-8" />
           </div>
           <div className="w-px bg-primary-foreground/20 hidden sm:block" />
           <div>
             <span className="text-sm opacity-70 block mb-1">Preparado para:</span>
             <span className="font-bold text-lg">AFPC OCCIDENTE</span>
+          </div>
+          <div className="w-px bg-primary-foreground/20 hidden sm:block" />
+          <div>
+            <span className="text-sm opacity-70 block mb-1">Fecha:</span>
+            <span className="font-bold text-lg">10 / marzo / 2026</span>
           </div>
         </motion.div>
 
