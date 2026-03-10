@@ -6,7 +6,8 @@ import {
   Layers, MousePointerClick, Download, Clock, Search,
   FolderOpen, CheckCircle2, ClipboardList,
   FolderSearch, BarChart3, Code2, Globe, Puzzle, MonitorSmartphone,
-  RefreshCw
+  RefreshCw, Contact, Bell, Mail, MessageSquare, UserCheck, Target,
+  TrendingUp, Phone
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
@@ -585,6 +586,185 @@ const workflows = [
         <div className="mt-4 border-2 border-dashed border-[hsl(var(--flow-green)/0.3)] rounded-xl p-3 text-center cursor-pointer hover:bg-[hsl(var(--flow-green-light))] transition-colors">
           <p className="text-sm text-[hsl(var(--flow-green))] font-medium">+ Agregar nuevo rol personalizado</p>
         </div>
+      </div>
+    ),
+  },
+  // ── CRM ──
+  {
+    id: "crm",
+    label: "CRM",
+    icon: Contact,
+    color: "bg-[hsl(var(--flow-blue))]",
+    content: () => (
+      <div className="max-w-xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">CRM — Gestión de Relaciones</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-blue))]" />
+          <span className="text-xs text-muted-foreground">Seguimiento integral de contactos</span>
+        </div>
+
+        <FlowCard color="blue">
+          <div className="flex items-center gap-2 mb-3">
+            <Contact className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
+            <span className="font-bold text-sm text-foreground">Gestión de Contactos</span>
+            <div className="flex gap-1 ml-auto">
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Pencil className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {["Afiliados", "Prospectos", "Empresas", "Beneficiarios"].map((t) => (
+              <span key={t} className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+                <UserCheck className="h-3 w-3" />{t}
+              </span>
+            ))}
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-blue))] mt-3 text-center">Centraliza la información de todos tus contactos</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="purple">
+          <div className="flex items-center gap-2 mb-3">
+            <Target className="h-5 w-5 text-[hsl(var(--flow-purple))]" />
+            <span className="font-bold text-sm text-foreground">Pipeline de Seguimiento</span>
+          </div>
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+            {["Nuevo contacto", "En gestión", "Propuesta", "Negociación", "Cerrado"].map((s, i) => (
+              <div key={s} className="flex items-center gap-1.5 shrink-0">
+                <span className={`px-2 py-1 rounded-md text-[10px] font-medium border ${
+                  i === 0 ? "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))] text-[hsl(var(--flow-blue))]" :
+                  i === 1 ? "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] text-[hsl(var(--flow-orange))]" :
+                  i === 2 ? "border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] text-[hsl(var(--flow-purple))]" :
+                  i === 3 ? "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))] text-[hsl(var(--flow-teal))]" :
+                  "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))] text-[hsl(var(--flow-green))]"
+                }`}>{s}</span>
+                {i < 4 && <ArrowDown className="h-3 w-3 text-muted-foreground/40 rotate-[-90deg]" />}
+              </div>
+            ))}
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-purple))] mt-3 text-center">Editable -- Personaliza las etapas del pipeline</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="green">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp className="h-5 w-5 text-[hsl(var(--flow-green))]" />
+            <span className="font-bold text-sm text-foreground">Seguimiento y Actividad</span>
+          </div>
+          <div className="space-y-1.5">
+            {[
+              { label: "Registro de interacciones", icon: MessageSquare, c: "blue" as const },
+              { label: "Historial de llamadas", icon: Phone, c: "orange" as const },
+              { label: "Tareas y recordatorios", icon: Clock, c: "teal" as const },
+              { label: "Reportes y métricas", icon: BarChart3, c: "green" as const },
+            ].map((s) => {
+              const bc = {
+                orange: "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))]",
+                blue: "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))]",
+                green: "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))]",
+                teal: "border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))]",
+              };
+              return (
+                <div key={s.label} className={`flex items-center justify-between text-xs px-3 py-2 rounded-lg border ${bc[s.c]}`}>
+                  <span className="text-foreground font-medium flex items-center gap-1.5"><s.icon className="h-3 w-3" />{s.label}</span>
+                  <Settings2 className="h-3 w-3 text-muted-foreground" />
+                </div>
+              );
+            })}
+          </div>
+        </FlowCard>
+      </div>
+    ),
+  },
+  // ── Gestor de Notificaciones ──
+  {
+    id: "notificaciones",
+    label: "Notificaciones",
+    icon: Bell,
+    color: "bg-[hsl(var(--flow-orange))]",
+    content: () => (
+      <div className="max-w-xl mx-auto">
+        <h4 className="text-xl font-bold text-foreground text-center mb-1">Gestor de Notificaciones</h4>
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <BadgeTag label="Workflow No-Code" color="bg-[hsl(var(--flow-orange))]" />
+          <span className="text-xs text-muted-foreground">Alertas y comunicaciones configurables</span>
+        </div>
+
+        <FlowCard color="orange">
+          <div className="flex items-center gap-2 mb-3">
+            <Bell className="h-5 w-5 text-[hsl(var(--flow-orange))]" />
+            <span className="font-bold text-sm text-foreground">Centro de Notificaciones</span>
+            <div className="flex gap-1 ml-auto">
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-blue)/0.2)] flex items-center justify-center"><Plus className="h-3 w-3 text-[hsl(var(--flow-blue))]" /></span>
+              <span className="w-6 h-6 rounded-lg bg-[hsl(var(--flow-orange)/0.2)] flex items-center justify-center"><Settings2 className="h-3 w-3 text-[hsl(var(--flow-orange))]" /></span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {["En plataforma", "Correo electrónico", "Alertas automáticas", "Recordatorios"].map((t) => (
+              <span key={t} className="bg-card border border-border rounded-lg px-2 py-1.5 text-center text-muted-foreground flex items-center justify-center gap-1">
+                <Bell className="h-3 w-3" />{t}
+              </span>
+            ))}
+          </div>
+          <p className="text-[10px] text-[hsl(var(--flow-orange))] mt-3 text-center">Configura qué, cuándo y a quién notificar</p>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="blue">
+          <div className="flex items-center gap-2 mb-3">
+            <Settings2 className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
+            <span className="font-bold text-sm text-foreground">Reglas de Notificación</span>
+          </div>
+          <div className="space-y-1.5">
+            {[
+              { label: "Cuando un expediente cambia de estado", c: "purple" as const },
+              { label: "Cuando se asigna un caso a un usuario", c: "blue" as const },
+              { label: "Cuando se acerca una fecha de vencimiento", c: "orange" as const },
+              { label: "Cuando se requiere aprobación", c: "green" as const },
+            ].map((s) => {
+              const bc = {
+                purple: "border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))]",
+                blue: "border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))]",
+                green: "border-[hsl(var(--flow-green)/0.3)] bg-[hsl(var(--flow-green-light))]",
+                orange: "border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))]",
+              };
+              return (
+                <div key={s.label} className={`flex items-center justify-between text-xs px-3 py-2 rounded-lg border ${bc[s.c]}`}>
+                  <span className="text-foreground font-medium">{s.label}</span>
+                  <div className="flex gap-1"><Pencil className="h-3 w-3 text-muted-foreground" /><Settings2 className="h-3 w-3 text-muted-foreground" /></div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-2 border border-dashed border-[hsl(var(--flow-blue)/0.3)] rounded-lg px-2 py-1.5 text-[10px] text-[hsl(var(--flow-blue))] text-center">
+            + Agregar nueva regla de notificación
+          </div>
+        </FlowCard>
+
+        <FlowArrow />
+
+        <FlowCard color="teal">
+          <div className="flex items-center gap-2 mb-3">
+            <Mail className="h-5 w-5 text-[hsl(var(--flow-teal))]" />
+            <span className="font-bold text-sm text-foreground">Canales de Envío</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { icon: Bell, label: "In-App", desc: "Notificación dentro de FileMaster", color: "text-[hsl(var(--flow-orange))]" },
+              { icon: Mail, label: "Email", desc: "Correo electrónico automático", color: "text-[hsl(var(--flow-blue))]" },
+              { icon: MessageSquare, label: "Resumen", desc: "Digest diario o semanal", color: "text-[hsl(var(--flow-green))]" },
+            ].map((a) => (
+              <div key={a.label} className="bg-card rounded-lg p-3 text-center border border-border">
+                <a.icon className={`h-4 w-4 mx-auto mb-1 ${a.color}`} />
+                <p className="text-xs font-semibold text-foreground">{a.label}</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        </FlowCard>
       </div>
     ),
   },
