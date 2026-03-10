@@ -6,7 +6,8 @@ import {
   Layers, MousePointerClick, Download, Clock, Search,
   FolderOpen, CheckCircle2, ClipboardList,
   FolderSearch, BarChart3, Code2, Globe, Puzzle, MonitorSmartphone,
-  RefreshCw
+  RefreshCw, Contact, Bell, Mail, MessageSquare, UserCheck, Target,
+  TrendingUp, Phone
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
