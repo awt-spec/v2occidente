@@ -110,11 +110,11 @@ const EconomicProposal = () => {
             <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
               <div className="text-center">
                 <p className="text-2xl font-bold text-foreground">$30</p>
-                <p className="text-xs text-muted-foreground">USD / flujo</p>
+                <p className="text-xs text-muted-foreground">USD / hora</p>
               </div>
               <div className="w-px h-10 bg-border" />
               <div className="text-sm text-muted-foreground">
-                <p className="font-medium text-foreground mb-1">Acompañamiento por flujo</p>
+                <p className="font-medium text-foreground mb-1">Acompañamiento por hora</p>
                 <p className="text-xs">Un Champion te guía en el diseño, configuración y puesta en marcha de cada flujo que tu equipo cree.</p>
               </div>
             </div>

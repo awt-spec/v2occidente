@@ -62,7 +62,7 @@ const ProposalNav = () => {
       >
         <div className="container px-6 h-14 flex items-center justify-between">
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2">
-            <img src={sysdeLogoSrc} alt="SYSDE" className={`h-7 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} />
+            <img src={scrolled ? sysdeLogoColor : sysdeLogoWhite} alt="SYSDE" className="h-7 transition-all duration-300" />
           </button>
           <div className="hidden md:flex items-center gap-5">
             {sections.map((s) => (

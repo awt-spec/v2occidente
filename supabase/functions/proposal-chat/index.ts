@@ -52,9 +52,11 @@ SYSDE realizará la implementación del primer flujo digital para AFPC Occidente
 - Servicios de Red: Respaldo mensual, 3 meses de retención
 
 ## Inversión Económica:
-| Hito | Precio |
-|------|--------|
 | Suscripción Mensual para 20 usuarios | USD $999.00 |
+| Flujo adicional (creado por AFPC Occidente) | USD $99.00/mes |
+
+### FileMaster Champions:
+- Acompañamiento experto: USD $30.00 por hora
 
 ### Incluido en la suscripción:
 - Licenciamiento de FileMaster
