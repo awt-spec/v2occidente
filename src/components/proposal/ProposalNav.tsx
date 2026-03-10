@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import sysdeLogoSrc from "@/assets/sysde-logo.png";
+import sysdeLogoColor from "@/assets/sysde-logo-color.png";
+import sysdeLogoWhite from "@/assets/sysde-logo-white.png";
 
 const sections = [
   { label: "Plataforma", href: "#presentacion" },
