@@ -37,7 +37,7 @@ const channels = [
 const coreSteps = [
   { icon: FolderOpen, label: "Expediente", desc: "Centraliza documentos, datos personales, beneficiarios y bitácora del afiliado en un solo lugar." },
   { icon: RefreshCw, label: "Ciclo de Vida", desc: "Etapas automáticas: Recepción → Revisión → Aprobación → Registro. Configurable por flujo." },
-  { icon: UserCheck, label: "Asignación", desc: "Distribución automática o manual a ejecutivos según reglas de negocio, zona o carga de trabajo." },
+  { icon: UserCheck, label: "Asignación", desc: "Distribución automática o manual a ejecutivos según zona, carga de trabajo o criterios operativos de AFP Occidente." },
   { icon: Bell, label: "Notificaciones", desc: "Alertas por email, plataforma y webhook en cada cambio de estado o acción requerida." },
 ];
 
