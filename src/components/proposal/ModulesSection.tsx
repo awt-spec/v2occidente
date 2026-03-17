@@ -11,7 +11,7 @@ import {
   Database, Send,
   Calendar, UserCheck,
   ChevronRight, ChevronDown, ArrowRight, Pencil, MousePointerClick,
-  Phone, FileSpreadsheet, QrCode,
+  Phone, FileSpreadsheet,
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
   Plus, X, GitBranch, Diamond, Circle, Square,
@@ -224,11 +224,11 @@ const CanvasNode = ({
             <node.icon className="h-4 w-4 mb-0.5" />
             <p className="text-[8px] font-bold leading-tight text-center px-1.5">{node.label}</p>
           </motion.div>
-          <div className="flex gap-1 mt-1">
-            <span className="p-0.5 rounded bg-card/80 border border-border/50 shadow-sm"><Pencil className="h-2.5 w-2.5 text-muted-foreground" /></span>
-            <span className="p-0.5 rounded bg-card/80 border border-border/50 shadow-sm" style={{ cursor: "grab" }}
+          <div className="flex gap-1.5 mt-1.5">
+            <motion.span animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 }} className="p-1 rounded-md bg-[hsl(var(--flow-purple-light))] border border-[hsl(var(--flow-purple)/0.3)] shadow-sm"><Pencil className="h-3 w-3 text-[hsl(var(--flow-purple))]" /></motion.span>
+            <span className="p-1 rounded-md bg-card/80 border border-border/50 shadow-sm" style={{ cursor: "grab" }}
               onMouseDown={(e) => { e.stopPropagation(); onDragStart(node.id, e); }}
-            ><GripVertical className="h-2.5 w-2.5 text-muted-foreground" /></span>
+            ><GripVertical className="h-3 w-3 text-muted-foreground" /></span>
           </div>
           {isDecision && node.branches && (
             <div className="flex gap-1 mt-0.5">
@@ -346,8 +346,6 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
           </div>
           <span className="text-xs md:text-sm font-bold text-foreground flex-1">{label}</span>
           <div className="flex items-center gap-1.5">
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
             <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">{nodes.length} pasos</span>
             <Maximize2 className="h-4 w-4 text-muted-foreground" />
           </div>
@@ -385,6 +383,16 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" /></pattern></defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
+            {/* Editable hint overlay */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground shadow-lg"
+            >
+              <Pencil className="h-3.5 w-3.5" />
+              <span className="text-[11px] font-bold tracking-wide">100% EDITABLE — Arrastra, modifica y configura cada nodo</span>
+            </motion.div>
             <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning || draggingNode ? "none" : "transform 0.2s ease-out" }}>
               <svg width={canvasW} height={canvasH} style={{ overflow: "visible" }}>
                 <CanvasConnectors positions={positions} />
