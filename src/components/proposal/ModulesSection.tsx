@@ -174,11 +174,11 @@ const nodeLabels: Record<FlowNode["type"], string> = {
 const getNodePositions = (count: number, canvasW: number, canvasH: number) => {
   const cols = 3;
   const positions: { x: number; y: number }[] = [];
-  const padX = 120;
-  const padY = 80;
+  const padX = 160;
+  const padY = 100;
   const usableW = canvasW - padX * 2;
   const rows = Math.ceil(count / cols);
-  const rowH = Math.min((canvasH - padY * 2) / Math.max(rows, 1), 180);
+  const rowH = Math.min((canvasH - padY * 2) / Math.max(rows, 1), 220);
   for (let i = 0; i < count; i++) {
     const row = Math.floor(i / cols);
     const col = i % cols;
