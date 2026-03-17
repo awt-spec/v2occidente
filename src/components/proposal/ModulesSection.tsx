@@ -177,94 +177,101 @@ const FlowNodeCard = ({
     <motion.div
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: index * 0.08 }}
+      transition={{ delay: index * 0.07 }}
       onMouseEnter={() => setHoveredNode(node.id)}
       onMouseLeave={() => setHoveredNode(null)}
       className="flex items-center"
     >
       {/* Node */}
-      <motion.div
-        animate={{ scale: isHovered ? 1.08 : 1 }}
-        transition={{ duration: 0.15 }}
-        className={`relative flex flex-col items-center justify-center w-20 h-20 md:w-24 md:h-24 ${
-          isDecision ? "rounded-2xl rotate-0" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
-        } ${color} text-primary-foreground shadow-lg cursor-pointer border-2 border-transparent ${
-          isHovered ? "border-primary-foreground/20 shadow-xl" : ""
-        }`}
-      >
-        {/* Type badge */}
-        <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-card border border-border text-[7px] md:text-[8px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+      <div className="relative flex flex-col items-center">
+        {/* Type label */}
+        <span className={`text-[7px] uppercase tracking-widest font-bold mb-1 ${
+          node.type === "start" ? "text-[hsl(var(--flow-green))]" :
+          node.type === "end" ? "text-sysde-red" :
+          node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
+          "text-muted-foreground"
+        }`}>
           {nodeLabels[node.type]}
         </span>
 
-        <node.icon className="h-5 w-5 md:h-6 md:w-6 mb-1" />
-        <p className="text-[9px] md:text-[10px] font-bold leading-tight text-center px-1">{node.label}</p>
+        <motion.div
+          animate={{ scale: isHovered ? 1.08 : 1 }}
+          transition={{ duration: 0.15 }}
+          className={`relative flex flex-col items-center justify-center w-16 h-16 ${
+            isDecision ? "rounded-xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-xl"
+          } ${color} text-primary-foreground shadow-lg cursor-pointer ${
+            isHovered ? "shadow-xl ring-2 ring-primary-foreground/20" : ""
+          }`}
+        >
+          <node.icon className="h-4 w-4 mb-0.5" />
+          <p className="text-[8px] font-bold leading-tight text-center px-1">{node.label}</p>
+        </motion.div>
 
         {/* Hover edit icons */}
         <AnimatePresence>
           {isHovered && (
             <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              className="absolute -bottom-2 flex gap-1"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              className="flex gap-1 mt-1"
             >
-              <span className="p-0.5 rounded bg-card/90 border border-border shadow-sm">
+              <span className="p-0.5 rounded bg-card border border-border shadow-sm cursor-pointer">
                 <Pencil className="h-2.5 w-2.5 text-muted-foreground" />
               </span>
-              <span className="p-0.5 rounded bg-card/90 border border-border shadow-sm">
+              <span className="p-0.5 rounded bg-card border border-border shadow-sm cursor-grab">
                 <GripVertical className="h-2.5 w-2.5 text-muted-foreground" />
               </span>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Description tooltip */}
+        {/* Description tooltip on hover */}
         <AnimatePresence>
           {isHovered && node.desc && (
             <motion.div
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              className="absolute top-full mt-4 px-3 py-2 rounded-lg bg-card border border-border shadow-xl z-20 w-36 md:w-44"
+              exit={{ opacity: 0, y: 4 }}
+              className="absolute top-full mt-8 px-2.5 py-1.5 rounded-lg bg-card border border-border shadow-xl z-30 w-36"
             >
-              <p className="text-[9px] md:text-[10px] text-muted-foreground leading-relaxed">{node.desc}</p>
+              <p className="text-[9px] text-muted-foreground leading-relaxed">{node.desc}</p>
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
 
-      {/* Decision branches */}
-      {isDecision && node.branches && (
-        <div className="flex flex-col gap-1 ml-1 mr-1">
-          {node.branches.map((br, bi) => (
-            <motion.span
-              key={br.label}
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.08 + bi * 0.05 + 0.1 }}
-              className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[7px] md:text-[8px] font-bold border whitespace-nowrap ${
-                bi === 0
-                  ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
-                  : "bg-muted border-border text-muted-foreground"
-              }`}
-            >
-              <GitBranch className="h-2 w-2" />
-              {br.label}→{br.to}
-            </motion.span>
-          ))}
-        </div>
-      )}
+        {/* Decision branches below node */}
+        {isDecision && node.branches && (
+          <div className="flex gap-1 mt-1">
+            {node.branches.map((br, bi) => (
+              <motion.span
+                key={br.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.07 + bi * 0.05 + 0.1 }}
+                className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[7px] font-bold border whitespace-nowrap ${
+                  bi === 0
+                    ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
+                    : "bg-muted border-border text-muted-foreground"
+                }`}
+              >
+                <GitBranch className="h-2 w-2" />
+                {br.label}
+              </motion.span>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Arrow connector */}
       {!isLast && (
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: index * 0.08 + 0.1, duration: 0.2 }}
-          className="origin-left flex items-center mx-1 md:mx-2"
+          transition={{ delay: index * 0.07 + 0.1, duration: 0.2 }}
+          className="origin-left flex items-center mx-1.5 self-center"
         >
-          <div className="w-4 md:w-6 h-0.5 bg-border" />
+          <div className="w-5 h-0.5 bg-border" />
           <ChevronRight className="h-3 w-3 text-border -ml-1" />
         </motion.div>
       )}
@@ -293,7 +300,7 @@ const FlowDiagram = ({
   const [open, setOpen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
-  // Split nodes into rows of 3 for zigzag
+  // Split into rows of 3 for zigzag
   const rows: FlowNode[][] = [];
   for (let i = 0; i < nodes.length; i += 3) {
     rows.push(nodes.slice(i, i + 3));
@@ -351,28 +358,31 @@ const FlowDiagram = ({
             </motion.div>
 
             {/* Zigzag flow */}
-            <div className="px-2 pb-4 overflow-x-auto">
-              <div className="flex flex-col gap-3 min-w-fit">
+            <div className="px-3 pb-4">
+              <div className="flex flex-col gap-2">
                 {rows.map((row, ri) => {
                   const isReversed = ri % 2 === 1;
                   const displayRow = isReversed ? [...row].reverse() : row;
                   const globalOffset = ri * 3;
 
                   return (
-                    <div key={ri} className="flex flex-col items-center">
+                    <div key={ri} className="flex flex-col">
                       {/* Turn connector from previous row */}
                       {ri > 0 && (
                         <motion.div
                           initial={{ scaleY: 0 }}
                           animate={{ scaleY: 1 }}
-                          transition={{ delay: globalOffset * 0.08, duration: 0.2 }}
-                          className={`origin-top flex items-center mb-2 ${isReversed ? "self-end mr-10 md:mr-12" : "self-start ml-10 md:ml-12"}`}
+                          transition={{ delay: globalOffset * 0.07, duration: 0.2 }}
+                          className={`origin-top mb-1 ${isReversed ? "self-end mr-8" : "self-start ml-8"}`}
                         >
-                          <div className="w-0.5 h-5 bg-border" />
+                          <div className="flex flex-col items-center">
+                            <div className="w-0.5 h-4 bg-border" />
+                            <ChevronDown className="h-3 w-3 text-border -mt-1" />
+                          </div>
                         </motion.div>
                       )}
                       {/* Row of nodes */}
-                      <div className={`flex items-center ${isReversed ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex items-start justify-start ${isReversed ? "flex-row-reverse" : ""}`}>
                         {displayRow.map((node, ni) => {
                           const actualIndex = isReversed
                             ? globalOffset + (row.length - 1 - ni)
