@@ -11,7 +11,7 @@ import {
   Database, Send,
   Calendar, UserCheck,
   ChevronRight, ChevronDown, ArrowRight, Pencil, MousePointerClick,
-  Phone, FileSpreadsheet, QrCode,
+  Phone, FileSpreadsheet,
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
   Plus, X, GitBranch, Diamond, Circle, Square,
