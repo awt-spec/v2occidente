@@ -26,6 +26,7 @@ const Index = () => {
       <div id="vision">
         <VisionAndTimeline />
       </div>
+      <SupportSection />
       <div id="propuesta">
         <EconomicProposal />
       </div>
