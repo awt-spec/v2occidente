@@ -31,7 +31,6 @@ const channels = [
   { icon: Mail, label: "Email", desc: "Solicitudes recibidas por correo electrónico" },
   { icon: Building2, label: "Oficinas", desc: "Atención presencial en sucursales" },
   { icon: FileSpreadsheet, label: "Importación", desc: "Carga masiva desde archivos CSV / Excel" },
-  { icon: QrCode, label: "QR / Landing", desc: "Campañas con códigos QR y landing pages" },
 ];
 
 const coreSteps = [
@@ -484,8 +483,6 @@ const ApiCard = ({
 
 const ModulesSection = () => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
-  const [showAllChannels, setShowAllChannels] = useState(false);
-  const visibleChannels = showAllChannels ? channels : channels.slice(0, 3);
 
   return (
     <section className="py-16 md:py-28 bg-background overflow-hidden">
@@ -511,7 +508,7 @@ const ModulesSection = () => {
             <StepLabel num="1" text="Originación" />
             <div className="flex flex-row flex-wrap lg:flex-col gap-2">
               <AnimatePresence mode="popLayout">
-                {visibleChannels.map((ch, i) => (
+                {channels.map((ch, i) => (
                   <motion.div
                     key={ch.label}
                     layout
@@ -531,14 +528,6 @@ const ModulesSection = () => {
                   </motion.div>
                 ))}
               </AnimatePresence>
-              <motion.button
-                layout
-                onClick={() => setShowAllChannels(!showAllChannels)}
-                className="flex items-center justify-center gap-1 p-2 rounded-xl border border-dashed border-border hover:border-sysde-red/30 text-[10px] font-medium text-muted-foreground hover:text-sysde-red transition-all duration-300 lg:w-full"
-              >
-                {showAllChannels ? <X className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
-                {showAllChannels ? "Menos canales" : `+${channels.length - 3} canales`}
-              </motion.button>
             </div>
           </motion.div>
 

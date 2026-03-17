@@ -10,7 +10,7 @@ const fade = {
 
 const timelineRows = [
   { stage: "0", task: "Creación de la nueva instancia", weeks: [true, false, false, false] },
-  { stage: "1", task: "Implementación del primer flujo digital", weeks: [true, true, false, false] },
+  { stage: "1", task: "Implementación del primer flujo digital (est. 80 hrs)", weeks: [true, true, false, false] },
   { stage: "2", task: "Ajustes de personalización al flujo", weeks: [false, true, true, false] },
   { stage: "3", task: "Capacitación progresiva y técnica", weeks: [false, false, true, true] },
   { stage: "4", task: "Acompañamiento post implementación", weeks: [false, false, false, true] },
