@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileText, GitBranch, Settings } from "lucide-react";
+import { FileText, GitBranch, Settings, Contact } from "lucide-react";
 
 const ExecutiveLetter = () => {
   return (
@@ -15,28 +15,33 @@ const ExecutiveLetter = () => {
             Plataforma
           </h2>
           <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Automatización de Procesos
+            Automatización de Procesos de AFP Occidente
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mb-12">
-            SYSDE es experto en la automatización de procesos empresariales a través de su plataforma FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
+            FileMaster es la plataforma central para automatizar cualquier proceso que AFP Occidente requiera digitalizar. Cada flujo se adapta ágilmente a las reglas de negocio específicas e incluye configuración, implementación y capacitación.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               {
                 icon: FileText,
                 title: "Flujo de Afiliación",
-                desc: "Digitalización completa del proceso de afiliación de AFPC Occidente, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
+                desc: "Digitalización completa del proceso de afiliación, desde la recepción de documentos hasta la aprobación y registro del afiliado.",
               },
               {
                 icon: Settings,
                 title: "Procesos ISO",
-                desc: "Implementación de flujos que cumplan con los estándares ISO requeridos por AFPC Occidente, garantizando trazabilidad y control documental.",
+                desc: "Flujos que cumplen con los estándares ISO requeridos, garantizando trazabilidad y control documental.",
+              },
+              {
+                icon: Contact,
+                title: "CRM Básico",
+                desc: "Gestión de agendas, expedientes y calendarios de vendedores integrada en FileMaster. Para campañas masivas se evalúa integración con CRM especializado.",
               },
               {
                 icon: GitBranch,
                 title: "Flujos Adicionales",
-                desc: "Cualquier proceso que AFPC Occidente requiera digitalizar puede ser modelado e implementado en FileMaster, adaptándose a las reglas de negocio específicas.",
+                desc: "Cualquier proceso que AFP Occidente requiera digitalizar puede ser moldeado e implementado, adaptándose a las reglas de negocio específicas.",
               },
             ].map((item, i) => (
               <motion.div
@@ -65,7 +70,7 @@ const ExecutiveLetter = () => {
           >
             <h4 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wider text-sysde-red">Primer Flujo: Implementación por SYSDE</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              SYSDE realizará la implementación del primer flujo digital para AFPC Occidente. Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, asegurando la correcta adopción de la plataforma y capacitando al equipo de AFPC Occidente en el uso de FileMaster.
+              SYSDE realizará la implementación del primer flujo digital (estimado en 80 horas). Este flujo será configurado, personalizado y puesto en producción por el equipo de consultores de SYSDE, incluyendo migración de datos y capacitación del equipo de AFP Occidente.
             </p>
           </motion.div>
         </motion.div>
