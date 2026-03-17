@@ -41,7 +41,7 @@ const VisionAndTimeline = () => (
           {
             icon: TrendingUp,
             title: "Crecimiento Eficiente",
-            desc: "Colaborar con AFPC Occidente para soportar el crecimiento de su negocio a través de flujos digitales robustos con la flexibilidad de adaptar las reglas de negocio.",
+            desc: "Colaborar con AFPC Occidente para soportar el crecimiento de su negocio a través de flujos digitales robustos que automatizan todos los procesos manuales de la institución.",
           },
         ].map((v, i) => (
           <motion.div

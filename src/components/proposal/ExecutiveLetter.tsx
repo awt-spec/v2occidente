@@ -34,14 +34,9 @@ const ExecutiveLetter = () => {
                 desc: "Flujos que cumplen con los estándares ISO requeridos, garantizando trazabilidad y control documental.",
               },
               {
-                icon: Contact,
-                title: "CRM Básico",
-                desc: "Gestión de agendas, expedientes y calendarios de vendedores integrada en FileMaster. Para campañas masivas se evalúa integración con CRM especializado.",
-              },
-              {
                 icon: GitBranch,
                 title: "Flujos Adicionales",
-                desc: "Cualquier proceso que AFP Occidente requiera digitalizar puede ser moldeado e implementado, adaptándose a las reglas de negocio específicas.",
+                desc: "Cualquier proceso manual que AFP Occidente requiera digitalizar puede ser moldeado e implementado, automatizando todos los procesos manuales que realiza la institución.",
               },
             ].map((item, i) => (
               <motion.div

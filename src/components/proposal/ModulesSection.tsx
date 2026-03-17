@@ -642,7 +642,7 @@ const ModulesSection = () => {
             <motion.div {...fade(0.3)} className="mt-4">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-px h-4 bg-border" />
-                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Otros flujos configurables</span>
+                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Automatizar procesos manuales de AFP Occidente</span>
                 <div className="flex-1 h-px bg-border" />
               </div>
               <div className="flex flex-col gap-3">
