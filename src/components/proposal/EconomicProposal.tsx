@@ -87,11 +87,10 @@ const EconomicProposal = () => {
                     Flujo adicional
                   </td>
                   <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle text-center">
-                    Cada flujo adicional creado por AFPC Occidente
+                    Cada flujo adicional creado por AFPC Occidente — cobro mensual
                   </td>
                   <td className="px-6 py-5 w-[30%] align-middle text-center">
                     <span className="text-foreground font-bold text-xl">USD $99.00</span>
-                    <span className="text-xs text-muted-foreground ml-1">/mes</span>
                   </td>
                 </tr>
               </tbody>
