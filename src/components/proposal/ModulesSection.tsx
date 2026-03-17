@@ -77,11 +77,14 @@ const affiliateFlow: FlowNode[] = [
 ];
 
 const isoFlow: FlowNode[] = [
-  { id: "i1", type: "start", icon: FileCheck, label: "Auditoría", desc: "Planificación y ejecución" },
-  { id: "i2", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "NC" }, { label: "No", to: "Cierre" }] },
-  { id: "i3", type: "process", icon: ClipboardList, label: "No Conformidad", desc: "Registro y plan de acción" },
-  { id: "i4", type: "process", icon: ShieldIcon, label: "Corrección", desc: "Implementar acciones" },
-  { id: "i5", type: "end", icon: CheckCircle2, label: "Cierre", desc: "Verificación y aprobación" },
+  { id: "i1", type: "start", icon: FileCheck, label: "Planificar Auditoría", desc: "Definición de alcance, criterios, equipo auditor y cronograma de la auditoría interna o externa." },
+  { id: "i2", type: "process", icon: Search, label: "Ejecución de Auditoría", desc: "Revisión documental, entrevistas, verificación de procesos y recopilación de evidencias." },
+  { id: "i3", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "No Conformidad" }, { label: "No", to: "Informe Limpio" }] },
+  { id: "i4", type: "process", icon: ClipboardList, label: "Registrar No Conformidad", desc: "Documentación del hallazgo, análisis de causa raíz y definición del plan de acción correctiva." },
+  { id: "i5", type: "process", icon: ShieldIcon, label: "Implementar Corrección", desc: "Ejecución de acciones correctivas con responsables, plazos y evidencias de implementación." },
+  { id: "i6", type: "decision", icon: Diamond, label: "¿Eficaz?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Re-evaluar" }] },
+  { id: "i7", type: "process", icon: RefreshCw, label: "Verificación", desc: "Seguimiento para confirmar que las acciones correctivas eliminaron la causa raíz del hallazgo." },
+  { id: "i8", type: "end", icon: CheckCircle2, label: "Cierre de Auditoría", desc: "Aprobación formal, informe final y registro en el sistema de gestión de calidad de AFP Occidente." },
 ];
 
 const apiIntegrations = [
