@@ -250,7 +250,7 @@ const CanvasNode = ({
   );
 };
 
-/* ── SVG connectors ── */
+/* ── SVG connectors with + buttons ── */
 const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[] }) => (
   <>
     {positions.map((pos, i) => {
@@ -261,9 +261,29 @@ const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[]
       if (row === nextRow) {
         const startX = Math.min(pos.x, next.x) + 48;
         const endX = Math.max(pos.x, next.x) - 48;
-        return <motion.line key={`c-${i}`} x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />;
+        const midX = (startX + endX) / 2;
+        const midY = pos.y;
+        return (
+          <g key={`c-${i}`}>
+            <motion.line x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />
+            <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 + 0.5, duration: 0.3 }}>
+              <circle cx={midX} cy={midY} r={12} fill="hsl(var(--flow-purple-light))" stroke="hsl(var(--flow-purple))" strokeWidth={1.5} strokeDasharray="3 2" className="cursor-pointer" />
+              <text x={midX} y={midY + 1} textAnchor="middle" dominantBaseline="central" fill="hsl(var(--flow-purple))" fontSize={14} fontWeight="bold" className="pointer-events-none">+</text>
+            </motion.g>
+          </g>
+        );
       } else {
-        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 48} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 60}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
+        const midX = (pos.x + next.x) / 2;
+        const midY = (pos.y + next.y) / 2;
+        return (
+          <g key={`c-${i}`}>
+            <motion.path d={`M ${pos.x} ${pos.y + 48} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 60}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />
+            <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 + 0.5, duration: 0.3 }}>
+              <circle cx={midX} cy={midY} r={12} fill="hsl(var(--flow-purple-light))" stroke="hsl(var(--flow-purple))" strokeWidth={1.5} strokeDasharray="3 2" className="cursor-pointer" />
+              <text x={midX} y={midY + 1} textAnchor="middle" dominantBaseline="central" fill="hsl(var(--flow-purple))" fontSize={14} fontWeight="bold" className="pointer-events-none">+</text>
+            </motion.g>
+          </g>
+        );
       }
     })}
   </>
