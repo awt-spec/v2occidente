@@ -178,22 +178,34 @@ const FlowCard = ({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pt-2 pl-2 space-y-1.5">
-              {items.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex items-start gap-2 p-2.5 rounded-lg bg-card border border-border/50 hover:border-border transition-colors"
-                >
-                  <item.icon className="h-3.5 w-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-[10px] font-semibold text-foreground">{item.label}</p>
-                    <p className="text-[9px] text-muted-foreground">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="pt-3 pl-2">
+              {/* Diagram-style flow */}
+              <div className="flex flex-col">
+                {items.map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    className="flex items-stretch"
+                  >
+                    {/* Vertical connector line + dot */}
+                    <div className="flex flex-col items-center mr-3 flex-shrink-0">
+                      <div className={`w-7 h-7 rounded-full ${color} flex items-center justify-center z-10 ring-2 ring-card`}>
+                        <item.icon className="h-3 w-3 text-primary-foreground" />
+                      </div>
+                      {i < items.length - 1 && (
+                        <div className={`w-0.5 flex-1 min-h-[12px]`} style={{ backgroundColor: `hsl(var(--border))` }} />
+                      )}
+                    </div>
+                    {/* Content */}
+                    <div className={`pb-3 ${i < items.length - 1 ? "" : ""}`}>
+                      <p className="text-[10px] font-semibold text-foreground leading-none mt-1">{item.label}</p>
+                      <p className="text-[9px] text-muted-foreground mt-0.5">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
