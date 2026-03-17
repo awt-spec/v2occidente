@@ -357,14 +357,17 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-[95vw] w-[95vw] h-[85vh] p-0 overflow-hidden flex flex-col bg-background">
           <DialogTitle className="sr-only">{label}</DialogTitle>
-          <div className="flex items-center gap-3 px-5 py-3 border-b border-border bg-card/80 backdrop-blur-sm flex-shrink-0">
-            <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center`}>
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md flex-shrink-0">
+            <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shadow-md`}>
               <Icon className="h-4 w-4 text-primary-foreground" />
             </div>
-            <h3 className="text-sm font-bold text-foreground">{label}</h3>
-            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
-            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
-            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground">{nodes.length} nodos</span>
+            <div className="flex flex-col">
+              <h3 className="text-sm font-bold text-foreground font-mono tracking-tight">{label}</h3>
+              <span className="text-[8px] text-muted-foreground font-mono">Flujo editable No-Code · Arrastra y configura sin programar</span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[hsl(var(--flow-green-light))] border border-[hsl(var(--flow-green)/0.3)] text-[9px] font-mono font-bold text-[hsl(var(--flow-green))]"><Code2 className="h-2.5 w-2.5" /> NO-CODE</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[hsl(var(--flow-purple-light))] border border-[hsl(var(--flow-purple)/0.3)] text-[9px] font-mono font-bold text-[hsl(var(--flow-purple))]"><Pencil className="h-2.5 w-2.5" /> EDITABLE</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-muted border border-border text-[9px] font-mono font-bold text-muted-foreground"><GitBranch className="h-2.5 w-2.5" /> {nodes.length} nodos</span>
             <div className="flex-1" />
             <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5 border border-border">
               <button onClick={() => setZoom(z => Math.max(0.4, z - 0.1))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomOut className="h-3.5 w-3.5 text-muted-foreground" /></button>
