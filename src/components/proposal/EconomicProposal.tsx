@@ -48,46 +48,54 @@ const EconomicProposal = () => {
         {/* Pricing Table */}
         <motion.div {...fade(0.15)} className="mb-12">
           <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            {/* Header */}
             <div className="bg-sysde-red text-primary-foreground">
-              <div className="grid grid-cols-3 text-center">
-                <div className="px-4 py-4 font-semibold border-r border-primary-foreground/20">Concepto</div>
-                <div className="px-4 py-4 font-semibold border-r border-primary-foreground/20">Detalle</div>
-                <div className="px-4 py-4 font-semibold">Precio USD</div>
-              </div>
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-4 text-left font-semibold w-[30%]">Concepto</th>
+                    <th className="px-6 py-4 text-left font-semibold w-[40%]">Detalle</th>
+                    <th className="px-6 py-4 text-right font-semibold w-[30%]">Precio USD</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
-            <div className="divide-y divide-border">
-              <div className="grid grid-cols-3 text-center">
-                <div className="px-4 py-4 text-foreground font-medium border-r border-border flex items-center justify-center">
-                  {annual ? "Suscripción Anual" : "Suscripción Mensual"}
-                </div>
-                <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
-                  20 usuarios + 1 flujo digital incluido
-                </div>
-               <div className="px-4 py-4 flex items-center justify-center text-center">
-                  {annual ? (
-                    <div>
-                      <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
-                      <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
-                      <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
-                    </div>
-                  ) : (
-                    <span className="text-foreground font-bold text-xl block">USD ${monthlyPrice.toLocaleString()}.00</span>
-                  )}
-                </div>
-              </div>
-              <div className="grid grid-cols-3 text-center bg-muted/30">
-                <div className="px-4 py-4 text-foreground font-medium border-r border-border flex items-center justify-center">
-                  Flujo adicional
-                </div>
-                <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
-                  Cada flujo adicional creado por AFPC Occidente
-                </div>
-                <div className="px-4 py-4 flex items-center justify-center text-center">
-                  <span className="text-foreground font-bold text-xl">USD $99.00</span>
-                  <span className="text-xs text-muted-foreground ml-1">/mes</span>
-                </div>
-              </div>
-            </div>
+            {/* Body */}
+            <table className="w-full">
+              <tbody>
+                <tr className="border-b border-border">
+                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle">
+                    {annual ? "Suscripción Anual" : "Suscripción Mensual"}
+                  </td>
+                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle">
+                    20 usuarios + 1 flujo digital incluido
+                  </td>
+                  <td className="px-6 py-5 text-right w-[30%] align-middle">
+                    {annual ? (
+                      <div>
+                        <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
+                        <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
+                        <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
+                      </div>
+                    ) : (
+                      <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
+                    )}
+                  </td>
+                </tr>
+                <tr className="bg-muted/30">
+                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle">
+                    Flujo adicional
+                  </td>
+                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle">
+                    Cada flujo adicional creado por AFPC Occidente
+                  </td>
+                  <td className="px-6 py-5 text-right w-[30%] align-middle">
+                    <span className="text-foreground font-bold text-xl">USD $99.00</span>
+                    <span className="text-xs text-muted-foreground ml-1">/mes</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </motion.div>
 
