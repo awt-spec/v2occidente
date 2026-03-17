@@ -353,7 +353,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[95vw] w-[95vw] h-[85vh] p-0 overflow-hidden flex flex-col bg-[hsl(var(--background))] border-border/30 shadow-2xl">
+        <DialogContent className="max-w-[95vw] w-[95vw] h-[85vh] p-0 overflow-hidden flex flex-col bg-[hsl(var(--background))] border-border/30 shadow-2xl [&]:top-[55%]">
           <DialogTitle className="sr-only">{label}</DialogTitle>
           <div className="flex items-center gap-3 px-5 py-3 border-b border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md flex-shrink-0">
             <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shadow-md`}>
