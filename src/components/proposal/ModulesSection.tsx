@@ -554,13 +554,13 @@ const ModulesSection = () => {
               </div>
 
               {/* CRM Flow */}
-              <FlowCard
+              <FlowDiagram
                 icon={Contact}
                 label="Flujo CRM"
                 color="bg-[hsl(var(--flow-orange))]"
                 lightBg="bg-[hsl(var(--flow-orange-light))]"
                 border="border-[hsl(var(--flow-orange)/0.25)]"
-                items={crmFlowItems}
+                nodes={crmFlow}
                 delay={0.3}
               />
             </div>
@@ -573,22 +573,22 @@ const ModulesSection = () => {
                 <div className="flex-1 h-px bg-border" />
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
-                <FlowCard
+                <FlowDiagram
                   icon={HeadphonesIcon}
                   label="Atención al Afiliado"
                   color="bg-[hsl(var(--flow-teal))]"
                   lightBg="bg-[hsl(var(--flow-teal-light))]"
                   border="border-[hsl(var(--flow-teal)/0.3)]"
-                  items={affiliateServiceItems}
+                  nodes={affiliateFlow}
                   delay={0.35}
                 />
-                <FlowCard
+                <FlowDiagram
                   icon={Award}
                   label="Procesos ISO"
                   color="bg-[hsl(var(--flow-green))]"
                   lightBg="bg-[hsl(var(--flow-green-light))]"
                   border="border-[hsl(var(--flow-green)/0.3)]"
-                  items={isoItems}
+                  nodes={isoFlow}
                   delay={0.4}
                 />
               </div>
