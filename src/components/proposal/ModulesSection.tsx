@@ -483,8 +483,6 @@ const ApiCard = ({
 
 const ModulesSection = () => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
-  const [showAllChannels, setShowAllChannels] = useState(false);
-  const visibleChannels = showAllChannels ? channels : channels.slice(0, 3);
 
   return (
     <section className="py-16 md:py-28 bg-background overflow-hidden">
