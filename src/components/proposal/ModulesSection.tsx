@@ -13,7 +13,8 @@ import {
   Phone, FileSpreadsheet, QrCode,
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
-  Plus, X,
+  Plus, X, GitBranch, Diamond, Circle, Square,
+  GripVertical, Settings, Eye,
 } from "lucide-react";
 
 /* ══════════════════════════════════════════
