@@ -123,7 +123,7 @@ const EconomicProposal = () => {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              AFPC Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
+              AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
             </p>
             <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
               <div className="text-center">
