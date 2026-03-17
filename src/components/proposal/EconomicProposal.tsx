@@ -41,7 +41,7 @@ const EconomicProposal = () => {
             <span className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-primary-foreground shadow transition-transform ${annual ? "translate-x-7" : ""}`} />
           </button>
           <span className={`text-sm font-medium transition-colors ${annual ? "text-foreground" : "text-muted-foreground"}`}>
-            Anual <span className="text-sysde-red font-bold">-10%</span>
+            Anual <span className="text-sysde-red font-bold">Ahorra</span>
           </span>
         </motion.div>
 
