@@ -65,12 +65,15 @@ const crmFlow: FlowNode[] = [
 ];
 
 const affiliateFlow: FlowNode[] = [
-  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud", desc: "Afiliado registra solicitud" },
-  { id: "a2", type: "process", icon: UserCheck, label: "Asignación", desc: "Asignar ejecutivo responsable" },
-  { id: "a3", type: "decision", icon: Diamond, label: "¿Tipo?", branches: [{ label: "Reclamo", to: "SLA" }, { label: "Consulta", to: "Respuesta" }] },
-  { id: "a4", type: "process", icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de resolución" },
-  { id: "a5", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
-  { id: "a6", type: "end", icon: CheckCircle2, label: "Resolución", desc: "Cierre con evidencia" },
+  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud Recibida", desc: "El afiliado registra solicitud, reclamo o consulta por cualquier canal habilitado." },
+  { id: "a2", type: "process", icon: ClipboardList, label: "Clasificación", desc: "Tipificación automática: Solicitud, Reclamo, Consulta, Queja. Asignación de prioridad y SLA." },
+  { id: "a3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución al ejecutivo responsable según tipo de caso, zona y disponibilidad." },
+  { id: "a4", type: "decision", icon: Diamond, label: "¿Tipo de Caso?", branches: [{ label: "Reclamo", to: "SLA Estricto" }, { label: "Consulta", to: "Respuesta Directa" }] },
+  { id: "a5", type: "process", icon: Clock, label: "Gestión con SLA", desc: "Monitoreo de tiempos de respuesta. Alertas automáticas al acercarse al vencimiento del SLA." },
+  { id: "a6", type: "process", icon: FileText, label: "Documentar Gestión", desc: "Registro de acciones realizadas, evidencias adjuntas y comunicaciones con el afiliado." },
+  { id: "a7", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
+  { id: "a8", type: "process", icon: Bell, label: "Escalamiento", desc: "Escalar a supervisor o área especializada. Se mantiene trazabilidad completa del caso." },
+  { id: "a9", type: "end", icon: CheckCircle2, label: "Resolución y Cierre", desc: "Cierre formal con evidencia, encuesta de satisfacción y registro en bitácora del afiliado." },
 ];
 
 const isoFlow: FlowNode[] = [
