@@ -39,7 +39,6 @@ const coreSteps = [
 const crmFlowItems = [
   { icon: Contact, label: "Gestión de Contactos", desc: "Base centralizada de prospectos y afiliados" },
   { icon: Calendar, label: "Agenda de Vendedores", desc: "Calendario de citas y seguimientos" },
-  { icon: BarChart3, label: "Pipeline", desc: "Embudo de conversión visual por etapas" },
   { icon: MessageSquare, label: "Seguimiento", desc: "Historial de interacciones con cada contacto" },
 ];
 
