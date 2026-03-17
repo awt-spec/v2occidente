@@ -383,16 +383,6 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" /></pattern></defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
-            {/* Editable hint overlay */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-              className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground shadow-lg"
-            >
-              <Pencil className="h-3.5 w-3.5" />
-              <span className="text-[11px] font-bold tracking-wide">100% EDITABLE — Arrastra, modifica y configura cada nodo</span>
-            </motion.div>
             <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning || draggingNode ? "none" : "transform 0.2s ease-out" }}>
               <svg width={canvasW} height={canvasH} style={{ overflow: "visible" }}>
                 <CanvasConnectors positions={positions} />
