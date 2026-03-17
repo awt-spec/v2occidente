@@ -6,7 +6,7 @@ import {
   Contact, ClipboardList, RefreshCw,
   HeadphonesIcon, MessageSquare,
   Award, FileCheck, FolderOpen,
-  Mail, Building2, Smartphone,
+  Mail, Building2,
   Database, Send,
   Calendar, UserCheck, BarChart3,
   ChevronRight, ChevronDown, ArrowRight, Pencil, MousePointerClick,
