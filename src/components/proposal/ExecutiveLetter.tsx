@@ -18,10 +18,10 @@ const ExecutiveLetter = () => {
             Automatización de Procesos de AFP Occidente
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mb-12">
-            FileMaster es la plataforma central para automatizar cualquier proceso que AFP Occidente requiera digitalizar. Cada flujo se adapta ágilmente a las reglas de negocio específicas e incluye configuración, implementación y capacitación.
+            FileMaster es la plataforma central para automatizar todos los procesos manuales que realiza AFP Occidente. Cada flujo se adapta ágilmente a las necesidades operativas específicas e incluye configuración, implementación y capacitación.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             {[
               {
                 icon: FileText,
@@ -34,14 +34,9 @@ const ExecutiveLetter = () => {
                 desc: "Flujos que cumplen con los estándares ISO requeridos, garantizando trazabilidad y control documental.",
               },
               {
-                icon: Contact,
-                title: "CRM Básico",
-                desc: "Gestión de agendas, expedientes y calendarios de vendedores integrada en FileMaster. Para campañas masivas se evalúa integración con CRM especializado.",
-              },
-              {
                 icon: GitBranch,
                 title: "Flujos Adicionales",
-                desc: "Cualquier proceso que AFP Occidente requiera digitalizar puede ser moldeado e implementado, adaptándose a las reglas de negocio específicas.",
+                desc: "Cualquier proceso manual que AFP Occidente requiera digitalizar puede ser moldeado e implementado, automatizando todos los procesos manuales que realiza la institución.",
               },
             ].map((item, i) => (
               <motion.div

@@ -37,7 +37,7 @@ const channels = [
 const coreSteps = [
   { icon: FolderOpen, label: "Expediente", desc: "Centraliza documentos, datos personales, beneficiarios y bitácora del afiliado en un solo lugar." },
   { icon: RefreshCw, label: "Ciclo de Vida", desc: "Etapas automáticas: Recepción → Revisión → Aprobación → Registro. Configurable por flujo." },
-  { icon: UserCheck, label: "Asignación", desc: "Distribución automática o manual a ejecutivos según reglas de negocio, zona o carga de trabajo." },
+  { icon: UserCheck, label: "Asignación", desc: "Distribución automática o manual a ejecutivos según zona, carga de trabajo o criterios operativos de AFP Occidente." },
   { icon: Bell, label: "Notificaciones", desc: "Alertas por email, plataforma y webhook en cada cambio de estado o acción requerida." },
 ];
 
@@ -54,7 +54,7 @@ type FlowNode = {
 const crmFlow: FlowNode[] = [
   { id: "c1", type: "start", icon: Contact, label: "Registro de Prospecto", desc: "Ingreso del prospecto desde cualquier canal: web, oficina, call center o importación masiva." },
   { id: "c2", type: "process", icon: Search, label: "Verificación de Datos", desc: "Validación automática de duplicados y verificación de datos personales del prospecto." },
-  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o reglas de negocio." },
+  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o criterios operativos." },
   { id: "c4", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Programación de cita con el prospecto, con notificación automática por email y recordatorio." },
   { id: "c5", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
   { id: "c6", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de llamadas, emails y reuniones. Bitácora completa de interacciones con el prospecto." },
@@ -499,7 +499,7 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-            FileMaster no es un CRM, pero puede funcionar como uno. Cualquier proceso de AFP Occidente puede ser moldeado y automatizado. Haz clic en cada flujo para explorar sus pasos.
+            FileMaster no es un CRM, pero puede funcionar como uno. Permite automatizar todos los procesos manuales que realiza AFP Occidente. Haz clic en cada flujo para explorar sus pasos.
           </p>
         </motion.div>
 
@@ -642,7 +642,7 @@ const ModulesSection = () => {
             <motion.div {...fade(0.3)} className="mt-4">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-px h-4 bg-border" />
-                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Otros flujos configurables</span>
+                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Automatizar procesos manuales de AFP Occidente</span>
                 <div className="flex-1 h-px bg-border" />
               </div>
               <div className="flex flex-col gap-3">
