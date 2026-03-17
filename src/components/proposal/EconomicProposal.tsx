@@ -213,7 +213,7 @@ const EconomicProposal = () => {
             <div className="space-y-3">
               {[
                 { title: "Impuestos", desc: "Los precios no incluyen impuestos, tasas ni retenciones." },
-                { title: "Vigencia", desc: "Contrato mínimo de tres años para la renta de FileMaster." },
+                { title: "Vigencia", desc: "Contrato mínimo de doce (12) meses para la renta de FileMaster." },
                 { title: "Modificaciones", desc: "Se realizarán mediante orden de cambio con cotización independiente." },
                 { title: "Viáticos", desc: "Gastos de viaje no incluidos; deben indicarse en negociación." },
                 { title: "Validez", desc: "Esta propuesta anula cualquier otra entregada anteriormente." },
