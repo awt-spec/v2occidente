@@ -27,7 +27,7 @@ const EconomicProposal = () => {
             Inversión Económica
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Modalidad SaaS (Software as a Service) que permite a AFPC Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
+            Modalidad SaaS (Software as a Service) que permite a AFP Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
           </p>
         </motion.div>
 
