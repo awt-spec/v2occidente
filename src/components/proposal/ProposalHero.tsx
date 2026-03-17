@@ -32,7 +32,7 @@ const ProposalHero = () => (
             transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-2"
           >
-            AUTOMATIZACIÓN DEL FLUJO DE AFILIACIÓN
+            AUTOMATIZACIÓN DE PROCESOS
           </motion.h1>
         </div>
         <div className="overflow-hidden">
