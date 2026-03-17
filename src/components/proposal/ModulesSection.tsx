@@ -254,11 +254,11 @@ const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[]
       const row = Math.floor(i / 3);
       const nextRow = Math.floor((i + 1) / 3);
       if (row === nextRow) {
-        const startX = Math.min(pos.x, next.x) + 45;
-        const endX = Math.max(pos.x, next.x) - 45;
+        const startX = Math.min(pos.x, next.x) + 55;
+        const endX = Math.max(pos.x, next.x) - 55;
         return <motion.line key={`c-${i}`} x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />;
       } else {
-        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 45} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 55}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
+        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 55} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 65}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
       }
     })}
   </>
