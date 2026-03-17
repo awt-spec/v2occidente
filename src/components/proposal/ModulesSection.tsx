@@ -274,8 +274,8 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
-  const canvasW = 800;
-  const canvasH = Math.max(420, Math.ceil(nodes.length / 3) * 180 + 140);
+  const canvasW = 1000;
+  const canvasH = Math.max(500, Math.ceil(nodes.length / 3) * 220 + 200);
   const positions = getNodePositions(nodes.length, canvasW, canvasH);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
