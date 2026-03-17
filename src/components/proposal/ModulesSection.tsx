@@ -53,28 +53,38 @@ type FlowNode = {
 };
 
 const crmFlow: FlowNode[] = [
-  { id: "c1", type: "start", icon: Contact, label: "Nuevo Contacto", desc: "Ingresa prospecto al sistema" },
-  { id: "c2", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Asignar vendedor y programar" },
-  { id: "c3", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
-  { id: "c4", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de interacciones" },
-  { id: "c5", type: "end", icon: CheckCircle2, label: "Conversión", desc: "Prospecto → Afiliado" },
+  { id: "c1", type: "start", icon: Contact, label: "Registro de Prospecto", desc: "Ingreso del prospecto desde cualquier canal: web, oficina, call center o importación masiva." },
+  { id: "c2", type: "process", icon: Search, label: "Verificación de Datos", desc: "Validación automática de duplicados y verificación de datos personales del prospecto." },
+  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o reglas de negocio." },
+  { id: "c4", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Programación de cita con el prospecto, con notificación automática por email y recordatorio." },
+  { id: "c5", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
+  { id: "c6", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de llamadas, emails y reuniones. Bitácora completa de interacciones con el prospecto." },
+  { id: "c7", type: "decision", icon: Diamond, label: "¿Acepta Afiliación?", branches: [{ label: "Sí", to: "Documentación" }, { label: "No", to: "Reprogramar" }] },
+  { id: "c8", type: "process", icon: FileCheck, label: "Documentación", desc: "Recepción y validación de documentos requeridos para la afiliación: DPI, formularios, beneficiarios." },
+  { id: "c9", type: "end", icon: CheckCircle2, label: "Afiliación Exitosa", desc: "Prospecto convertido en afiliado activo de AFP Occidente. Se genera expediente digital completo." },
 ];
 
 const affiliateFlow: FlowNode[] = [
-  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud", desc: "Afiliado registra solicitud" },
-  { id: "a2", type: "process", icon: UserCheck, label: "Asignación", desc: "Asignar ejecutivo responsable" },
-  { id: "a3", type: "decision", icon: Diamond, label: "¿Tipo?", branches: [{ label: "Reclamo", to: "SLA" }, { label: "Consulta", to: "Respuesta" }] },
-  { id: "a4", type: "process", icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de resolución" },
-  { id: "a5", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
-  { id: "a6", type: "end", icon: CheckCircle2, label: "Resolución", desc: "Cierre con evidencia" },
+  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud Recibida", desc: "El afiliado registra solicitud, reclamo o consulta por cualquier canal habilitado." },
+  { id: "a2", type: "process", icon: ClipboardList, label: "Clasificación", desc: "Tipificación automática: Solicitud, Reclamo, Consulta, Queja. Asignación de prioridad y SLA." },
+  { id: "a3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución al ejecutivo responsable según tipo de caso, zona y disponibilidad." },
+  { id: "a4", type: "decision", icon: Diamond, label: "¿Tipo de Caso?", branches: [{ label: "Reclamo", to: "SLA Estricto" }, { label: "Consulta", to: "Respuesta Directa" }] },
+  { id: "a5", type: "process", icon: Clock, label: "Gestión con SLA", desc: "Monitoreo de tiempos de respuesta. Alertas automáticas al acercarse al vencimiento del SLA." },
+  { id: "a6", type: "process", icon: FileText, label: "Documentar Gestión", desc: "Registro de acciones realizadas, evidencias adjuntas y comunicaciones con el afiliado." },
+  { id: "a7", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
+  { id: "a8", type: "process", icon: Bell, label: "Escalamiento", desc: "Escalar a supervisor o área especializada. Se mantiene trazabilidad completa del caso." },
+  { id: "a9", type: "end", icon: CheckCircle2, label: "Resolución y Cierre", desc: "Cierre formal con evidencia, encuesta de satisfacción y registro en bitácora del afiliado." },
 ];
 
 const isoFlow: FlowNode[] = [
-  { id: "i1", type: "start", icon: FileCheck, label: "Auditoría", desc: "Planificación y ejecución" },
-  { id: "i2", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "NC" }, { label: "No", to: "Cierre" }] },
-  { id: "i3", type: "process", icon: ClipboardList, label: "No Conformidad", desc: "Registro y plan de acción" },
-  { id: "i4", type: "process", icon: ShieldIcon, label: "Corrección", desc: "Implementar acciones" },
-  { id: "i5", type: "end", icon: CheckCircle2, label: "Cierre", desc: "Verificación y aprobación" },
+  { id: "i1", type: "start", icon: FileCheck, label: "Planificar Auditoría", desc: "Definición de alcance, criterios, equipo auditor y cronograma de la auditoría interna o externa." },
+  { id: "i2", type: "process", icon: Search, label: "Ejecución de Auditoría", desc: "Revisión documental, entrevistas, verificación de procesos y recopilación de evidencias." },
+  { id: "i3", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "No Conformidad" }, { label: "No", to: "Informe Limpio" }] },
+  { id: "i4", type: "process", icon: ClipboardList, label: "Registrar No Conformidad", desc: "Documentación del hallazgo, análisis de causa raíz y definición del plan de acción correctiva." },
+  { id: "i5", type: "process", icon: ShieldIcon, label: "Implementar Corrección", desc: "Ejecución de acciones correctivas con responsables, plazos y evidencias de implementación." },
+  { id: "i6", type: "decision", icon: Diamond, label: "¿Eficaz?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Re-evaluar" }] },
+  { id: "i7", type: "process", icon: RefreshCw, label: "Verificación", desc: "Seguimiento para confirmar que las acciones correctivas eliminaron la causa raíz del hallazgo." },
+  { id: "i8", type: "end", icon: CheckCircle2, label: "Cierre de Auditoría", desc: "Aprobación formal, informe final y registro en el sistema de gestión de calidad de AFP Occidente." },
 ];
 
 const apiIntegrations = [
@@ -164,11 +174,11 @@ const nodeLabels: Record<FlowNode["type"], string> = {
 const getNodePositions = (count: number, canvasW: number, canvasH: number) => {
   const cols = 3;
   const positions: { x: number; y: number }[] = [];
-  const padX = 120;
-  const padY = 80;
+  const padX = 160;
+  const padY = 100;
   const usableW = canvasW - padX * 2;
   const rows = Math.ceil(count / cols);
-  const rowH = Math.min((canvasH - padY * 2) / Math.max(rows, 1), 180);
+  const rowH = Math.min((canvasH - padY * 2) / Math.max(rows, 1), 220);
   for (let i = 0; i < count; i++) {
     const row = Math.floor(i / cols);
     const col = i % cols;
@@ -193,7 +203,7 @@ const CanvasNode = ({
   const color = nodeColors[node.type];
   return (
     <motion.g initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.08, duration: 0.4 }}>
-      <foreignObject x={x - 70} y={y - 55} width={140} height={160}>
+      <foreignObject x={x - 90} y={y - 60} width={180} height={200}>
         <div className="flex flex-col items-center relative" onMouseEnter={() => setHoveredNode(node.id)} onMouseLeave={() => setHoveredNode(null)}>
           <span className={`text-[9px] uppercase tracking-widest font-bold mb-1.5 ${
             node.type === "start" ? "text-[hsl(var(--flow-green))]" :
@@ -202,12 +212,12 @@ const CanvasNode = ({
             "text-muted-foreground"
           }`}>{nodeLabels[node.type]}</span>
           <motion.div animate={{ scale: isHovered ? 1.12 : 1 }} transition={{ duration: 0.15 }}
-            className={`relative flex flex-col items-center justify-center w-20 h-20 ${
-              isDecision ? "rounded-2xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
+            className={`relative flex flex-col items-center justify-center w-24 h-24 ${
+              isDecision ? "rounded-2xl rotate-0" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
             } ${color} text-primary-foreground shadow-lg cursor-pointer ${isHovered ? "shadow-2xl ring-2 ring-primary-foreground/30" : ""}`}
           >
             <node.icon className="h-5 w-5 mb-1" />
-            <p className="text-[10px] font-bold leading-tight text-center px-1.5">{node.label}</p>
+            <p className="text-[9px] font-bold leading-tight text-center px-2">{node.label}</p>
           </motion.div>
           {isHovered && (
             <div className="flex gap-1.5 mt-1.5">
@@ -244,11 +254,11 @@ const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[]
       const row = Math.floor(i / 3);
       const nextRow = Math.floor((i + 1) / 3);
       if (row === nextRow) {
-        const startX = Math.min(pos.x, next.x) + 45;
-        const endX = Math.max(pos.x, next.x) - 45;
+        const startX = Math.min(pos.x, next.x) + 55;
+        const endX = Math.max(pos.x, next.x) - 55;
         return <motion.line key={`c-${i}`} x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />;
       } else {
-        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 45} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 55}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
+        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 55} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 65}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
       }
     })}
   </>
@@ -264,8 +274,8 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
-  const canvasW = 800;
-  const canvasH = Math.max(420, Math.ceil(nodes.length / 3) * 180 + 140);
+  const canvasW = 1000;
+  const canvasH = Math.max(500, Math.ceil(nodes.length / 3) * 220 + 200);
   const positions = getNodePositions(nodes.length, canvasW, canvasH);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -429,7 +439,7 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-            Cualquier proceso de AFP Occidente puede ser moldeado. Haz clic en cada módulo para explorar sus capacidades.
+            FileMaster no es un CRM, pero puede funcionar como uno. Cualquier proceso de AFP Occidente puede ser moldeado y automatizado. Haz clic en cada flujo para explorar sus pasos.
           </p>
         </motion.div>
 
@@ -559,7 +569,7 @@ const ModulesSection = () => {
               {/* CRM Flow */}
               <FlowDiagram
                 icon={Contact}
-                label="Flujo CRM"
+                label="Gestión Comercial (funcionalidad CRM)"
                 color="bg-[hsl(var(--flow-orange))]"
                 lightBg="bg-[hsl(var(--flow-orange-light))]"
                 border="border-[hsl(var(--flow-orange)/0.25)]"
