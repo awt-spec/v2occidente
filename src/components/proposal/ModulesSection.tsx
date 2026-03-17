@@ -530,14 +530,6 @@ const ModulesSection = () => {
                   </motion.div>
                 ))}
               </AnimatePresence>
-              <motion.button
-                layout
-                onClick={() => setShowAllChannels(!showAllChannels)}
-                className="flex items-center justify-center gap-1 p-2 rounded-xl border border-dashed border-border hover:border-sysde-red/30 text-[10px] font-medium text-muted-foreground hover:text-sysde-red transition-all duration-300 lg:w-full"
-              >
-                {showAllChannels ? <X className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
-                {showAllChannels ? "Menos canales" : `+${channels.length - 3} canales`}
-              </motion.button>
             </div>
           </motion.div>
 
