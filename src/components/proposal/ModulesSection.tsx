@@ -397,13 +397,13 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               </svg>
             </div>
           </div>
-          <div className="flex items-center gap-4 px-5 py-2 border-t border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md text-[9px] text-muted-foreground font-mono flex-shrink-0">
-            <span className="flex items-center gap-1"><GripVertical className="h-3 w-3" /> Drag nodes</span>
-            <span className="flex items-center gap-1"><Move className="h-3 w-3" /> Pan canvas</span>
-            <span className="flex items-center gap-1"><ZoomIn className="h-3 w-3" /> Zoom</span>
+          <div className="flex items-center gap-4 px-5 py-2.5 border-t border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md flex-shrink-0">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground shadow-md">
+              <Pencil className="h-3 w-3" />
+              <span className="text-[10px] font-bold tracking-wide">100% EDITABLE — Arrastra, modifica y configura cada nodo</span>
+            </div>
             <div className="flex-1" />
-            <span className="text-[8px] opacity-60">FileMaster Flow Engine v2.0</span>
-            <span>{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
+            <span className="text-[9px] text-muted-foreground font-mono">{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
           </div>
         </DialogContent>
       </Dialog>
