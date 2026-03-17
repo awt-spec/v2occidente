@@ -372,7 +372,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               <span className="text-[10px] font-mono text-muted-foreground w-10 text-center">{Math.round(zoom * 100)}%</span>
               <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomIn className="h-3.5 w-3.5 text-muted-foreground" /></button>
             </div>
-            <button onClick={() => { setZoom(0.8); setPan({ x: 0, y: 0 }); initPositions(); }} className="p-1.5 rounded hover:bg-muted transition-colors border border-border" title="Restablecer"><Maximize2 className="h-3.5 w-3.5 text-muted-foreground" /></button>
+            
           </div>
           <div
             className="flex-1 overflow-hidden relative select-none"
