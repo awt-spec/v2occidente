@@ -645,7 +645,7 @@ const ModulesSection = () => {
                 <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Otros flujos configurables</span>
                 <div className="flex-1 h-px bg-border" />
               </div>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="flex flex-col gap-3">
                 <FlowDiagram
                   icon={HeadphonesIcon}
                   label="Atención al Afiliado"
