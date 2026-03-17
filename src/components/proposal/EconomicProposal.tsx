@@ -11,9 +11,9 @@ const fade = (delay = 0) => ({
 
 const EconomicProposal = () => {
   const [annual, setAnnual] = useState(false);
-  const monthlyPrice = 999;
-  const annualMonthly = Math.round(monthlyPrice * 0.9);
-  const annualTotal = annualMonthly * 12;
+  const monthlyPrice = 1100;
+  const annualTotal = 12000;
+  const annualMonthly = Math.round(annualTotal / 12);
 
   return (
     <section className="py-20 md:py-28 bg-background">
@@ -27,7 +27,7 @@ const EconomicProposal = () => {
             Inversión Económica
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Modalidad SaaS (Software as a Service) que permite a AFPC Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
+            Modalidad SaaS (Software as a Service) que permite a AFP Occidente acceder a FileMaster a través de un navegador web y una conexión a Internet.
           </p>
         </motion.div>
 
@@ -41,7 +41,7 @@ const EconomicProposal = () => {
             <span className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-primary-foreground shadow transition-transform ${annual ? "translate-x-7" : ""}`} />
           </button>
           <span className={`text-sm font-medium transition-colors ${annual ? "text-foreground" : "text-muted-foreground"}`}>
-            Anual <span className="text-sysde-red font-bold">-10%</span>
+            Anual <span className="text-sysde-red font-bold">Ahorra</span>
           </span>
         </motion.div>
 
@@ -82,12 +82,23 @@ const EconomicProposal = () => {
                     )}
                   </td>
                 </tr>
-                <tr className="bg-muted/30">
+                <tr className="border-b border-border bg-muted/30">
+                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle text-center">
+                    Usuarios adicionales
+                  </td>
+                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle text-center">
+                    Cada usuario adicional después de los 20 incluidos — cobro mensual
+                  </td>
+                  <td className="px-6 py-5 w-[30%] align-middle text-center">
+                    <span className="text-foreground font-bold text-xl">USD $15.00</span>
+                  </td>
+                </tr>
+                <tr>
                   <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle text-center">
                     Flujo adicional
                   </td>
                   <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle text-center">
-                    Cada flujo adicional creado por AFPC Occidente — cobro mensual
+                    Cada flujo adicional creado por AFP Occidente — cobro mensual
                   </td>
                   <td className="px-6 py-5 w-[30%] align-middle text-center">
                     <span className="text-foreground font-bold text-xl">USD $99.00</span>
@@ -112,7 +123,7 @@ const EconomicProposal = () => {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              AFPC Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
+              AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
             </p>
             <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
               <div className="text-center">

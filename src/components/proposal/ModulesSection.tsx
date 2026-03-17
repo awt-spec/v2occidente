@@ -4,7 +4,8 @@ import {
   Layers, Code2, Globe, Puzzle, Bell,
   Contact, ClipboardList, RefreshCw,
   HeadphonesIcon, MessageSquare, TicketCheck,
-  Award, Search, FileCheck,
+  Award, Search, FileCheck, FolderOpen,
+  Calendar,
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
@@ -24,8 +25,8 @@ const branches = [
     border: "border-[hsl(var(--flow-blue)/0.3)]",
     textColor: "text-[hsl(var(--flow-blue))]",
     leaves: [
-      { label: "Ficha del Expediente", icon: ClipboardList },
       { label: "Documentos", icon: FileText },
+      { label: "Bitácora", icon: History },
     ],
   },
   {
@@ -37,8 +38,8 @@ const branches = [
     border: "border-[hsl(var(--flow-purple)/0.3)]",
     textColor: "text-[hsl(var(--flow-purple))]",
     leaves: [
-      { label: "Bitácora", icon: History },
       { label: "Roles y Perfiles", icon: Shield },
+      { label: "Notificaciones", icon: Bell },
     ],
   },
   {
@@ -50,8 +51,7 @@ const branches = [
     border: "border-[hsl(var(--flow-orange)/0.3)]",
     textColor: "text-[hsl(var(--flow-orange))]",
     leaves: [
-      { label: "CRM", icon: Contact },
-      { label: "Notificaciones", icon: Bell },
+      { label: "CRM Básico", icon: Contact },
       { label: "Integraciones", icon: Puzzle },
     ],
   },
@@ -96,13 +96,13 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Cada módulo es configurable sin código y se adapta a los procesos de afiliación, atención al afiliado, gestión ISO y operación de AFPC Occidente.
+            Cada módulo es configurable sin código y se adapta a los procesos de AFP Occidente: afiliación, atención al afiliado, gestión ISO, CRM y más.
           </p>
         </motion.div>
 
-        {/* Concentric layout — center outward */}
+        {/* Concentric layout — Expediente as center */}
         <motion.div {...fade(0.1)} className="flex flex-col items-center">
-          {/* Core — FileMaster */}
+          {/* Core — Expediente */}
           <motion.div
             className="relative z-10 w-28 h-28 md:w-40 md:h-40 rounded-full bg-sysde-red text-primary-foreground flex flex-col items-center justify-center shadow-2xl"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -110,14 +110,13 @@ const ModulesSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Workflow className="h-6 w-6 md:h-8 md:w-8 mb-1" />
-            <p className="text-base md:text-lg font-bold leading-tight">FileMaster</p>
-            <p className="text-[8px] md:text-[9px] opacity-80 mt-0.5">Automatización</p>
+            <FolderOpen className="h-6 w-6 md:h-8 md:w-8 mb-1" />
+            <p className="text-base md:text-lg font-bold leading-tight">Expediente</p>
+            <p className="text-[8px] md:text-[9px] opacity-80 mt-0.5">Elemento central</p>
           </motion.div>
 
-          {/* Ring 1 — Core Branches: vertical on mobile, grid on md+ */}
+          {/* Ring 1 — Core Branches */}
           <div className="relative -mt-4 md:-mt-8 z-0 w-full">
-            {/* Faint ring behind — hidden on mobile */}
             <div className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none">
               <div className="w-[420px] h-[420px] rounded-full border-2 border-dashed border-border/40" />
             </div>
@@ -137,7 +136,6 @@ const ModulesSection = () => {
                     <p className="text-[7px] md:text-[10px] font-bold leading-tight px-1">{branch.label}</p>
                   </div>
 
-                  {/* Leaves — horizontal wrap on mobile, vertical on md+ */}
                   <div className="flex flex-wrap gap-1.5 md:mt-3 md:flex-col md:w-full">
                     {branch.leaves.map((leaf, li) => (
                       <motion.div
