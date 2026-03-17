@@ -7,9 +7,9 @@ import {
   HeadphonesIcon, MessageSquare,
   Award, FileCheck, FolderOpen,
   Mail, Building2, Smartphone,
-  Database, Send, ExternalLink,
+  Database, Send,
   Calendar, UserCheck, BarChart3,
-  ChevronRight, ArrowRight,
+  ChevronRight, ArrowRight, Pencil, MousePointerClick,
 } from "lucide-react";
 
 /* ── Data ── */
@@ -35,9 +35,8 @@ const crmFeatures = [
   { icon: MessageSquare, label: "Seguimiento" },
 ];
 
-const outputs = [
+const otherFlows = [
   {
-    type: "internal" as const,
     icon: HeadphonesIcon,
     label: "Atención al Afiliado",
     color: "bg-[hsl(var(--flow-teal))]",
@@ -46,7 +45,6 @@ const outputs = [
     items: ["Solicitudes", "Reclamos", "Seguimiento"],
   },
   {
-    type: "internal" as const,
     icon: Award,
     label: "Procesos ISO",
     color: "bg-[hsl(var(--flow-green))]",
@@ -54,24 +52,12 @@ const outputs = [
     border: "border-[hsl(var(--flow-green)/0.3)]",
     items: ["Auditorías", "No Conformidades", "Control"],
   },
-  {
-    type: "external" as const,
-    icon: Send,
-    label: "Envíos Masivos",
-    color: "bg-[hsl(var(--flow-blue))]",
-    lightBg: "bg-[hsl(var(--flow-blue-light))]",
-    border: "border-[hsl(var(--flow-blue)/0.3)] border-dashed",
-    items: ["Email Marketing", "Campañas"],
-  },
-  {
-    type: "external" as const,
-    icon: Database,
-    label: "Base de Datos",
-    color: "bg-[hsl(var(--flow-blue))]",
-    lightBg: "bg-[hsl(var(--flow-blue-light))]",
-    border: "border-[hsl(var(--flow-blue)/0.3)] border-dashed",
-    items: ["Sistemas AFP", "APIs"],
-  },
+];
+
+const apiIntegrations = [
+  { icon: Database, label: "Base de Datos AFP", desc: "Consulta y sincronización vía API" },
+  { icon: Send, label: "Envíos Masivos", desc: "Email marketing vía API" },
+  { icon: Puzzle, label: "Sistemas Externos", desc: "Webhooks y REST API" },
 ];
 
 /* ── Helpers ── */
@@ -83,16 +69,13 @@ const fade = (delay = 0) => ({
   transition: { duration: 0.45, delay },
 });
 
-const StepLabel = ({ num, text, className = "" }: { num: string; text: string; className?: string }) => (
-  <div className={`flex items-center gap-2 mb-3 ${className}`}>
-    <span className="w-5 h-5 rounded-md bg-sysde-red text-primary-foreground text-[9px] font-bold flex items-center justify-center">
-      {num}
-    </span>
+const StepLabel = ({ num, text }: { num: string; text: string }) => (
+  <div className="flex items-center gap-2 mb-3">
+    <span className="w-5 h-5 rounded-md bg-sysde-red text-primary-foreground text-[9px] font-bold flex items-center justify-center">{num}</span>
     <span className="text-[11px] md:text-xs font-bold text-foreground uppercase tracking-wider">{text}</span>
   </div>
 );
 
-/* Horizontal arrow connector for desktop */
 const HArrow = () => (
   <div className="hidden lg:flex items-center justify-center px-1 self-center">
     <motion.div
@@ -100,17 +83,14 @@ const HArrow = () => (
       whileInView={{ scaleX: 1, opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="origin-left"
+      className="origin-left flex items-center"
     >
-      <div className="flex items-center">
-        <div className="w-8 xl:w-12 h-0.5 bg-gradient-to-r from-sysde-red/30 to-sysde-red/60" />
-        <ChevronRight className="h-4 w-4 text-sysde-red/60 -ml-1" />
-      </div>
+      <div className="w-8 xl:w-12 h-0.5 bg-gradient-to-r from-sysde-red/30 to-sysde-red/60" />
+      <ChevronRight className="h-4 w-4 text-sysde-red/60 -ml-1" />
     </motion.div>
   </div>
 );
 
-/* Vertical arrow connector for mobile */
 const VArrow = () => (
   <div className="flex lg:hidden items-center justify-center py-2">
     <motion.div
@@ -143,12 +123,12 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-            De izquierda a derecha: desde la originación multicanal hasta la gestión completa y las integraciones externas.
+            Desde la originación multicanal hasta la gestión completa del expediente y las integraciones vía API.
           </p>
         </motion.div>
 
-        {/* ═══ HORIZONTAL FLOW ═══ */}
-        <div className="flex flex-col lg:flex-row lg:items-stretch">
+        {/* ═══ HORIZONTAL FLOW (3 columns) ═══ */}
+        <div className="flex flex-col lg:flex-row lg:items-start">
 
           {/* ── COL 1: Origination ── */}
           <motion.div {...fade(0.05)} className="lg:w-[180px] xl:w-[200px] flex-shrink-0">
@@ -175,24 +155,35 @@ const ModulesSection = () => {
           <HArrow />
           <VArrow />
 
-          {/* ── COL 2: FileMaster Core ── */}
+          {/* ── COL 2: FileMaster Core + Other Flows ── */}
           <motion.div {...fade(0.15)} className="flex-1 min-w-0">
-            <StepLabel num="2" text="FileMaster — Motor de Flujos" />
+            <StepLabel num="2" text="FileMaster — Gestión de Flujos" />
+
+            {/* Main engine card */}
             <div className="rounded-2xl border-2 border-sysde-red/20 bg-gradient-to-br from-sysde-red/[0.02] to-sysde-red/[0.06] p-4 md:p-5 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-sysde" />
 
-              {/* Central icon */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-sysde-red flex items-center justify-center shadow-md">
-                  <Workflow className="h-5 w-5 text-primary-foreground" />
+              {/* Header with No-Code badges */}
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-sysde-red flex items-center justify-center shadow-md">
+                    <Workflow className="h-5 w-5 text-primary-foreground" />
+                  </div>
+                  <p className="text-sm font-bold text-foreground">Flujo de Afiliación</p>
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground">Gestión de Flujos</p>
-                  <p className="text-[10px] text-muted-foreground">No-Code • Adaptable</p>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[hsl(var(--flow-purple-light))] border border-[hsl(var(--flow-purple)/0.2)] text-[10px] font-bold text-[hsl(var(--flow-purple))]">
+                    <MousePointerClick className="h-3 w-3" />
+                    No-Code
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[hsl(var(--flow-orange-light))] border border-[hsl(var(--flow-orange)/0.2)] text-[10px] font-bold text-[hsl(var(--flow-orange))]">
+                    <Pencil className="h-3 w-3" />
+                    Editable
+                  </span>
                 </div>
               </div>
 
-              {/* Interactive steps */}
+              {/* Interactive step cards */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
                 {coreSteps.map((step, i) => (
                   <motion.button
@@ -208,14 +199,14 @@ const ModulesSection = () => {
                         : "border-border/50 bg-card/80 hover:border-sysde-red/20 hover:shadow-sm"
                     }`}
                   >
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className="flex items-center gap-2 mb-1">
                       <step.icon className={`h-4 w-4 flex-shrink-0 transition-colors ${activeStep === i ? "text-sysde-red" : "text-muted-foreground"}`} />
                       <span className="text-[11px] font-semibold text-foreground">{step.label}</span>
                     </div>
                     <motion.p
                       initial={false}
                       animate={{
-                        height: activeStep === i ? "auto" : "0",
+                        height: activeStep === i ? "auto" : 0,
                         opacity: activeStep === i ? 1 : 0,
                       }}
                       transition={{ duration: 0.2 }}
@@ -223,9 +214,8 @@ const ModulesSection = () => {
                     >
                       {step.desc}
                     </motion.p>
-                    {/* Flow arrow between steps */}
                     {i < coreSteps.length - 1 && (
-                      <ArrowRight className="absolute -right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-sysde-red/25 hidden lg:block" />
+                      <ArrowRight className="absolute -right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-sysde-red/20 hidden lg:block" />
                     )}
                   </motion.button>
                 ))}
@@ -239,10 +229,7 @@ const ModulesSection = () => {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {crmFeatures.map((f) => (
-                    <span
-                      key={f.label}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card border border-border text-[10px] font-medium text-foreground"
-                    >
+                    <span key={f.label} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card border border-border text-[10px] font-medium text-foreground">
                       <f.icon className="h-3 w-3 text-[hsl(var(--flow-orange))]" />
                       {f.label}
                     </span>
@@ -250,47 +237,80 @@ const ModulesSection = () => {
                 </div>
               </div>
             </div>
+
+            {/* ── Other Flows (below main engine) ── */}
+            <motion.div {...fade(0.3)} className="mt-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-px h-4 bg-border" />
+                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Otros flujos configurables</span>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {otherFlows.map((flow, fi) => (
+                  <motion.div
+                    key={flow.label}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.35 + fi * 0.08 }}
+                    className={`p-3 rounded-xl border ${flow.border} ${flow.lightBg}`}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`w-7 h-7 rounded-lg ${flow.color} flex items-center justify-center`}>
+                        <flow.icon className="h-3.5 w-3.5 text-primary-foreground" />
+                      </div>
+                      <span className="text-[11px] font-semibold text-foreground">{flow.label}</span>
+                      <div className="ml-auto flex gap-1">
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">No-Code</span>
+                        <span className="px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">Editable</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {flow.items.map((item) => (
+                        <span key={item} className="px-2 py-0.5 rounded-full bg-card/80 border border-border/50 text-[9px] font-medium text-muted-foreground">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
           <HArrow />
           <VArrow />
 
-          {/* ── COL 3: Outputs ── */}
-          <motion.div {...fade(0.3)} className="lg:w-[240px] xl:w-[260px] flex-shrink-0">
-            <StepLabel num="3" text="Salidas" />
+          {/* ── COL 3: API Integrations ── */}
+          <motion.div {...fade(0.35)} className="lg:w-[220px] xl:w-[240px] flex-shrink-0">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-5 h-5 rounded-md bg-[hsl(var(--flow-blue))] text-primary-foreground text-[9px] font-bold flex items-center justify-center">
+                <Code2 className="h-3 w-3" />
+              </span>
+              <span className="text-[11px] md:text-xs font-bold text-foreground uppercase tracking-wider">Integraciones API</span>
+            </div>
             <div className="space-y-2">
-              {outputs.map((out, i) => (
+              {apiIntegrations.map((intg, i) => (
                 <motion.div
-                  key={out.label}
+                  key={intg.label}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.35 + i * 0.07 }}
-                  className={`p-3 rounded-xl border ${out.border} ${out.lightBg} hover:shadow-md transition-all`}
+                  transition={{ delay: 0.4 + i * 0.07 }}
+                  className="flex items-start gap-2.5 p-3 rounded-xl border border-dashed border-[hsl(var(--flow-blue)/0.3)] bg-[hsl(var(--flow-blue-light))] hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-7 h-7 rounded-lg ${out.color} flex items-center justify-center`}>
-                      <out.icon className="h-3.5 w-3.5 text-primary-foreground" />
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[11px] font-semibold text-foreground">{out.label}</span>
-                      {out.type === "external" && (
-                        <ExternalLink className="h-3 w-3 text-muted-foreground" />
-                      )}
-                    </div>
+                  <div className="w-8 h-8 rounded-lg bg-[hsl(var(--flow-blue))] flex items-center justify-center flex-shrink-0">
+                    <intg.icon className="h-4 w-4 text-primary-foreground" />
                   </div>
-                  <div className="flex flex-wrap gap-1">
-                    {out.items.map((item) => (
-                      <span
-                        key={item}
-                        className="px-2 py-0.5 rounded-full bg-card/80 border border-border/50 text-[9px] font-medium text-muted-foreground"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                  <div>
+                    <p className="text-[11px] font-semibold text-foreground">{intg.label}</p>
+                    <p className="text-[9px] text-muted-foreground">{intg.desc}</p>
                   </div>
                 </motion.div>
               ))}
+              <div className="text-center pt-2">
+                <span className="text-[9px] text-muted-foreground italic">Conexión vía REST API & Webhooks</span>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -301,7 +321,6 @@ const ModulesSection = () => {
           className="flex flex-wrap justify-center gap-2 md:gap-3 mt-10 md:mt-14"
         >
           {[
-            { icon: Code2, label: "API REST" },
             { icon: Globe, label: "100% Web" },
             { icon: Users, label: "20 Usuarios" },
             { icon: Shield, label: "Seguridad" },
