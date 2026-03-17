@@ -67,10 +67,10 @@ const ModulesSection = () => {
         <motion.div {...fade()} className="text-center mb-16">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-sysde-red mb-2">Funcionalidades</h2>
           <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Ontología FileMaster
+            Plataforma FileMaster
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Mapa jerárquico de capacidades: cada nodo representa un módulo configurable sin código.
+            Cada módulo es configurable sin código y se adapta a los procesos de afiliación y operación de AFPC Occidente.
           </p>
         </motion.div>
 
