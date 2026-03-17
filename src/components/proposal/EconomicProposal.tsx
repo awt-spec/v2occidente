@@ -63,15 +63,15 @@ const EconomicProposal = () => {
                 <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
                   20 usuarios + 1 flujo digital incluido
                 </div>
-                <div className="px-4 py-4 flex items-center justify-center">
+               <div className="px-4 py-4 flex items-center justify-center text-center">
                   {annual ? (
-                    <div className="text-center">
-                      <span className="text-muted-foreground line-through text-sm mr-2">USD ${(monthlyPrice * 12).toLocaleString()}</span>
-                      <span className="text-foreground font-bold text-xl">USD ${annualTotal.toLocaleString()}</span>
+                    <div>
+                      <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
+                      <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
                       <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
                     </div>
                   ) : (
-                    <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
+                    <span className="text-foreground font-bold text-xl block">USD ${monthlyPrice.toLocaleString()}.00</span>
                   )}
                 </div>
               </div>
