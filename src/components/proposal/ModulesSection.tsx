@@ -13,7 +13,8 @@ import {
   Phone, FileSpreadsheet, QrCode,
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
-  Plus, X,
+  Plus, X, GitBranch, Diamond, Circle, Square,
+  GripVertical, Settings, Eye,
 } from "lucide-react";
 
 /* ══════════════════════════════════════════
@@ -36,24 +37,39 @@ const coreSteps = [
   { icon: Bell, label: "Notificaciones", desc: "Alertas por email, plataforma y webhook en cada cambio de estado o acción requerida." },
 ];
 
-const crmFlowItems = [
-  { icon: Contact, label: "Gestión de Contactos", desc: "Base centralizada de prospectos y afiliados" },
-  { icon: Calendar, label: "Agenda de Vendedores", desc: "Calendario de citas y seguimientos" },
-  { icon: MessageSquare, label: "Seguimiento", desc: "Historial de interacciones con cada contacto" },
+/* Flow node types: start | process | decision | branch | end */
+type FlowNode = {
+  id: string;
+  type: "start" | "process" | "decision" | "end";
+  icon: React.ElementType;
+  label: string;
+  desc?: string;
+  branches?: { label: string; to: string }[];
+};
+
+const crmFlow: FlowNode[] = [
+  { id: "c1", type: "start", icon: Contact, label: "Nuevo Contacto", desc: "Ingresa prospecto al sistema" },
+  { id: "c2", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Asignar vendedor y programar" },
+  { id: "c3", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
+  { id: "c4", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de interacciones" },
+  { id: "c5", type: "end", icon: CheckCircle2, label: "Conversión", desc: "Prospecto → Afiliado" },
 ];
 
-const affiliateServiceItems = [
-  { icon: MessageSquare, label: "Solicitudes", desc: "Registro y seguimiento de solicitudes de afiliados" },
-  { icon: TicketCheck, label: "Reclamos", desc: "Gestión de quejas con SLA y escalamiento automático" },
-  { icon: Search, label: "Consultas", desc: "Portal de autoservicio para estado de trámites" },
-  { icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de tiempos de respuesta y resolución" },
-  { icon: CheckCircle2, label: "Resolución", desc: "Cierre documentado con firma y evidencia" },
+const affiliateFlow: FlowNode[] = [
+  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud", desc: "Afiliado registra solicitud" },
+  { id: "a2", type: "process", icon: UserCheck, label: "Asignación", desc: "Asignar ejecutivo responsable" },
+  { id: "a3", type: "decision", icon: Diamond, label: "¿Tipo?", branches: [{ label: "Reclamo", to: "SLA" }, { label: "Consulta", to: "Respuesta" }] },
+  { id: "a4", type: "process", icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de resolución" },
+  { id: "a5", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
+  { id: "a6", type: "end", icon: CheckCircle2, label: "Resolución", desc: "Cierre con evidencia" },
 ];
 
-const isoItems = [
-  { icon: FileCheck, label: "Auditorías", desc: "Planificación y ejecución de auditorías internas" },
-  { icon: ClipboardList, label: "No Conformidades", desc: "Registro, seguimiento y cierre de hallazgos" },
-  { icon: ShieldIcon, label: "Control de Calidad", desc: "Indicadores y dashboards de cumplimiento" },
+const isoFlow: FlowNode[] = [
+  { id: "i1", type: "start", icon: FileCheck, label: "Auditoría", desc: "Planificación y ejecución" },
+  { id: "i2", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "NC" }, { label: "No", to: "Cierre" }] },
+  { id: "i3", type: "process", icon: ClipboardList, label: "No Conformidad", desc: "Registro y plan de acción" },
+  { id: "i4", type: "process", icon: ShieldIcon, label: "Corrección", desc: "Implementar acciones" },
+  { id: "i5", type: "end", icon: CheckCircle2, label: "Cierre", desc: "Verificación y aprobación" },
 ];
 
 const apiIntegrations = [
@@ -125,14 +141,22 @@ const VArrow = () => (
   </div>
 );
 
-/* ── Expandable flow card ── */
-const FlowCard = ({
+/* ── Node shape helpers ── */
+const nodeShapes: Record<FlowNode["type"], { shape: string; ring: string }> = {
+  start: { shape: "rounded-full", ring: "ring-2 ring-offset-1 ring-offset-card" },
+  process: { shape: "rounded-lg", ring: "" },
+  decision: { shape: "rounded-lg rotate-45", ring: "ring-1 ring-offset-1 ring-offset-card" },
+  end: { shape: "rounded-full", ring: "ring-2 ring-offset-1 ring-offset-card" },
+};
+
+/* ── Expandable flow card with diagram ── */
+const FlowDiagram = ({
   icon: Icon,
   label,
   color,
   lightBg,
   border,
-  items,
+  nodes,
   delay,
 }: {
   icon: React.ElementType;
@@ -140,10 +164,11 @@ const FlowCard = ({
   color: string;
   lightBg: string;
   border: string;
-  items: { icon: React.ElementType; label: string; desc: string }[];
+  nodes: FlowNode[];
   delay: number;
 }) => {
   const [open, setOpen] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
   return (
     <motion.div
@@ -161,7 +186,10 @@ const FlowCard = ({
             <Icon className="h-4 w-4 text-primary-foreground" />
           </div>
           <span className="text-[11px] font-semibold text-foreground flex-1">{label}</span>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
+            <span className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">
+              <Pencil className="h-2.5 w-2.5" /> Editable
+            </span>
             <span className="px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">No-Code</span>
             <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
               <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
@@ -175,36 +203,134 @@ const FlowCard = ({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pt-3 pl-2">
-              {/* Diagram-style flow */}
+            {/* Toolbar */}
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex items-center gap-1.5 pt-3 pl-2 pb-1"
+            >
+              <span className="text-[8px] text-muted-foreground uppercase tracking-widest mr-1">Flujo</span>
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Editar">
+                <Settings className="h-3 w-3 text-muted-foreground" />
+              </button>
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Vista previa">
+                <Eye className="h-3 w-3 text-muted-foreground" />
+              </button>
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Agregar paso">
+                <Plus className="h-3 w-3 text-muted-foreground" />
+              </button>
+              <div className="flex-1" />
+              <span className="text-[8px] text-muted-foreground">{nodes.length} pasos</span>
+            </motion.div>
+
+            {/* Flow diagram */}
+            <div className="pt-1 pl-2 pb-2">
               <div className="flex flex-col">
-                {items.map((item, i) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
-                    className="flex items-stretch"
-                  >
-                    {/* Vertical connector line + dot */}
-                    <div className="flex flex-col items-center mr-3 flex-shrink-0">
-                      <div className={`w-7 h-7 rounded-full ${color} flex items-center justify-center z-10 ring-2 ring-card`}>
-                        <item.icon className="h-3 w-3 text-primary-foreground" />
+                {nodes.map((node, i) => {
+                  const shape = nodeShapes[node.type];
+                  const isHovered = hoveredNode === node.id;
+                  const isDecision = node.type === "decision";
+
+                  return (
+                    <motion.div
+                      key={node.id}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.07 }}
+                      className="flex items-stretch"
+                      onMouseEnter={() => setHoveredNode(node.id)}
+                      onMouseLeave={() => setHoveredNode(null)}
+                    >
+                      {/* Node + connector */}
+                      <div className="flex flex-col items-center mr-3 flex-shrink-0">
+                        <motion.div
+                          animate={{ scale: isHovered ? 1.15 : 1 }}
+                          transition={{ duration: 0.15 }}
+                          className={`w-7 h-7 ${shape.shape} ${color} ${shape.ring} flex items-center justify-center z-10 cursor-pointer`}
+                        >
+                          <node.icon className={`h-3 w-3 text-primary-foreground ${isDecision ? "-rotate-45" : ""}`} />
+                        </motion.div>
+                        {i < nodes.length - 1 && (
+                          <div className="flex flex-col items-center flex-1 min-h-[16px]">
+                            <motion.div
+                              className="w-0.5 flex-1 bg-border"
+                              initial={{ scaleY: 0 }}
+                              animate={{ scaleY: 1 }}
+                              transition={{ delay: i * 0.07 + 0.1, duration: 0.2 }}
+                              style={{ originY: 0 }}
+                            />
+                            {/* Branch arrows for decisions */}
+                            {isDecision && node.branches && (
+                              <div className="absolute left-10 top-1/2 -translate-y-1/2 flex gap-1">
+                                {/* branches shown in the content area */}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
-                      {i < items.length - 1 && (
-                        <div className={`w-0.5 flex-1 min-h-[12px]`} style={{ backgroundColor: `hsl(var(--border))` }} />
-                      )}
-                    </div>
-                    {/* Content */}
-                    <div className={`pb-3 ${i < items.length - 1 ? "" : ""}`}>
-                      <p className="text-[10px] font-semibold text-foreground leading-none mt-1">{item.label}</p>
-                      <p className="text-[9px] text-muted-foreground mt-0.5">{item.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
+
+                      {/* Content */}
+                      <div className="pb-3 flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className={`text-[8px] uppercase tracking-wider font-bold ${
+                            node.type === "start" ? "text-[hsl(var(--flow-green))]" :
+                            node.type === "end" ? "text-sysde-red" :
+                            node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
+                            "text-muted-foreground"
+                          }`}>
+                            {node.type === "start" ? "Inicio" : node.type === "end" ? "Fin" : node.type === "decision" ? "Decisión" : "Proceso"}
+                          </span>
+                          {/* Drag handle on hover */}
+                          <AnimatePresence>
+                            {isHovered && (
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.5 }}
+                                className="ml-auto flex items-center gap-0.5"
+                              >
+                                <GripVertical className="h-3 w-3 text-muted-foreground/50 cursor-grab" />
+                                <Pencil className="h-2.5 w-2.5 text-muted-foreground/50 cursor-pointer" />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                        <p className="text-[10px] font-semibold text-foreground leading-tight">{node.label}</p>
+
+                        {/* Decision branches */}
+                        {isDecision && node.branches && (
+                          <div className="flex items-center gap-2 mt-1.5">
+                            {node.branches.map((br, bi) => (
+                              <motion.span
+                                key={br.label}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.07 + bi * 0.05 + 0.1 }}
+                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-bold border ${
+                                  bi === 0
+                                    ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
+                                    : "bg-muted border-border text-muted-foreground"
+                                }`}
+                              >
+                                <GitBranch className="h-2.5 w-2.5" />
+                                {br.label} → {br.to}
+                              </motion.span>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Description for non-decision */}
+                        {!isDecision && node.desc && (
+                          <p className="text-[9px] text-muted-foreground mt-0.5">{node.desc}</p>
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
@@ -428,13 +554,13 @@ const ModulesSection = () => {
               </div>
 
               {/* CRM Flow */}
-              <FlowCard
+              <FlowDiagram
                 icon={Contact}
                 label="Flujo CRM"
                 color="bg-[hsl(var(--flow-orange))]"
                 lightBg="bg-[hsl(var(--flow-orange-light))]"
                 border="border-[hsl(var(--flow-orange)/0.25)]"
-                items={crmFlowItems}
+                nodes={crmFlow}
                 delay={0.3}
               />
             </div>
@@ -447,22 +573,22 @@ const ModulesSection = () => {
                 <div className="flex-1 h-px bg-border" />
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
-                <FlowCard
+                <FlowDiagram
                   icon={HeadphonesIcon}
                   label="Atención al Afiliado"
                   color="bg-[hsl(var(--flow-teal))]"
                   lightBg="bg-[hsl(var(--flow-teal-light))]"
                   border="border-[hsl(var(--flow-teal)/0.3)]"
-                  items={affiliateServiceItems}
+                  nodes={affiliateFlow}
                   delay={0.35}
                 />
-                <FlowCard
+                <FlowDiagram
                   icon={Award}
                   label="Procesos ISO"
                   color="bg-[hsl(var(--flow-green))]"
                   lightBg="bg-[hsl(var(--flow-green-light))]"
                   border="border-[hsl(var(--flow-green)/0.3)]"
-                  items={isoItems}
+                  nodes={isoFlow}
                   delay={0.4}
                 />
               </div>
