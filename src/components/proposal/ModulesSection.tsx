@@ -439,7 +439,7 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-            Cualquier proceso de AFP Occidente puede ser moldeado. Haz clic en cada módulo para explorar sus capacidades.
+            FileMaster no es un CRM, pero puede funcionar como uno. Cualquier proceso de AFP Occidente puede ser moldeado y automatizado. Haz clic en cada flujo para explorar sus pasos.
           </p>
         </motion.div>
 
