@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   Workflow, FileText, Shield, Users,
   Code2, Globe, Puzzle, Bell,
@@ -14,8 +14,13 @@ import {
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
   Plus, X, GitBranch, Diamond, Circle, Square,
-  GripVertical, Settings, Eye,
+  GripVertical, Settings, Eye, ZoomIn, ZoomOut, Maximize2, Move,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 /* ══════════════════════════════════════════
    DATA
@@ -155,261 +160,185 @@ const nodeLabels: Record<FlowNode["type"], string> = {
   end: "Fin",
 };
 
-/* ── Single flow node ── */
-const FlowNodeCard = ({
-  node,
-  isLast,
-  index,
-  hoveredNode,
-  setHoveredNode,
+/* ── Canvas node positions — zigzag left→right→left ── */
+const getNodePositions = (count: number, canvasW: number, canvasH: number) => {
+  const cols = 3;
+  const positions: { x: number; y: number }[] = [];
+  const padX = 120;
+  const padY = 80;
+  const usableW = canvasW - padX * 2;
+  const rows = Math.ceil(count / cols);
+  const rowH = Math.min((canvasH - padY * 2) / Math.max(rows, 1), 180);
+  for (let i = 0; i < count; i++) {
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    const isReversed = row % 2 === 1;
+    const actualCol = isReversed ? (cols - 1 - col) : col;
+    const x = padX + (usableW / Math.max(cols - 1, 1)) * actualCol;
+    const y = padY + row * rowH;
+    positions.push({ x, y });
+  }
+  return positions;
+};
+
+/* ── Canvas Flow Node ── */
+const CanvasNode = ({
+  node, x, y, index, hoveredNode, setHoveredNode,
 }: {
-  node: FlowNode;
-  isLast: boolean;
-  index: number;
-  hoveredNode: string | null;
-  setHoveredNode: (id: string | null) => void;
+  node: FlowNode; x: number; y: number; index: number;
+  hoveredNode: string | null; setHoveredNode: (id: string | null) => void;
 }) => {
   const isHovered = hoveredNode === node.id;
   const isDecision = node.type === "decision";
   const color = nodeColors[node.type];
-
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.85 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: index * 0.07 }}
-      onMouseEnter={() => setHoveredNode(node.id)}
-      onMouseLeave={() => setHoveredNode(null)}
-      className="flex items-center"
-    >
-      {/* Node */}
-      <div className="relative flex flex-col items-center">
-        {/* Type label */}
-        <span className={`text-[7px] uppercase tracking-widest font-bold mb-1 ${
-          node.type === "start" ? "text-[hsl(var(--flow-green))]" :
-          node.type === "end" ? "text-sysde-red" :
-          node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
-          "text-muted-foreground"
-        }`}>
-          {nodeLabels[node.type]}
-        </span>
-
-        <motion.div
-          animate={{ scale: isHovered ? 1.08 : 1 }}
-          transition={{ duration: 0.15 }}
-          className={`relative flex flex-col items-center justify-center w-16 h-16 ${
-            isDecision ? "rounded-xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-xl"
-          } ${color} text-primary-foreground shadow-lg cursor-pointer ${
-            isHovered ? "shadow-xl ring-2 ring-primary-foreground/20" : ""
-          }`}
-        >
-          <node.icon className="h-4 w-4 mb-0.5" />
-          <p className="text-[8px] font-bold leading-tight text-center px-1">{node.label}</p>
-        </motion.div>
-
-        {/* Hover edit icons */}
-        <AnimatePresence>
+    <motion.g initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.08, duration: 0.4 }}>
+      <foreignObject x={x - 70} y={y - 55} width={140} height={160}>
+        <div className="flex flex-col items-center relative" onMouseEnter={() => setHoveredNode(node.id)} onMouseLeave={() => setHoveredNode(null)}>
+          <span className={`text-[9px] uppercase tracking-widest font-bold mb-1.5 ${
+            node.type === "start" ? "text-[hsl(var(--flow-green))]" :
+            node.type === "end" ? "text-sysde-red" :
+            node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
+            "text-muted-foreground"
+          }`}>{nodeLabels[node.type]}</span>
+          <motion.div animate={{ scale: isHovered ? 1.12 : 1 }} transition={{ duration: 0.15 }}
+            className={`relative flex flex-col items-center justify-center w-20 h-20 ${
+              isDecision ? "rounded-2xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
+            } ${color} text-primary-foreground shadow-lg cursor-pointer ${isHovered ? "shadow-2xl ring-2 ring-primary-foreground/30" : ""}`}
+          >
+            <node.icon className="h-5 w-5 mb-1" />
+            <p className="text-[10px] font-bold leading-tight text-center px-1.5">{node.label}</p>
+          </motion.div>
           {isHovered && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              className="flex gap-1 mt-1"
-            >
-              <span className="p-0.5 rounded bg-card border border-border shadow-sm cursor-pointer">
-                <Pencil className="h-2.5 w-2.5 text-muted-foreground" />
-              </span>
-              <span className="p-0.5 rounded bg-card border border-border shadow-sm cursor-grab">
-                <GripVertical className="h-2.5 w-2.5 text-muted-foreground" />
-              </span>
-            </motion.div>
+            <div className="flex gap-1.5 mt-1.5">
+              <span className="p-1 rounded-md bg-card border border-border shadow-sm cursor-pointer hover:bg-muted"><Pencil className="h-3 w-3 text-muted-foreground" /></span>
+              <span className="p-1 rounded-md bg-card border border-border shadow-sm cursor-grab hover:bg-muted"><Move className="h-3 w-3 text-muted-foreground" /></span>
+            </div>
           )}
-        </AnimatePresence>
-
-        {/* Description tooltip on hover */}
-        <AnimatePresence>
+          {isDecision && node.branches && (
+            <div className="flex gap-1.5 mt-1">
+              {node.branches.map((br, bi) => (
+                <span key={br.label} className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[8px] font-bold border ${
+                  bi === 0 ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]" : "bg-muted border-border text-muted-foreground"
+                }`}><GitBranch className="h-2.5 w-2.5" />{br.label} → {br.to}</span>
+              ))}
+            </div>
+          )}
           {isHovered && node.desc && (
-            <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              className="absolute top-full mt-8 px-2.5 py-1.5 rounded-lg bg-card border border-border shadow-xl z-30 w-36"
-            >
-              <p className="text-[9px] text-muted-foreground leading-relaxed">{node.desc}</p>
-            </motion.div>
+            <div className="absolute top-full mt-1 px-3 py-2 rounded-xl bg-card border border-border shadow-2xl z-50 w-48">
+              <p className="text-[10px] text-muted-foreground leading-relaxed">{node.desc}</p>
+            </div>
           )}
-        </AnimatePresence>
-
-        {/* Decision branches below node */}
-        {isDecision && node.branches && (
-          <div className="flex gap-1 mt-1">
-            {node.branches.map((br, bi) => (
-              <motion.span
-                key={br.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.07 + bi * 0.05 + 0.1 }}
-                className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[7px] font-bold border whitespace-nowrap ${
-                  bi === 0
-                    ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
-                    : "bg-muted border-border text-muted-foreground"
-                }`}
-              >
-                <GitBranch className="h-2 w-2" />
-                {br.label}
-              </motion.span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Arrow connector */}
-      {!isLast && (
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: index * 0.07 + 0.1, duration: 0.2 }}
-          className="origin-left flex items-center mx-1.5 self-center"
-        >
-          <div className="w-5 h-0.5 bg-border" />
-          <ChevronRight className="h-3 w-3 text-border -ml-1" />
-        </motion.div>
-      )}
-    </motion.div>
+        </div>
+      </foreignObject>
+    </motion.g>
   );
 };
 
-/* ── Expandable flow diagram — horizontal zigzag ── */
-const FlowDiagram = ({
-  icon: Icon,
-  label,
-  color,
-  lightBg,
-  border,
-  nodes,
-  delay,
-}: {
-  icon: React.ElementType;
-  label: string;
-  color: string;
-  lightBg: string;
-  border: string;
-  nodes: FlowNode[];
-  delay: number;
+/* ── SVG connectors ── */
+const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[] }) => (
+  <>
+    {positions.map((pos, i) => {
+      if (i === positions.length - 1) return null;
+      const next = positions[i + 1];
+      const row = Math.floor(i / 3);
+      const nextRow = Math.floor((i + 1) / 3);
+      if (row === nextRow) {
+        const startX = Math.min(pos.x, next.x) + 45;
+        const endX = Math.max(pos.x, next.x) - 45;
+        return <motion.line key={`c-${i}`} x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />;
+      } else {
+        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 45} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 55}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
+      }
+    })}
+  </>
+);
+
+/* ── Flow Diagram — popup canvas ── */
+const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }: {
+  icon: React.ElementType; label: string; color: string; lightBg: string; border: string; nodes: FlowNode[]; delay: number;
 }) => {
   const [open, setOpen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
+  const canvasW = 800;
+  const canvasH = Math.max(420, Math.ceil(nodes.length / 3) * 180 + 140);
+  const positions = getNodePositions(nodes.length, canvasW, canvasH);
 
-  // Split into rows of 3 for zigzag
-  const rows: FlowNode[][] = [];
-  for (let i = 0; i < nodes.length; i += 3) {
-    rows.push(nodes.slice(i, i + 3));
-  }
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    setIsPanning(true);
+    panStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
+  }, [pan]);
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isPanning) return;
+    setPan({ x: panStart.current.panX + (e.clientX - panStart.current.x), y: panStart.current.panY + (e.clientY - panStart.current.y) });
+  }, [isPanning]);
+  const handleMouseUp = useCallback(() => setIsPanning(false), []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.4 }}
-    >
+    <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay, duration: 0.4 }}>
       <button
-        onClick={() => setOpen(!open)}
-        className={`w-full text-left p-3 md:p-4 rounded-xl border ${border} ${lightBg} hover:shadow-lg transition-all duration-300 ${open ? "shadow-md" : ""}`}
+        onClick={() => { setOpen(true); setZoom(1); setPan({ x: 0, y: 0 }); }}
+        className={`w-full text-left p-3 md:p-4 rounded-xl border ${border} ${lightBg} hover:shadow-lg transition-all duration-300`}
       >
         <div className="flex items-center gap-3">
-          <div className={`w-9 h-9 md:w-10 md:h-10 rounded-xl ${color} flex items-center justify-center transition-transform duration-300 ${open ? "scale-110" : ""}`}>
+          <div className={`w-9 h-9 md:w-10 md:h-10 rounded-xl ${color} flex items-center justify-center`}>
             <Icon className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="text-xs md:text-sm font-bold text-foreground flex-1">{label}</span>
           <div className="flex items-center gap-1.5">
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">
-              <Pencil className="h-2.5 w-2.5" /> Editable
-            </span>
-            <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">No-Code</span>
+            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
             <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">{nodes.length} pasos</span>
-            <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-              <ChevronDown className="h-4 w-4 text-muted-foreground" />
-            </motion.div>
+            <Maximize2 className="h-4 w-4 text-muted-foreground" />
           </div>
         </div>
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            {/* Toolbar */}
-            <motion.div
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="flex items-center gap-2 pt-3 px-2 pb-2"
-            >
-              <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-bold">Diagrama del flujo</span>
-              <div className="flex-1 h-px bg-border" />
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Editar"><Settings className="h-3.5 w-3.5 text-muted-foreground" /></button>
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Vista previa"><Eye className="h-3.5 w-3.5 text-muted-foreground" /></button>
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Agregar paso"><Plus className="h-3.5 w-3.5 text-muted-foreground" /></button>
-            </motion.div>
 
-            {/* Zigzag flow */}
-            <div className="px-3 pb-4">
-              <div className="flex flex-col gap-2">
-                {rows.map((row, ri) => {
-                  const isReversed = ri % 2 === 1;
-                  const displayRow = isReversed ? [...row].reverse() : row;
-                  const globalOffset = ri * 3;
-
-                  return (
-                    <div key={ri} className="flex flex-col">
-                      {/* Turn connector from previous row */}
-                      {ri > 0 && (
-                        <motion.div
-                          initial={{ scaleY: 0 }}
-                          animate={{ scaleY: 1 }}
-                          transition={{ delay: globalOffset * 0.07, duration: 0.2 }}
-                          className={`origin-top mb-1 ${isReversed ? "self-end mr-8" : "self-start ml-8"}`}
-                        >
-                          <div className="flex flex-col items-center">
-                            <div className="w-0.5 h-4 bg-border" />
-                            <ChevronDown className="h-3 w-3 text-border -mt-1" />
-                          </div>
-                        </motion.div>
-                      )}
-                      {/* Row of nodes */}
-                      <div className={`flex items-start justify-start ${isReversed ? "flex-row-reverse" : ""}`}>
-                        {displayRow.map((node, ni) => {
-                          const actualIndex = isReversed
-                            ? globalOffset + (row.length - 1 - ni)
-                            : globalOffset + ni;
-                          const isLastInRow = ni === displayRow.length - 1;
-                          const isLastNode = actualIndex === nodes.length - 1;
-
-                          return (
-                            <FlowNodeCard
-                              key={node.id}
-                              node={node}
-                              isLast={isLastInRow || isLastNode}
-                              index={actualIndex}
-                              hoveredNode={hoveredNode}
-                              setHoveredNode={setHoveredNode}
-                            />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-[95vw] w-[95vw] h-[85vh] p-0 overflow-hidden flex flex-col bg-background">
+          <DialogTitle className="sr-only">{label}</DialogTitle>
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-border bg-card/80 backdrop-blur-sm flex-shrink-0">
+            <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center`}>
+              <Icon className="h-4 w-4 text-primary-foreground" />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <h3 className="text-sm font-bold text-foreground">{label}</h3>
+            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
+            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground">{nodes.length} nodos</span>
+            <div className="flex-1" />
+            <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5 border border-border">
+              <button onClick={() => setZoom(z => Math.max(0.5, z - 0.15))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomOut className="h-3.5 w-3.5 text-muted-foreground" /></button>
+              <span className="text-[10px] font-mono text-muted-foreground w-10 text-center">{Math.round(zoom * 100)}%</span>
+              <button onClick={() => setZoom(z => Math.min(2, z + 0.15))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomIn className="h-3.5 w-3.5 text-muted-foreground" /></button>
+            </div>
+            <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="p-1.5 rounded hover:bg-muted transition-colors border border-border"><Maximize2 className="h-3.5 w-3.5 text-muted-foreground" /></button>
+            <button className="p-1.5 rounded hover:bg-muted transition-colors"><Settings className="h-3.5 w-3.5 text-muted-foreground" /></button>
+            <button className="p-1.5 rounded hover:bg-muted transition-colors"><Plus className="h-3.5 w-3.5 text-muted-foreground" /></button>
+          </div>
+          <div className="flex-1 overflow-hidden relative select-none" style={{ cursor: isPanning ? "grabbing" : "grab", background: "hsl(var(--muted) / 0.3)" }}
+            onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12]">
+              <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" /></pattern></defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+            <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning ? "none" : "transform 0.2s ease-out" }}>
+              <svg width={canvasW} height={canvasH} style={{ overflow: "visible" }}>
+                <CanvasConnectors positions={positions} />
+                {nodes.map((node, i) => (
+                  <CanvasNode key={node.id} node={node} x={positions[i].x} y={positions[i].y} index={i} hoveredNode={hoveredNode} setHoveredNode={setHoveredNode} />
+                ))}
+              </svg>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 px-5 py-2 border-t border-border bg-card/80 text-[9px] text-muted-foreground flex-shrink-0">
+            <span>🖱️ Arrastra para mover · Zoom con controles</span>
+            <div className="flex-1" />
+            <span className="font-mono">{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
+          </div>
+        </DialogContent>
+      </Dialog>
     </motion.div>
   );
 };
