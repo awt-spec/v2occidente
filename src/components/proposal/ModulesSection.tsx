@@ -3,6 +3,8 @@ import {
   Workflow, FileText, History, Shield, Users,
   Layers, Code2, Globe, Puzzle, Bell,
   Contact, ClipboardList, RefreshCw,
+  HeadphonesIcon, MessageSquare, TicketCheck,
+  Award, Search, FileCheck,
 } from "lucide-react";
 
 const fade = (delay = 0) => ({
@@ -55,6 +57,35 @@ const branches = [
   },
 ];
 
+const additionalProcesses = [
+  {
+    label: "Atención al Afiliado",
+    icon: HeadphonesIcon,
+    bg: "bg-[hsl(var(--flow-teal))]",
+    lightBg: "bg-[hsl(var(--flow-teal-light))]",
+    border: "border-[hsl(var(--flow-teal)/0.3)]",
+    textColor: "text-[hsl(var(--flow-teal))]",
+    leaves: [
+      { label: "Solicitudes", icon: MessageSquare },
+      { label: "Reclamos", icon: TicketCheck },
+      { label: "Seguimiento de Casos", icon: Search },
+    ],
+  },
+  {
+    label: "Procesos ISO",
+    icon: Award,
+    bg: "bg-[hsl(var(--flow-green))]",
+    lightBg: "bg-[hsl(var(--flow-green-light))]",
+    border: "border-[hsl(var(--flow-green)/0.3)]",
+    textColor: "text-[hsl(var(--flow-green))]",
+    leaves: [
+      { label: "Auditorías", icon: FileCheck },
+      { label: "No Conformidades", icon: ClipboardList },
+      { label: "Control de Calidad", icon: Shield },
+    ],
+  },
+];
+
 const ModulesSection = () => {
   return (
     <section className="py-16 md:py-28 bg-background">
@@ -65,7 +96,7 @@ const ModulesSection = () => {
             Plataforma FileMaster
           </h3>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Cada módulo es configurable sin código y se adapta a los procesos de afiliación y operación de AFPC Occidente.
+            Cada módulo es configurable sin código y se adapta a los procesos de afiliación, atención al afiliado, gestión ISO y operación de AFPC Occidente.
           </p>
         </motion.div>
 
@@ -84,7 +115,7 @@ const ModulesSection = () => {
             <p className="text-[8px] md:text-[9px] opacity-80 mt-0.5">Automatización</p>
           </motion.div>
 
-          {/* Ring 1 — Branches: vertical on mobile, grid on md+ */}
+          {/* Ring 1 — Core Branches: vertical on mobile, grid on md+ */}
           <div className="relative -mt-4 md:-mt-8 z-0 w-full">
             {/* Faint ring behind — hidden on mobile */}
             <div className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none">
@@ -126,6 +157,43 @@ const ModulesSection = () => {
               ))}
             </div>
           </div>
+
+          {/* Ring 2 — Additional Processes */}
+          <motion.div {...fade(0.3)} className="w-full mt-8 md:mt-12">
+            <div className="flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-8 max-w-xl mx-auto px-2 md:px-0">
+              {additionalProcesses.map((proc, pi) => (
+                <motion.div
+                  key={proc.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + pi * 0.12 }}
+                  className="flex flex-row md:flex-col items-center md:text-center gap-3 md:gap-0"
+                >
+                  <div className={`w-14 h-14 md:w-20 md:h-20 rounded-full ${proc.bg} text-primary-foreground flex flex-col items-center justify-center shadow-lg flex-shrink-0`}>
+                    <proc.icon className="h-4 w-4 md:h-6 md:w-6 mb-0.5" />
+                    <p className="text-[7px] md:text-[10px] font-bold leading-tight px-1">{proc.label}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 md:mt-3 md:flex-col md:w-full">
+                    {proc.leaves.map((leaf, li) => (
+                      <motion.div
+                        key={leaf.label}
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 + pi * 0.1 + li * 0.06 }}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 md:px-3 md:py-2 rounded-full border ${proc.border} ${proc.lightBg} text-xs font-medium md:justify-center`}
+                      >
+                        <leaf.icon className={`h-3 w-3 md:h-3.5 md:w-3.5 ${proc.textColor} flex-shrink-0`} />
+                        <span className="text-foreground text-[10px] md:text-[11px]">{leaf.label}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Bottom capabilities */}
           <motion.div
