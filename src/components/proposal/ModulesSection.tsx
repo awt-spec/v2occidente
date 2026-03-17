@@ -383,16 +383,6 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" /></pattern></defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
-            {/* Editable hint overlay */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-              className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground shadow-lg"
-            >
-              <Pencil className="h-3.5 w-3.5" />
-              <span className="text-[11px] font-bold tracking-wide">100% EDITABLE — Arrastra, modifica y configura cada nodo</span>
-            </motion.div>
             <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning || draggingNode ? "none" : "transform 0.2s ease-out" }}>
               <svg width={canvasW} height={canvasH} style={{ overflow: "visible" }}>
                 <CanvasConnectors positions={positions} />
@@ -407,13 +397,13 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               </svg>
             </div>
           </div>
-          <div className="flex items-center gap-4 px-5 py-2 border-t border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md text-[9px] text-muted-foreground font-mono flex-shrink-0">
-            <span className="flex items-center gap-1"><GripVertical className="h-3 w-3" /> Drag nodes</span>
-            <span className="flex items-center gap-1"><Move className="h-3 w-3" /> Pan canvas</span>
-            <span className="flex items-center gap-1"><ZoomIn className="h-3 w-3" /> Zoom</span>
+          <div className="flex items-center gap-4 px-5 py-2.5 border-t border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md flex-shrink-0">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground shadow-md">
+              <Pencil className="h-3 w-3" />
+              <span className="text-[10px] font-bold tracking-wide">100% EDITABLE — Arrastra, modifica y configura cada nodo</span>
+            </div>
             <div className="flex-1" />
-            <span className="text-[8px] opacity-60">FileMaster Flow Engine v2.0</span>
-            <span>{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
+            <span className="text-[9px] text-muted-foreground font-mono">{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
           </div>
         </DialogContent>
       </Dialog>
