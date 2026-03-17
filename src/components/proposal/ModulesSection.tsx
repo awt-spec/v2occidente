@@ -37,24 +37,39 @@ const coreSteps = [
   { icon: Bell, label: "Notificaciones", desc: "Alertas por email, plataforma y webhook en cada cambio de estado o acción requerida." },
 ];
 
-const crmFlowItems = [
-  { icon: Contact, label: "Gestión de Contactos", desc: "Base centralizada de prospectos y afiliados" },
-  { icon: Calendar, label: "Agenda de Vendedores", desc: "Calendario de citas y seguimientos" },
-  { icon: MessageSquare, label: "Seguimiento", desc: "Historial de interacciones con cada contacto" },
+/* Flow node types: start | process | decision | branch | end */
+type FlowNode = {
+  id: string;
+  type: "start" | "process" | "decision" | "end";
+  icon: React.ElementType;
+  label: string;
+  desc?: string;
+  branches?: { label: string; to: string }[];
+};
+
+const crmFlow: FlowNode[] = [
+  { id: "c1", type: "start", icon: Contact, label: "Nuevo Contacto", desc: "Ingresa prospecto al sistema" },
+  { id: "c2", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Asignar vendedor y programar" },
+  { id: "c3", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
+  { id: "c4", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de interacciones" },
+  { id: "c5", type: "end", icon: CheckCircle2, label: "Conversión", desc: "Prospecto → Afiliado" },
 ];
 
-const affiliateServiceItems = [
-  { icon: MessageSquare, label: "Solicitudes", desc: "Registro y seguimiento de solicitudes de afiliados" },
-  { icon: TicketCheck, label: "Reclamos", desc: "Gestión de quejas con SLA y escalamiento automático" },
-  { icon: Search, label: "Consultas", desc: "Portal de autoservicio para estado de trámites" },
-  { icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de tiempos de respuesta y resolución" },
-  { icon: CheckCircle2, label: "Resolución", desc: "Cierre documentado con firma y evidencia" },
+const affiliateFlow: FlowNode[] = [
+  { id: "a1", type: "start", icon: MessageSquare, label: "Solicitud", desc: "Afiliado registra solicitud" },
+  { id: "a2", type: "process", icon: UserCheck, label: "Asignación", desc: "Asignar ejecutivo responsable" },
+  { id: "a3", type: "decision", icon: Diamond, label: "¿Tipo?", branches: [{ label: "Reclamo", to: "SLA" }, { label: "Consulta", to: "Respuesta" }] },
+  { id: "a4", type: "process", icon: Clock, label: "SLA & Tiempos", desc: "Monitoreo de resolución" },
+  { id: "a5", type: "decision", icon: Diamond, label: "¿Resuelto?", branches: [{ label: "Sí", to: "Cierre" }, { label: "No", to: "Escalar" }] },
+  { id: "a6", type: "end", icon: CheckCircle2, label: "Resolución", desc: "Cierre con evidencia" },
 ];
 
-const isoItems = [
-  { icon: FileCheck, label: "Auditorías", desc: "Planificación y ejecución de auditorías internas" },
-  { icon: ClipboardList, label: "No Conformidades", desc: "Registro, seguimiento y cierre de hallazgos" },
-  { icon: ShieldIcon, label: "Control de Calidad", desc: "Indicadores y dashboards de cumplimiento" },
+const isoFlow: FlowNode[] = [
+  { id: "i1", type: "start", icon: FileCheck, label: "Auditoría", desc: "Planificación y ejecución" },
+  { id: "i2", type: "decision", icon: Diamond, label: "¿Hallazgos?", branches: [{ label: "Sí", to: "NC" }, { label: "No", to: "Cierre" }] },
+  { id: "i3", type: "process", icon: ClipboardList, label: "No Conformidad", desc: "Registro y plan de acción" },
+  { id: "i4", type: "process", icon: ShieldIcon, label: "Corrección", desc: "Implementar acciones" },
+  { id: "i5", type: "end", icon: CheckCircle2, label: "Cierre", desc: "Verificación y aprobación" },
 ];
 
 const apiIntegrations = [
