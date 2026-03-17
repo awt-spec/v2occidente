@@ -4,6 +4,7 @@ import ExecutiveLetter from "@/components/proposal/ExecutiveLetter";
 import ModulesSection from "@/components/proposal/ModulesSection";
 import BenefitsAndInfra from "@/components/proposal/BenefitsAndInfra";
 import EconomicProposal from "@/components/proposal/EconomicProposal";
+import SupportSection from "@/components/proposal/SupportSection";
 import VisionAndTimeline from "@/components/proposal/VisionAndTimeline";
 import ProposalFooter from "@/components/proposal/ProposalFooter";
 import ProposalChatbot from "@/components/proposal/ProposalChatbot";
