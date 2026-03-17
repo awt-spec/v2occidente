@@ -203,7 +203,7 @@ const CanvasNode = ({
   const color = nodeColors[node.type];
   return (
     <motion.g initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.08, duration: 0.4 }}>
-      <foreignObject x={x - 70} y={y - 55} width={140} height={160}>
+      <foreignObject x={x - 90} y={y - 60} width={180} height={200}>
         <div className="flex flex-col items-center relative" onMouseEnter={() => setHoveredNode(node.id)} onMouseLeave={() => setHoveredNode(null)}>
           <span className={`text-[9px] uppercase tracking-widest font-bold mb-1.5 ${
             node.type === "start" ? "text-[hsl(var(--flow-green))]" :
@@ -212,12 +212,12 @@ const CanvasNode = ({
             "text-muted-foreground"
           }`}>{nodeLabels[node.type]}</span>
           <motion.div animate={{ scale: isHovered ? 1.12 : 1 }} transition={{ duration: 0.15 }}
-            className={`relative flex flex-col items-center justify-center w-20 h-20 ${
-              isDecision ? "rounded-2xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
+            className={`relative flex flex-col items-center justify-center w-24 h-24 ${
+              isDecision ? "rounded-2xl rotate-0" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
             } ${color} text-primary-foreground shadow-lg cursor-pointer ${isHovered ? "shadow-2xl ring-2 ring-primary-foreground/30" : ""}`}
           >
             <node.icon className="h-5 w-5 mb-1" />
-            <p className="text-[10px] font-bold leading-tight text-center px-1.5">{node.label}</p>
+            <p className="text-[9px] font-bold leading-tight text-center px-2">{node.label}</p>
           </motion.div>
           {isHovered && (
             <div className="flex gap-1.5 mt-1.5">
