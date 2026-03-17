@@ -8,7 +8,7 @@ import {
   Award, FileCheck, FolderOpen,
   Mail, Building2,
   Database, Send,
-  Calendar, UserCheck, BarChart3,
+  Calendar, UserCheck,
   ChevronRight, ChevronDown, ArrowRight, Pencil, MousePointerClick,
   Phone, FileSpreadsheet, QrCode,
   TicketCheck, Search, Clock, CheckCircle2,
