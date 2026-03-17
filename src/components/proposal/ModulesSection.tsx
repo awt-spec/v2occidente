@@ -191,19 +191,21 @@ const getNodePositions = (count: number, canvasW: number, canvasH: number) => {
   return positions;
 };
 
-/* ── Canvas Flow Node ── */
+/* ── Canvas Flow Node with Drag ── */
 const CanvasNode = ({
-  node, x, y, index, hoveredNode, setHoveredNode,
+  node, x, y, index, hoveredNode, setHoveredNode, onDragStart, isDragging,
 }: {
   node: FlowNode; x: number; y: number; index: number;
   hoveredNode: string | null; setHoveredNode: (id: string | null) => void;
+  onDragStart: (id: string, e: React.MouseEvent) => void;
+  isDragging: boolean;
 }) => {
   const isHovered = hoveredNode === node.id;
   const isDecision = node.type === "decision";
   const color = nodeColors[node.type];
   return (
     <motion.g initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.08, duration: 0.4 }}>
-      <foreignObject x={x - 90} y={y - 60} width={180} height={200}>
+      <foreignObject x={x - 90} y={y - 60} width={180} height={210}>
         <div className="flex flex-col items-center relative" onMouseEnter={() => setHoveredNode(node.id)} onMouseLeave={() => setHoveredNode(null)}>
           <span className={`text-[9px] uppercase tracking-widest font-bold mb-1.5 ${
             node.type === "start" ? "text-[hsl(var(--flow-green))]" :
@@ -211,32 +213,36 @@ const CanvasNode = ({
             node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
             "text-muted-foreground"
           }`}>{nodeLabels[node.type]}</span>
-          <motion.div animate={{ scale: isHovered ? 1.12 : 1 }} transition={{ duration: 0.15 }}
-            className={`relative flex flex-col items-center justify-center w-24 h-24 ${
-              isDecision ? "rounded-2xl rotate-0" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
-            } ${color} text-primary-foreground shadow-lg cursor-pointer ${isHovered ? "shadow-2xl ring-2 ring-primary-foreground/30" : ""}`}
+          <motion.div
+            animate={{ scale: isHovered ? 1.08 : 1 }}
+            transition={{ duration: 0.15 }}
+            className={`relative flex flex-col items-center justify-center w-20 h-20 ${
+              isDecision ? "rounded-2xl" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
+            } ${color} text-primary-foreground shadow-lg ${isDragging ? "ring-2 ring-primary shadow-2xl" : isHovered ? "ring-2 ring-primary-foreground/30 shadow-xl" : ""}`}
+            style={{ cursor: isDragging ? "grabbing" : "grab" }}
+            onMouseDown={(e) => { e.stopPropagation(); onDragStart(node.id, e); }}
           >
-            <node.icon className="h-5 w-5 mb-1" />
-            <p className="text-[9px] font-bold leading-tight text-center px-2">{node.label}</p>
+            <node.icon className="h-4 w-4 mb-0.5" />
+            <p className="text-[8px] font-bold leading-tight text-center px-1.5">{node.label}</p>
           </motion.div>
-          {isHovered && (
-            <div className="flex gap-1.5 mt-1.5">
-              <span className="p-1 rounded-md bg-card border border-border shadow-sm cursor-pointer hover:bg-muted"><Pencil className="h-3 w-3 text-muted-foreground" /></span>
-              <span className="p-1 rounded-md bg-card border border-border shadow-sm cursor-grab hover:bg-muted"><Move className="h-3 w-3 text-muted-foreground" /></span>
-            </div>
-          )}
+          <div className="flex gap-1 mt-1">
+            <span className="p-0.5 rounded bg-card/80 border border-border/50 shadow-sm"><Pencil className="h-2.5 w-2.5 text-muted-foreground" /></span>
+            <span className="p-0.5 rounded bg-card/80 border border-border/50 shadow-sm" style={{ cursor: "grab" }}
+              onMouseDown={(e) => { e.stopPropagation(); onDragStart(node.id, e); }}
+            ><GripVertical className="h-2.5 w-2.5 text-muted-foreground" /></span>
+          </div>
           {isDecision && node.branches && (
-            <div className="flex gap-1.5 mt-1">
+            <div className="flex gap-1 mt-0.5">
               {node.branches.map((br, bi) => (
-                <span key={br.label} className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[8px] font-bold border ${
+                <span key={br.label} className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[7px] font-bold border ${
                   bi === 0 ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]" : "bg-muted border-border text-muted-foreground"
-                }`}><GitBranch className="h-2.5 w-2.5" />{br.label} → {br.to}</span>
+                }`}><GitBranch className="h-2 w-2" />{br.label} → {br.to}</span>
               ))}
             </div>
           )}
           {isHovered && node.desc && (
-            <div className="absolute top-full mt-1 px-3 py-2 rounded-xl bg-card border border-border shadow-2xl z-50 w-48">
-              <p className="text-[10px] text-muted-foreground leading-relaxed">{node.desc}</p>
+            <div className="absolute top-full mt-0.5 px-2.5 py-1.5 rounded-xl bg-card border border-border shadow-2xl z-50 w-44">
+              <p className="text-[9px] text-muted-foreground leading-relaxed">{node.desc}</p>
             </div>
           )}
         </div>
@@ -254,44 +260,85 @@ const CanvasConnectors = ({ positions }: { positions: { x: number; y: number }[]
       const row = Math.floor(i / 3);
       const nextRow = Math.floor((i + 1) / 3);
       if (row === nextRow) {
-        const startX = Math.min(pos.x, next.x) + 55;
-        const endX = Math.max(pos.x, next.x) - 55;
+        const startX = Math.min(pos.x, next.x) + 48;
+        const endX = Math.max(pos.x, next.x) - 48;
         return <motion.line key={`c-${i}`} x1={startX} y1={pos.y} x2={endX} y2={pos.y} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.4 }} />;
       } else {
-        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 55} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 65}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
+        return <motion.path key={`c-${i}`} d={`M ${pos.x} ${pos.y + 48} L ${pos.x} ${(pos.y + next.y) / 2} L ${next.x} ${(pos.y + next.y) / 2} L ${next.x} ${next.y - 60}`} stroke="hsl(var(--border))" strokeWidth={2} strokeDasharray="6 4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: i * 0.08 + 0.2, duration: 0.5 }} />;
       }
     })}
   </>
 );
 
-/* ── Flow Diagram — popup canvas ── */
+/* ── Flow Diagram — popup canvas with drag & drop ── */
 const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }: {
   icon: React.ElementType; label: string; color: string; lightBg: string; border: string; nodes: FlowNode[]; delay: number;
 }) => {
   const [open, setOpen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
-  const canvasW = 1000;
-  const canvasH = Math.max(500, Math.ceil(nodes.length / 3) * 220 + 200);
-  const positions = getNodePositions(nodes.length, canvasW, canvasH);
+  const canvasW = 900;
+  const canvasH = Math.max(450, Math.ceil(nodes.length / 3) * 200 + 160);
+
+  const [nodePositions, setNodePositions] = useState<{ x: number; y: number }[]>([]);
+  const [draggingNode, setDraggingNode] = useState<string | null>(null);
+  const dragStart = useRef({ x: 0, y: 0, nodeX: 0, nodeY: 0 });
+
+  const initPositions = useCallback(() => {
+    setNodePositions(getNodePositions(nodes.length, canvasW, canvasH));
+  }, [nodes.length, canvasH]);
+
+  const handleOpen = () => {
+    setOpen(true);
+    setZoom(0.8);
+    setPan({ x: 0, y: 0 });
+    initPositions();
+  };
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (draggingNode) return;
     setIsPanning(true);
     panStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
-  }, [pan]);
+  }, [pan, draggingNode]);
+
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (draggingNode) {
+      const nodeIdx = nodes.findIndex(n => n.id === draggingNode);
+      if (nodeIdx === -1) return;
+      const dx = (e.clientX - dragStart.current.x) / zoom;
+      const dy = (e.clientY - dragStart.current.y) / zoom;
+      setNodePositions(prev => {
+        const next = [...prev];
+        next[nodeIdx] = { x: dragStart.current.nodeX + dx, y: dragStart.current.nodeY + dy };
+        return next;
+      });
+      return;
+    }
     if (!isPanning) return;
     setPan({ x: panStart.current.panX + (e.clientX - panStart.current.x), y: panStart.current.panY + (e.clientY - panStart.current.y) });
-  }, [isPanning]);
-  const handleMouseUp = useCallback(() => setIsPanning(false), []);
+  }, [isPanning, draggingNode, nodes, zoom]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsPanning(false);
+    setDraggingNode(null);
+  }, []);
+
+  const handleNodeDragStart = useCallback((id: string, e: React.MouseEvent) => {
+    const nodeIdx = nodes.findIndex(n => n.id === id);
+    if (nodeIdx === -1 || !nodePositions[nodeIdx]) return;
+    setDraggingNode(id);
+    dragStart.current = { x: e.clientX, y: e.clientY, nodeX: nodePositions[nodeIdx].x, nodeY: nodePositions[nodeIdx].y };
+  }, [nodes, nodePositions]);
+
+  const positions = nodePositions.length === nodes.length ? nodePositions : getNodePositions(nodes.length, canvasW, canvasH);
 
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay, duration: 0.4 }}>
       <button
-        onClick={() => { setOpen(true); setZoom(1); setPan({ x: 0, y: 0 }); }}
+        onClick={handleOpen}
         className={`w-full text-left p-3 md:p-4 rounded-xl border ${border} ${lightBg} hover:shadow-lg transition-all duration-300`}
       >
         <div className="flex items-center gap-3">
@@ -300,6 +347,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
           </div>
           <span className="text-xs md:text-sm font-bold text-foreground flex-1">{label}</span>
           <div className="flex items-center gap-1.5">
+            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
             <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
             <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">{nodes.length} pasos</span>
             <Maximize2 className="h-4 w-4 text-muted-foreground" />
@@ -316,34 +364,43 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
             </div>
             <h3 className="text-sm font-bold text-foreground">{label}</h3>
             <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
+            <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
             <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-muted border border-border text-[9px] font-bold text-muted-foreground">{nodes.length} nodos</span>
             <div className="flex-1" />
             <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5 border border-border">
-              <button onClick={() => setZoom(z => Math.max(0.5, z - 0.15))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomOut className="h-3.5 w-3.5 text-muted-foreground" /></button>
+              <button onClick={() => setZoom(z => Math.max(0.4, z - 0.1))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomOut className="h-3.5 w-3.5 text-muted-foreground" /></button>
               <span className="text-[10px] font-mono text-muted-foreground w-10 text-center">{Math.round(zoom * 100)}%</span>
-              <button onClick={() => setZoom(z => Math.min(2, z + 0.15))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomIn className="h-3.5 w-3.5 text-muted-foreground" /></button>
+              <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomIn className="h-3.5 w-3.5 text-muted-foreground" /></button>
             </div>
-            <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="p-1.5 rounded hover:bg-muted transition-colors border border-border"><Maximize2 className="h-3.5 w-3.5 text-muted-foreground" /></button>
+            <button onClick={() => { setZoom(0.8); setPan({ x: 0, y: 0 }); initPositions(); }} className="p-1.5 rounded hover:bg-muted transition-colors border border-border" title="Restablecer"><Maximize2 className="h-3.5 w-3.5 text-muted-foreground" /></button>
             <button className="p-1.5 rounded hover:bg-muted transition-colors"><Settings className="h-3.5 w-3.5 text-muted-foreground" /></button>
             <button className="p-1.5 rounded hover:bg-muted transition-colors"><Plus className="h-3.5 w-3.5 text-muted-foreground" /></button>
           </div>
-          <div className="flex-1 overflow-hidden relative select-none" style={{ cursor: isPanning ? "grabbing" : "grab", background: "hsl(var(--muted) / 0.3)" }}
-            onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
+          <div
+            className="flex-1 overflow-hidden relative select-none"
+            style={{ cursor: draggingNode ? "grabbing" : isPanning ? "grabbing" : "grab", background: "hsl(var(--muted) / 0.3)" }}
+            onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}
+          >
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12]">
               <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" /></pattern></defs>
               <rect width="100%" height="100%" fill="url(#grid)" />
             </svg>
-            <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning ? "none" : "transform 0.2s ease-out" }}>
+            <div className="w-full h-full flex items-center justify-center" style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`, transformOrigin: "center center", transition: isPanning || draggingNode ? "none" : "transform 0.2s ease-out" }}>
               <svg width={canvasW} height={canvasH} style={{ overflow: "visible" }}>
                 <CanvasConnectors positions={positions} />
                 {nodes.map((node, i) => (
-                  <CanvasNode key={node.id} node={node} x={positions[i].x} y={positions[i].y} index={i} hoveredNode={hoveredNode} setHoveredNode={setHoveredNode} />
+                  <CanvasNode
+                    key={node.id} node={node} x={positions[i].x} y={positions[i].y} index={i}
+                    hoveredNode={hoveredNode} setHoveredNode={setHoveredNode}
+                    onDragStart={handleNodeDragStart}
+                    isDragging={draggingNode === node.id}
+                  />
                 ))}
               </svg>
             </div>
           </div>
           <div className="flex items-center gap-3 px-5 py-2 border-t border-border bg-card/80 text-[9px] text-muted-foreground flex-shrink-0">
-            <span>🖱️ Arrastra para mover · Zoom con controles</span>
+            <span>🖱️ Arrastra nodos para reposicionar · Fondo para mover vista · Zoom con controles</span>
             <div className="flex-1" />
             <span className="font-mono">{nodes.length} nodos · {nodes.filter(n => n.type === "decision").length} decisiones</span>
           </div>
