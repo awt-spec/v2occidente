@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
+
 import {
   Workflow, FileText, Shield, Users,
   Code2, Globe, Puzzle, Bell,
