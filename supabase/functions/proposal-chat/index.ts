@@ -68,7 +68,7 @@ SYSDE realizará la implementación del primer flujo digital para AFPC Occidente
 - Implementación del primer flujo digital
 
 ### Método de Pago:
-Se factura el primer día hábil de cada mes. Contrato mínimo de tres años.
+Se factura el primer día hábil de cada mes. Contrato mínimo de doce (12) meses.
 
 ## Cronograma (4 semanas):
 | Etapa | Tarea |
