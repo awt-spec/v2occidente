@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   Workflow, FileText, Shield, Users,
   Code2, Globe, Puzzle, Bell,
@@ -14,8 +14,13 @@ import {
   TicketCheck, Search, Clock, CheckCircle2,
   Shield as ShieldIcon,
   Plus, X, GitBranch, Diamond, Circle, Square,
-  GripVertical, Settings, Eye,
+  GripVertical, Settings, Eye, ZoomIn, ZoomOut, Maximize2, Move,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 /* ══════════════════════════════════════════
    DATA
