@@ -53,9 +53,9 @@ const EconomicProposal = () => {
               <table className="w-full">
                 <thead>
                   <tr>
-                    <th className="px-6 py-4 text-left font-semibold w-[30%]">Concepto</th>
-                    <th className="px-6 py-4 text-left font-semibold w-[40%]">Detalle</th>
-                    <th className="px-6 py-4 text-right font-semibold w-[30%]">Precio USD</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[30%]">Concepto</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[40%]">Detalle</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[30%]">Precio USD</th>
                   </tr>
                 </thead>
               </table>
