@@ -508,7 +508,7 @@ const ModulesSection = () => {
             <StepLabel num="1" text="Originación" />
             <div className="flex flex-row flex-wrap lg:flex-col gap-2">
               <AnimatePresence mode="popLayout">
-                {visibleChannels.map((ch, i) => (
+                {channels.map((ch, i) => (
                   <motion.div
                     key={ch.label}
                     layout
