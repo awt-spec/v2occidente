@@ -24,7 +24,6 @@ const channels = [
   { icon: Globe, label: "Sitio Web", desc: "Formularios embebidos en el sitio de AFP Occidente" },
   { icon: Mail, label: "Email", desc: "Solicitudes recibidas por correo electrónico" },
   { icon: Building2, label: "Oficinas", desc: "Atención presencial en sucursales" },
-  { icon: Smartphone, label: "App / Móvil", desc: "Portal responsive desde cualquier dispositivo" },
   { icon: Phone, label: "Call Center", desc: "Ingreso desde llamadas telefónicas" },
   { icon: FileSpreadsheet, label: "Importación", desc: "Carga masiva desde archivos CSV / Excel" },
   { icon: QrCode, label: "QR / Landing", desc: "Campañas con códigos QR y landing pages" },
