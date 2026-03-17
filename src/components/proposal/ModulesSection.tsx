@@ -31,7 +31,6 @@ const channels = [
   { icon: Mail, label: "Email", desc: "Solicitudes recibidas por correo electrónico" },
   { icon: Building2, label: "Oficinas", desc: "Atención presencial en sucursales" },
   { icon: FileSpreadsheet, label: "Importación", desc: "Carga masiva desde archivos CSV / Excel" },
-  { icon: QrCode, label: "QR / Landing", desc: "Campañas con códigos QR y landing pages" },
 ];
 
 const coreSteps = [
