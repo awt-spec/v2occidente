@@ -119,7 +119,16 @@ const VisionAndTimeline = () => (
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
         >
-          Implementación ON-CLOUD — 4 semanas estimadas
+          Implementación ON-CLOUD — 4 semanas estimadas*
+        </motion.p>
+        <motion.p
+          className="text-[11px] text-center mt-2 opacity-50 max-w-md mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.5 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.9 }}
+        >
+          * El tiempo de implementación es un promedio estimado y puede variar según la complejidad del flujo a implementar.
         </motion.p>
       </motion.div>
     </div>

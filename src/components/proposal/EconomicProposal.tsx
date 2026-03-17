@@ -123,15 +123,18 @@ const EconomicProposal = () => {
 
         {/* Soporte, Capacitación y Evolución Ilimitados */}
         <motion.div {...fade(0.2)} className="mb-12">
-          <div className="p-8 rounded-2xl border-2 border-sysde-red/20 bg-card relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-sysde" />
+           <div className="p-8 rounded-2xl border-2 border-sysde-red bg-gradient-to-br from-sysde-red/5 to-sysde-red/10 relative overflow-hidden shadow-lg">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-sysde" />
+            <div className="absolute top-4 right-4">
+              <span className="px-3 py-1 rounded-full bg-sysde-red text-primary-foreground text-xs font-bold uppercase tracking-wider animate-pulse">Incluido</span>
+            </div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-2xl bg-sysde-red/10 flex items-center justify-center">
-                <Infinity className="h-6 w-6 text-sysde-red" />
+              <div className="w-14 h-14 rounded-2xl bg-sysde-red flex items-center justify-center shadow-md">
+                <Infinity className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h4 className="font-bold text-foreground text-xl">Soporte, Capacitación y Evolución Ilimitados</h4>
-                <p className="text-sm text-muted-foreground">Incluido en tu suscripción, sin límites</p>
+                <h4 className="font-bold text-foreground text-2xl">Soporte, Capacitación y Evolución Ilimitados</h4>
+                <p className="text-sm text-sysde-red font-medium">Todo incluido en tu suscripción — sin costos adicionales</p>
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
