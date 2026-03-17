@@ -53,9 +53,9 @@ const EconomicProposal = () => {
               <table className="w-full">
                 <thead>
                   <tr>
-                    <th className="px-6 py-4 text-left font-semibold w-[30%]">Concepto</th>
-                    <th className="px-6 py-4 text-left font-semibold w-[40%]">Detalle</th>
-                    <th className="px-6 py-4 text-right font-semibold w-[30%]">Precio USD</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[30%]">Concepto</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[40%]">Detalle</th>
+                    <th className="px-6 py-4 text-center font-semibold w-[30%]">Precio USD</th>
                   </tr>
                 </thead>
               </table>
@@ -64,13 +64,13 @@ const EconomicProposal = () => {
             <table className="w-full">
               <tbody>
                 <tr className="border-b border-border">
-                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle">
+                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle text-center">
                     {annual ? "Suscripción Anual" : "Suscripción Mensual"}
                   </td>
-                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle">
+                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle text-center">
                     20 usuarios + 1 flujo digital incluido
                   </td>
-                  <td className="px-6 py-5 text-right w-[30%] align-middle">
+                  <td className="px-6 py-5 w-[30%] align-middle text-center">
                     {annual ? (
                       <div>
                         <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
@@ -83,13 +83,13 @@ const EconomicProposal = () => {
                   </td>
                 </tr>
                 <tr className="bg-muted/30">
-                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle">
+                  <td className="px-6 py-5 text-foreground font-medium w-[30%] align-middle text-center">
                     Flujo adicional
                   </td>
-                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle">
+                  <td className="px-6 py-5 text-sm text-muted-foreground w-[40%] align-middle text-center">
                     Cada flujo adicional creado por AFPC Occidente
                   </td>
-                  <td className="px-6 py-5 text-right w-[30%] align-middle">
+                  <td className="px-6 py-5 w-[30%] align-middle text-center">
                     <span className="text-foreground font-bold text-xl">USD $99.00</span>
                     <span className="text-xs text-muted-foreground ml-1">/mes</span>
                   </td>
