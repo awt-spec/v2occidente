@@ -142,14 +142,137 @@ const VArrow = () => (
 );
 
 /* ── Node shape helpers ── */
-const nodeShapes: Record<FlowNode["type"], { shape: string; ring: string }> = {
-  start: { shape: "rounded-full", ring: "ring-2 ring-offset-1 ring-offset-card" },
-  process: { shape: "rounded-lg", ring: "" },
-  decision: { shape: "rounded-lg rotate-45", ring: "ring-1 ring-offset-1 ring-offset-card" },
-  end: { shape: "rounded-full", ring: "ring-2 ring-offset-1 ring-offset-card" },
+const nodeColors: Record<FlowNode["type"], string> = {
+  start: "bg-[hsl(var(--flow-green))]",
+  process: "bg-[hsl(var(--flow-blue))]",
+  decision: "bg-[hsl(var(--flow-purple))]",
+  end: "bg-sysde-red",
+};
+const nodeLabels: Record<FlowNode["type"], string> = {
+  start: "Inicio",
+  process: "Proceso",
+  decision: "Decisión",
+  end: "Fin",
 };
 
-/* ── Expandable flow card with diagram ── */
+/* ── Single flow node ── */
+const FlowNodeCard = ({
+  node,
+  isLast,
+  index,
+  hoveredNode,
+  setHoveredNode,
+}: {
+  node: FlowNode;
+  isLast: boolean;
+  index: number;
+  hoveredNode: string | null;
+  setHoveredNode: (id: string | null) => void;
+}) => {
+  const isHovered = hoveredNode === node.id;
+  const isDecision = node.type === "decision";
+  const color = nodeColors[node.type];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.08 }}
+      onMouseEnter={() => setHoveredNode(node.id)}
+      onMouseLeave={() => setHoveredNode(null)}
+      className="flex items-center"
+    >
+      {/* Node */}
+      <motion.div
+        animate={{ scale: isHovered ? 1.08 : 1 }}
+        transition={{ duration: 0.15 }}
+        className={`relative flex flex-col items-center justify-center w-20 h-20 md:w-24 md:h-24 ${
+          isDecision ? "rounded-2xl rotate-0" : node.type === "start" || node.type === "end" ? "rounded-full" : "rounded-2xl"
+        } ${color} text-primary-foreground shadow-lg cursor-pointer border-2 border-transparent ${
+          isHovered ? "border-primary-foreground/20 shadow-xl" : ""
+        }`}
+      >
+        {/* Type badge */}
+        <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-card border border-border text-[7px] md:text-[8px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+          {nodeLabels[node.type]}
+        </span>
+
+        <node.icon className="h-5 w-5 md:h-6 md:w-6 mb-1" />
+        <p className="text-[9px] md:text-[10px] font-bold leading-tight text-center px-1">{node.label}</p>
+
+        {/* Hover edit icons */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              className="absolute -bottom-2 flex gap-1"
+            >
+              <span className="p-0.5 rounded bg-card/90 border border-border shadow-sm">
+                <Pencil className="h-2.5 w-2.5 text-muted-foreground" />
+              </span>
+              <span className="p-0.5 rounded bg-card/90 border border-border shadow-sm">
+                <GripVertical className="h-2.5 w-2.5 text-muted-foreground" />
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Description tooltip */}
+        <AnimatePresence>
+          {isHovered && node.desc && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+              className="absolute top-full mt-4 px-3 py-2 rounded-lg bg-card border border-border shadow-xl z-20 w-36 md:w-44"
+            >
+              <p className="text-[9px] md:text-[10px] text-muted-foreground leading-relaxed">{node.desc}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Decision branches */}
+      {isDecision && node.branches && (
+        <div className="flex flex-col gap-1 ml-1 mr-1">
+          {node.branches.map((br, bi) => (
+            <motion.span
+              key={br.label}
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.08 + bi * 0.05 + 0.1 }}
+              className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[7px] md:text-[8px] font-bold border whitespace-nowrap ${
+                bi === 0
+                  ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
+                  : "bg-muted border-border text-muted-foreground"
+              }`}
+            >
+              <GitBranch className="h-2 w-2" />
+              {br.label}→{br.to}
+            </motion.span>
+          ))}
+        </div>
+      )}
+
+      {/* Arrow connector */}
+      {!isLast && (
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: index * 0.08 + 0.1, duration: 0.2 }}
+          className="origin-left flex items-center mx-1 md:mx-2"
+        >
+          <div className="w-4 md:w-6 h-0.5 bg-border" />
+          <ChevronRight className="h-3 w-3 text-border -ml-1" />
+        </motion.div>
+      )}
+    </motion.div>
+  );
+};
+
+/* ── Expandable flow diagram — horizontal zigzag ── */
 const FlowDiagram = ({
   icon: Icon,
   label,
@@ -170,6 +293,12 @@ const FlowDiagram = ({
   const [open, setOpen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
+  // Split nodes into rows of 3 for zigzag
+  const rows: FlowNode[][] = [];
+  for (let i = 0; i < nodes.length; i += 3) {
+    rows.push(nodes.slice(i, i + 3));
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -179,20 +308,21 @@ const FlowDiagram = ({
     >
       <button
         onClick={() => setOpen(!open)}
-        className={`w-full text-left p-3 rounded-xl border ${border} ${lightBg} hover:shadow-lg transition-all duration-300 ${open ? "shadow-md" : ""}`}
+        className={`w-full text-left p-3 md:p-4 rounded-xl border ${border} ${lightBg} hover:shadow-lg transition-all duration-300 ${open ? "shadow-md" : ""}`}
       >
-        <div className="flex items-center gap-2">
-          <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center transition-transform duration-300 ${open ? "scale-110" : ""}`}>
-            <Icon className="h-4 w-4 text-primary-foreground" />
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 md:w-10 md:h-10 rounded-xl ${color} flex items-center justify-center transition-transform duration-300 ${open ? "scale-110" : ""}`}>
+            <Icon className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-[11px] font-semibold text-foreground flex-1">{label}</span>
+          <span className="text-xs md:text-sm font-bold text-foreground flex-1">{label}</span>
           <div className="flex items-center gap-1.5">
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">
+            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">
               <Pencil className="h-2.5 w-2.5" /> Editable
             </span>
-            <span className="px-1.5 py-0.5 rounded bg-card border border-border text-[8px] font-medium text-muted-foreground">No-Code</span>
+            <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">No-Code</span>
+            <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">{nodes.length} pasos</span>
             <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </motion.div>
           </div>
         </div>
@@ -211,124 +341,58 @@ const FlowDiagram = ({
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="flex items-center gap-1.5 pt-3 pl-2 pb-1"
+              className="flex items-center gap-2 pt-3 px-2 pb-2"
             >
-              <span className="text-[8px] text-muted-foreground uppercase tracking-widest mr-1">Flujo</span>
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Editar">
-                <Settings className="h-3 w-3 text-muted-foreground" />
-              </button>
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Vista previa">
-                <Eye className="h-3 w-3 text-muted-foreground" />
-              </button>
-              <button className="p-1 rounded hover:bg-muted transition-colors" title="Agregar paso">
-                <Plus className="h-3 w-3 text-muted-foreground" />
-              </button>
-              <div className="flex-1" />
-              <span className="text-[8px] text-muted-foreground">{nodes.length} pasos</span>
+              <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-bold">Diagrama del flujo</span>
+              <div className="flex-1 h-px bg-border" />
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Editar"><Settings className="h-3.5 w-3.5 text-muted-foreground" /></button>
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Vista previa"><Eye className="h-3.5 w-3.5 text-muted-foreground" /></button>
+              <button className="p-1 rounded hover:bg-muted transition-colors" title="Agregar paso"><Plus className="h-3.5 w-3.5 text-muted-foreground" /></button>
             </motion.div>
 
-            {/* Flow diagram */}
-            <div className="pt-1 pl-2 pb-2">
-              <div className="flex flex-col">
-                {nodes.map((node, i) => {
-                  const shape = nodeShapes[node.type];
-                  const isHovered = hoveredNode === node.id;
-                  const isDecision = node.type === "decision";
+            {/* Zigzag flow */}
+            <div className="px-2 pb-4 overflow-x-auto">
+              <div className="flex flex-col gap-3 min-w-fit">
+                {rows.map((row, ri) => {
+                  const isReversed = ri % 2 === 1;
+                  const displayRow = isReversed ? [...row].reverse() : row;
+                  const globalOffset = ri * 3;
 
                   return (
-                    <motion.div
-                      key={node.id}
-                      initial={{ opacity: 0, x: -12 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.07 }}
-                      className="flex items-stretch"
-                      onMouseEnter={() => setHoveredNode(node.id)}
-                      onMouseLeave={() => setHoveredNode(null)}
-                    >
-                      {/* Node + connector */}
-                      <div className="flex flex-col items-center mr-3 flex-shrink-0">
+                    <div key={ri} className="flex flex-col items-center">
+                      {/* Turn connector from previous row */}
+                      {ri > 0 && (
                         <motion.div
-                          animate={{ scale: isHovered ? 1.15 : 1 }}
-                          transition={{ duration: 0.15 }}
-                          className={`w-7 h-7 ${shape.shape} ${color} ${shape.ring} flex items-center justify-center z-10 cursor-pointer`}
+                          initial={{ scaleY: 0 }}
+                          animate={{ scaleY: 1 }}
+                          transition={{ delay: globalOffset * 0.08, duration: 0.2 }}
+                          className={`origin-top flex items-center mb-2 ${isReversed ? "self-end mr-10 md:mr-12" : "self-start ml-10 md:ml-12"}`}
                         >
-                          <node.icon className={`h-3 w-3 text-primary-foreground ${isDecision ? "-rotate-45" : ""}`} />
+                          <div className="w-0.5 h-5 bg-border" />
                         </motion.div>
-                        {i < nodes.length - 1 && (
-                          <div className="flex flex-col items-center flex-1 min-h-[16px]">
-                            <motion.div
-                              className="w-0.5 flex-1 bg-border"
-                              initial={{ scaleY: 0 }}
-                              animate={{ scaleY: 1 }}
-                              transition={{ delay: i * 0.07 + 0.1, duration: 0.2 }}
-                              style={{ originY: 0 }}
+                      )}
+                      {/* Row of nodes */}
+                      <div className={`flex items-center ${isReversed ? "flex-row-reverse" : ""}`}>
+                        {displayRow.map((node, ni) => {
+                          const actualIndex = isReversed
+                            ? globalOffset + (row.length - 1 - ni)
+                            : globalOffset + ni;
+                          const isLastInRow = ni === displayRow.length - 1;
+                          const isLastNode = actualIndex === nodes.length - 1;
+
+                          return (
+                            <FlowNodeCard
+                              key={node.id}
+                              node={node}
+                              isLast={isLastInRow || isLastNode}
+                              index={actualIndex}
+                              hoveredNode={hoveredNode}
+                              setHoveredNode={setHoveredNode}
                             />
-                            {/* Branch arrows for decisions */}
-                            {isDecision && node.branches && (
-                              <div className="absolute left-10 top-1/2 -translate-y-1/2 flex gap-1">
-                                {/* branches shown in the content area */}
-                              </div>
-                            )}
-                          </div>
-                        )}
+                          );
+                        })}
                       </div>
-
-                      {/* Content */}
-                      <div className="pb-3 flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mt-1">
-                          <span className={`text-[8px] uppercase tracking-wider font-bold ${
-                            node.type === "start" ? "text-[hsl(var(--flow-green))]" :
-                            node.type === "end" ? "text-sysde-red" :
-                            node.type === "decision" ? "text-[hsl(var(--flow-purple))]" :
-                            "text-muted-foreground"
-                          }`}>
-                            {node.type === "start" ? "Inicio" : node.type === "end" ? "Fin" : node.type === "decision" ? "Decisión" : "Proceso"}
-                          </span>
-                          {/* Drag handle on hover */}
-                          <AnimatePresence>
-                            {isHovered && (
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.5 }}
-                                className="ml-auto flex items-center gap-0.5"
-                              >
-                                <GripVertical className="h-3 w-3 text-muted-foreground/50 cursor-grab" />
-                                <Pencil className="h-2.5 w-2.5 text-muted-foreground/50 cursor-pointer" />
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                        <p className="text-[10px] font-semibold text-foreground leading-tight">{node.label}</p>
-
-                        {/* Decision branches */}
-                        {isDecision && node.branches && (
-                          <div className="flex items-center gap-2 mt-1.5">
-                            {node.branches.map((br, bi) => (
-                              <motion.span
-                                key={br.label}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: i * 0.07 + bi * 0.05 + 0.1 }}
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-bold border ${
-                                  bi === 0
-                                    ? "bg-[hsl(var(--flow-green-light))] border-[hsl(var(--flow-green)/0.3)] text-[hsl(var(--flow-green))]"
-                                    : "bg-muted border-border text-muted-foreground"
-                                }`}
-                              >
-                                <GitBranch className="h-2.5 w-2.5" />
-                                {br.label} → {br.to}
-                              </motion.span>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Description for non-decision */}
-                        {!isDecision && node.desc && (
-                          <p className="text-[9px] text-muted-foreground mt-0.5">{node.desc}</p>
-                        )}
-                      </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
