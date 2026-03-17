@@ -54,7 +54,7 @@ type FlowNode = {
 const crmFlow: FlowNode[] = [
   { id: "c1", type: "start", icon: Contact, label: "Registro de Prospecto", desc: "Ingreso del prospecto desde cualquier canal: web, oficina, call center o importación masiva." },
   { id: "c2", type: "process", icon: Search, label: "Verificación de Datos", desc: "Validación automática de duplicados y verificación de datos personales del prospecto." },
-  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o reglas de negocio." },
+  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o criterios operativos." },
   { id: "c4", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Programación de cita con el prospecto, con notificación automática por email y recordatorio." },
   { id: "c5", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
   { id: "c6", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de llamadas, emails y reuniones. Bitácora completa de interacciones con el prospecto." },
