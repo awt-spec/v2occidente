@@ -53,11 +53,15 @@ type FlowNode = {
 };
 
 const crmFlow: FlowNode[] = [
-  { id: "c1", type: "start", icon: Contact, label: "Nuevo Contacto", desc: "Ingresa prospecto al sistema" },
-  { id: "c2", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Asignar vendedor y programar" },
-  { id: "c3", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
-  { id: "c4", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de interacciones" },
-  { id: "c5", type: "end", icon: CheckCircle2, label: "Conversión", desc: "Prospecto → Afiliado" },
+  { id: "c1", type: "start", icon: Contact, label: "Registro de Prospecto", desc: "Ingreso del prospecto desde cualquier canal: web, oficina, call center o importación masiva." },
+  { id: "c2", type: "process", icon: Search, label: "Verificación de Datos", desc: "Validación automática de duplicados y verificación de datos personales del prospecto." },
+  { id: "c3", type: "process", icon: UserCheck, label: "Asignación de Ejecutivo", desc: "Distribución automática o manual al ejecutivo según zona, carga de trabajo o reglas de negocio." },
+  { id: "c4", type: "process", icon: Calendar, label: "Agendar Cita", desc: "Programación de cita con el prospecto, con notificación automática por email y recordatorio." },
+  { id: "c5", type: "decision", icon: Diamond, label: "¿Interesado?", branches: [{ label: "Sí", to: "Seguimiento" }, { label: "No", to: "Archivo" }] },
+  { id: "c6", type: "process", icon: MessageSquare, label: "Seguimiento", desc: "Registro de llamadas, emails y reuniones. Bitácora completa de interacciones con el prospecto." },
+  { id: "c7", type: "decision", icon: Diamond, label: "¿Acepta Afiliación?", branches: [{ label: "Sí", to: "Documentación" }, { label: "No", to: "Reprogramar" }] },
+  { id: "c8", type: "process", icon: FileCheck, label: "Documentación", desc: "Recepción y validación de documentos requeridos para la afiliación: DPI, formularios, beneficiarios." },
+  { id: "c9", type: "end", icon: CheckCircle2, label: "Afiliación Exitosa", desc: "Prospecto convertido en afiliado activo de AFP Occidente. Se genera expediente digital completo." },
 ];
 
 const affiliateFlow: FlowNode[] = [
