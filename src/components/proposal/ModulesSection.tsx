@@ -89,21 +89,21 @@ const isoFlow: FlowNode[] = [
 const apiIntegrations = [
   {
     icon: Database,
-    label: "Base de Datos CRM",
-    desc: "Sincronización bidireccional con CRM externo",
-    options: ["Salesforce", "HubSpot", "Dynamics 365", "CRM propio"],
+    label: "Base de Datos",
+    desc: "Conexión directa con bases de datos SQL",
+    options: ["SQL Server", "PostgreSQL", "MySQL", "Oracle"],
   },
   {
     icon: Send,
-    label: "Envío Masivo CRM",
+    label: "Envío Masivo",
     desc: "Campañas de email marketing vía API",
-    options: ["Mailchimp", "SendGrid", "ActiveCampaign", "Brevo"],
+    options: ["HubSpot", "Mailchimp", "SendGrid", "ActiveCampaign"],
   },
   {
     icon: Puzzle,
     label: "Sistemas Externos",
     desc: "Conexión con sistemas de AFP Occidente",
-    options: ["ERP", "Core Bancario", "Firma Digital", "Biométricos"],
+    options: ["ERP", "Sysde Pensión", "Firma Digital", "Biométricos"],
   },
 ];
 
