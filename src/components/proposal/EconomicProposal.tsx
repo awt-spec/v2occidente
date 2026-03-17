@@ -11,9 +11,9 @@ const fade = (delay = 0) => ({
 
 const EconomicProposal = () => {
   const [annual, setAnnual] = useState(false);
-  const monthlyPrice = 999;
-  const annualMonthly = Math.round(monthlyPrice * 0.9);
-  const annualTotal = annualMonthly * 12;
+  const monthlyPrice = 1100;
+  const annualTotal = 12000;
+  const annualMonthly = Math.round(annualTotal / 12);
 
   return (
     <section className="py-20 md:py-28 bg-background">
