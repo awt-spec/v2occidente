@@ -186,7 +186,7 @@ const EconomicProposal = () => {
                 <FileCheck className="h-4 w-4 text-sysde-red mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Contrato mínimo</p>
-                  <p className="text-xs text-muted-foreground">Tres (3) años para la renta de FileMaster e infraestructura Azure.</p>
+                  <p className="text-xs text-muted-foreground">Mínimo doce (12) meses para la renta de FileMaster e infraestructura Azure.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50">
