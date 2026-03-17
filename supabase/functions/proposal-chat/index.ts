@@ -81,7 +81,7 @@ Se factura el primer día hábil de cada mes. Contrato mínimo de doce (12) mese
 
 ## Términos y Condiciones:
 - Precios en USD, no incluyen impuestos
-- Contrato mínimo de tres años
+- Contrato mínimo de doce (12) meses
 - Modificaciones mediante orden de cambio
 - Gastos de viaje no incluidos
 `;
