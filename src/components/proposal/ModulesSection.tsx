@@ -346,8 +346,6 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
           </div>
           <span className="text-xs md:text-sm font-bold text-foreground flex-1">{label}</span>
           <div className="flex items-center gap-1.5">
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><MousePointerClick className="h-2.5 w-2.5" /> No-Code</span>
-            <span className="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground"><Pencil className="h-2.5 w-2.5" /> Editable</span>
             <span className="px-2 py-0.5 rounded-full bg-card border border-border text-[8px] font-medium text-muted-foreground">{nodes.length} pasos</span>
             <Maximize2 className="h-4 w-4 text-muted-foreground" />
           </div>
