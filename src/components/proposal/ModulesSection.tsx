@@ -770,6 +770,51 @@ const workflows = [
   },
 ];
 
+const ontologyNodes = [
+  {
+    id: "core",
+    label: "FileMaster",
+    desc: "Plataforma de automatización",
+    color: "bg-sysde-red",
+    textColor: "text-primary-foreground",
+    children: ["gestion", "ciclo", "colecciones"],
+  },
+  {
+    id: "gestion",
+    label: "Gestión de Flujos",
+    desc: "Diseño visual de procesos",
+    color: "bg-[hsl(var(--flow-blue))]",
+    textColor: "text-primary-foreground",
+    children: ["ficha", "documentos"],
+  },
+  {
+    id: "ciclo",
+    label: "Ciclo de Vida",
+    desc: "Etapas del expediente",
+    color: "bg-[hsl(var(--flow-purple))]",
+    textColor: "text-primary-foreground",
+    children: ["bitacora", "roles"],
+  },
+  {
+    id: "colecciones",
+    label: "Colecciones",
+    desc: "Organización de datos",
+    color: "bg-[hsl(var(--flow-orange))]",
+    textColor: "text-primary-foreground",
+    children: ["crm", "notificaciones", "integraciones"],
+  },
+];
+
+const leafNodes: Record<string, { label: string; desc: string; color: string }> = {
+  ficha: { label: "Ficha del Expediente", desc: "Secciones y campos dinámicos", color: "border-[hsl(var(--flow-teal)/0.4)] bg-[hsl(var(--flow-teal-light))]" },
+  documentos: { label: "Documentos", desc: "Plantillas y generación", color: "border-[hsl(var(--sysde-red)/0.3)] bg-sysde-red/5" },
+  bitacora: { label: "Bitácora", desc: "Historial de cambios", color: "border-[hsl(var(--flow-green)/0.4)] bg-[hsl(var(--flow-green-light))]" },
+  roles: { label: "Roles y Perfiles", desc: "Permisos por usuario", color: "border-[hsl(var(--flow-green)/0.4)] bg-[hsl(var(--flow-green-light))]" },
+  crm: { label: "CRM", desc: "Gestión de relaciones", color: "border-[hsl(var(--flow-blue)/0.4)] bg-[hsl(var(--flow-blue-light))]" },
+  notificaciones: { label: "Notificaciones", desc: "Alertas configurables", color: "border-[hsl(var(--flow-orange)/0.4)] bg-[hsl(var(--flow-orange-light))]" },
+  integraciones: { label: "Integraciones", desc: "APIs y webhooks", color: "border-[hsl(var(--flow-teal)/0.4)] bg-[hsl(var(--flow-teal-light))]" },
+};
+
 const ModulesSection = () => {
   const [activeTab, setActiveTab] = useState("gestion");
   const active = workflows.find((w) => w.id === activeTab)!;
@@ -780,26 +825,84 @@ const ModulesSection = () => {
         <motion.div {...fade()} className="text-center mb-12">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-sysde-red mb-2">Funcionalidades</h2>
           <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Gestión y Workflow No-Code
+            Automatización & Workflow No-Code
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Cada proceso se diseña visualmente sin código: flujos de afiliación, procesos ISO y cualquier workflow personalizado para tu operación.
           </p>
         </motion.div>
 
-        <motion.div {...fade(0.1)}>
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
+        {/* Ontology Map */}
+        <motion.div {...fade(0.1)} className="mb-14">
+          <div className="flex flex-col items-center gap-3">
+            {/* Core Node */}
+            <motion.button
+              onClick={() => setActiveTab("gestion")}
+              className="px-6 py-3 rounded-2xl bg-sysde-red text-primary-foreground font-bold text-lg shadow-lg"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              FileMaster
+              <span className="block text-xs font-normal opacity-80">Plataforma de automatización</span>
+            </motion.button>
+
+            {/* Connector lines */}
+            <div className="flex items-center justify-center">
+              <div className="w-px h-6 bg-border" />
+            </div>
+            <div className="relative w-full max-w-2xl">
+              <div className="absolute top-0 left-1/6 right-1/6 h-px bg-border" />
+              <div className="grid grid-cols-3 gap-4">
+                {ontologyNodes.filter(n => n.id !== "core").map((node) => (
+                  <div key={node.id} className="flex flex-col items-center gap-2">
+                    <div className="w-px h-4 bg-border" />
+                    <motion.button
+                      onClick={() => setActiveTab(node.children?.[0] || node.id)}
+                      className={`w-full px-4 py-3 rounded-xl ${node.color} ${node.textColor} font-semibold text-sm shadow-md text-center`}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {node.label}
+                      <span className="block text-[10px] font-normal opacity-80 mt-0.5">{node.desc}</span>
+                    </motion.button>
+                    <div className="w-px h-3 bg-border" />
+                    <div className="flex flex-wrap gap-1.5 justify-center">
+                      {node.children?.map((childId) => {
+                        const leaf = leafNodes[childId];
+                        if (!leaf) return null;
+                        return (
+                          <motion.button
+                            key={childId}
+                            onClick={() => setActiveTab(childId)}
+                            className={`px-3 py-1.5 rounded-lg border text-[11px] font-medium transition-all ${leaf.color} ${activeTab === childId ? "ring-2 ring-sysde-red shadow-md scale-105" : "hover:shadow-sm"}`}
+                            whileHover={{ scale: 1.03 }}
+                          >
+                            {leaf.label}
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Detail Panel */}
+        <motion.div {...fade(0.15)}>
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
             {workflows.map((w) => (
               <button
                 key={w.id}
                 onClick={() => setActiveTab(w.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300 ${
                   activeTab === w.id
                     ? `${w.color} text-primary-foreground shadow-lg scale-105`
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
               >
-                <w.icon className="h-4 w-4" />
+                <w.icon className="h-3.5 w-3.5" />
                 {w.label}
               </button>
             ))}

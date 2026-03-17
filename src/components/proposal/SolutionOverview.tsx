@@ -14,10 +14,10 @@ const SolutionOverview = () => (
       <motion.div {...fade} className="text-center mb-16">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-sysde-red mb-2">Gestión & Funcionalidades</h2>
         <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-          Gestión de Flujos Digitales
+          Automatización de Procesos
         </h3>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Herramientas completas para el diseño, ejecución y supervisión de flujos de trabajo digitales adaptados a AFPC Occidente.
+          Herramientas completas para la automatización, ejecución y supervisión de procesos de trabajo adaptados a AFPC Occidente.
         </p>
       </motion.div>
 

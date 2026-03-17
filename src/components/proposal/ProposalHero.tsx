@@ -30,20 +30,20 @@ const ProposalHero = () => (
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight leading-[0.95] mb-2"
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-2"
           >
-            FILEMASTER
+            AUTOMATIZACIÓN DEL FLUJO DE AFILIACIÓN
           </motion.h1>
         </div>
         <div className="overflow-hidden">
-          <motion.h1
+          <motion.p
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.35, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[0.95] mb-10"
+            className="text-xl sm:text-2xl md:text-3xl font-medium tracking-tight opacity-80 mb-10"
           >
-            EXPEDIENTE DIGITAL
-          </motion.h1>
+            FileMaster
+          </motion.p>
         </div>
 
         <motion.div
@@ -75,7 +75,7 @@ const ProposalHero = () => (
           className="text-sm"
         >
           <p className="opacity-80 max-w-2xl leading-relaxed">
-            Desarrollo e implementación de flujos digitales para AFPC Occidente: Afiliación, procesos ISO y más.
+            Automatización de procesos digitales para AFPC Occidente: Afiliación, procesos ISO y más.
           </p>
         </motion.div>
       </motion.div>

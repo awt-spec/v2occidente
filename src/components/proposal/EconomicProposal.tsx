@@ -63,15 +63,15 @@ const EconomicProposal = () => {
                 <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
                   20 usuarios + 1 flujo digital incluido
                 </div>
-                <div className="px-4 py-4 flex items-center justify-center">
+               <div className="px-4 py-4 flex items-center justify-center text-center">
                   {annual ? (
-                    <div className="text-center">
-                      <span className="text-muted-foreground line-through text-sm mr-2">USD ${(monthlyPrice * 12).toLocaleString()}</span>
-                      <span className="text-foreground font-bold text-xl">USD ${annualTotal.toLocaleString()}</span>
+                    <div>
+                      <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
+                      <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
                       <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
                     </div>
                   ) : (
-                    <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
+                    <span className="text-foreground font-bold text-xl block">USD ${monthlyPrice.toLocaleString()}.00</span>
                   )}
                 </div>
               </div>
@@ -82,7 +82,7 @@ const EconomicProposal = () => {
                 <div className="px-4 py-4 text-sm text-muted-foreground border-r border-border flex items-center justify-center">
                   Cada flujo adicional creado por AFPC Occidente
                 </div>
-                <div className="px-4 py-4 flex items-center justify-center">
+                <div className="px-4 py-4 flex items-center justify-center text-center">
                   <span className="text-foreground font-bold text-xl">USD $99.00</span>
                   <span className="text-xs text-muted-foreground ml-1">/mes</span>
                 </div>
@@ -123,15 +123,18 @@ const EconomicProposal = () => {
 
         {/* Soporte, Capacitación y Evolución Ilimitados */}
         <motion.div {...fade(0.2)} className="mb-12">
-          <div className="p-8 rounded-2xl border-2 border-sysde-red/20 bg-card relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-sysde" />
+           <div className="p-8 rounded-2xl border-2 border-sysde-red bg-gradient-to-br from-sysde-red/5 to-sysde-red/10 relative overflow-hidden shadow-lg">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-sysde" />
+            <div className="absolute top-4 right-4">
+              <span className="px-3 py-1 rounded-full bg-sysde-red text-primary-foreground text-xs font-bold uppercase tracking-wider animate-pulse">Incluido</span>
+            </div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-2xl bg-sysde-red/10 flex items-center justify-center">
-                <Infinity className="h-6 w-6 text-sysde-red" />
+              <div className="w-14 h-14 rounded-2xl bg-sysde-red flex items-center justify-center shadow-md">
+                <Infinity className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h4 className="font-bold text-foreground text-xl">Soporte, Capacitación y Evolución Ilimitados</h4>
-                <p className="text-sm text-muted-foreground">Incluido en tu suscripción, sin límites</p>
+                <h4 className="font-bold text-foreground text-2xl">Soporte, Capacitación y Evolución Ilimitados</h4>
+                <p className="text-sm text-sysde-red font-medium">Todo incluido en tu suscripción — sin costos adicionales</p>
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
@@ -186,7 +189,7 @@ const EconomicProposal = () => {
                 <FileCheck className="h-4 w-4 text-sysde-red mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-foreground">Contrato mínimo</p>
-                  <p className="text-xs text-muted-foreground">Tres (3) años para la renta de FileMaster e infraestructura Azure.</p>
+                  <p className="text-xs text-muted-foreground">Mínimo doce (12) meses para la renta de FileMaster e infraestructura Azure.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50">
@@ -213,7 +216,7 @@ const EconomicProposal = () => {
             <div className="space-y-3">
               {[
                 { title: "Impuestos", desc: "Los precios no incluyen impuestos, tasas ni retenciones." },
-                { title: "Vigencia", desc: "Contrato mínimo de tres años para la renta de FileMaster." },
+                { title: "Vigencia", desc: "Contrato mínimo de doce (12) meses para la renta de FileMaster." },
                 { title: "Modificaciones", desc: "Se realizarán mediante orden de cambio con cotización independiente." },
                 { title: "Viáticos", desc: "Gastos de viaje no incluidos; deben indicarse en negociación." },
                 { title: "Validez", desc: "Esta propuesta anula cualquier otra entregada anteriormente." },

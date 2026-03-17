@@ -15,10 +15,10 @@ const ExecutiveLetter = () => {
             Plataforma
           </h2>
           <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Expediente Digital de SYSDE
+            Automatización de Procesos
           </h3>
           <p className="text-lg text-muted-foreground max-w-3xl mb-12">
-            SYSDE es experto en la digitalización de procesos empresariales a través de su plataforma de Expediente Digital, FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
+            SYSDE es experto en la automatización de procesos empresariales a través de su plataforma FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">

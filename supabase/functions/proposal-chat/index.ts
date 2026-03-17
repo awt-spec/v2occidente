@@ -6,15 +6,15 @@ const corsHeaders = {
 };
 
 const documentContent = `
-# FileMaster: Expediente Digital — Propuesta para AFPC Occidente
+# FileMaster: Automatización de Procesos — Propuesta para AFPC Occidente
 
 ## Información Principal:
 - **Cliente**: AFPC Occidente
-- **Solución**: FileMaster - Expediente Digital
+- **Solución**: FileMaster - Automatización de Procesos
 - **Empresa**: SYSDE / Gurunet
 
-## Expediente Digital de SYSDE:
-SYSDE es experto en la digitalización de procesos empresariales a través de su plataforma de Expediente Digital, FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
+## Automatización de Procesos:
+SYSDE es experto en la automatización de procesos empresariales a través de su plataforma FileMaster. La solución permite diseñar, implementar y gestionar flujos de trabajo digitales adaptados a las necesidades de cada organización.
 
 ### Flujos para AFPC Occidente:
 - **Flujo de Afiliación**: Digitalización completa del proceso de afiliación, desde la recepción de documentos hasta la aprobación y registro del afiliado.
@@ -68,7 +68,7 @@ SYSDE realizará la implementación del primer flujo digital para AFPC Occidente
 - Implementación del primer flujo digital
 
 ### Método de Pago:
-Se factura el primer día hábil de cada mes. Contrato mínimo de tres años.
+Se factura el primer día hábil de cada mes. Contrato mínimo de doce (12) meses.
 
 ## Cronograma (4 semanas):
 | Etapa | Tarea |
@@ -81,7 +81,7 @@ Se factura el primer día hábil de cada mes. Contrato mínimo de tres años.
 
 ## Términos y Condiciones:
 - Precios en USD, no incluyen impuestos
-- Contrato mínimo de tres años
+- Contrato mínimo de doce (12) meses
 - Modificaciones mediante orden de cambio
 - Gastos de viaje no incluidos
 `;
