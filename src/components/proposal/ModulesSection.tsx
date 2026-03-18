@@ -550,11 +550,10 @@ const ModulesSection = () => {
             </div>
           </motion.div>
 
-          <HArrow />
-          <VArrow />
+          </motion.div>
 
           {/* ── COL 2: FileMaster Core ── */}
-          <motion.div {...fade(0.15)} className="flex-1 min-w-0">
+          <motion.div {...fade(0.15)} className="flex-1 min-w-0 p-5 border-b lg:border-b-0 border-border">
             <StepLabel num="2" text="FileMaster — Gestión de Flujos" />
 
             {/* Main engine */}
