@@ -13,7 +13,7 @@ const EconomicProposal = () => {
   const [annual, setAnnual] = useState(false);
   const [championsOpen, setChampionsOpen] = useState(false);
   const monthlyPrice = 1099;
-  const annualTotal = 12000;
+  const annualTotal = Math.round(monthlyPrice * 12 * 0.9);
   const annualMonthly = Math.round(annualTotal / 12);
 
   return (
