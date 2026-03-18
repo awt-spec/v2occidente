@@ -11,6 +11,7 @@ const fade = (delay = 0) => ({
 
 const EconomicProposal = () => {
   const [annual, setAnnual] = useState(false);
+  const [championsOpen, setChampionsOpen] = useState(false);
   const monthlyPrice = 1100;
   const annualTotal = 12000;
   const annualMonthly = Math.round(annualTotal / 12);
