@@ -76,7 +76,7 @@ const EconomicProposal = () => {
                       <div>
                         <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
                         <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
-                        <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
+                        <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes · 10% de descuento</p>
                       </div>
                     ) : (
                       <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>

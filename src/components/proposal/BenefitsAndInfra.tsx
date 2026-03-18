@@ -94,29 +94,6 @@ const BenefitsAndInfra = () => {
           ))}
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
-          <motion.div {...fade} className="p-7 rounded-2xl border-2 border-border bg-card hover:shadow-lg transition-shadow">
-            <div className="w-10 h-10 rounded-xl bg-[hsl(var(--flow-blue-light))] flex items-center justify-center mb-4">
-              <Shield className="h-5 w-5 text-[hsl(var(--flow-blue))]" />
-            </div>
-            <h4 className="font-bold text-foreground mb-3">Premisas</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-              Si es necesaria la integración con sistemas de terceros, AFPC Occidente deberá plantearlos para que sean analizados por SYSDE y en común acuerdo definir dicha gestión y su precio.
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Se incluye el acompañamiento por parte de un consultor que brindará respuesta a las consultas de los usuarios una vez implementada la solución.
-            </p>
-          </motion.div>
-          <motion.div {...fade} className="p-7 rounded-2xl border-2 border-border bg-card hover:shadow-lg transition-shadow">
-            <div className="w-10 h-10 rounded-xl bg-[hsl(var(--flow-green-light))] flex items-center justify-center mb-4">
-              <GraduationCap className="h-5 w-5 text-[hsl(var(--flow-green))]" />
-            </div>
-            <h4 className="font-bold text-foreground mb-3">Capacitación</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Se incluye la capacitación progresiva a los usuarios sobre el uso de los flujos descritos en la propuesta técnica y en general el uso de FileMaster.
-            </p>
-          </motion.div>
-        </div>
       </div>
     </section>
   );
