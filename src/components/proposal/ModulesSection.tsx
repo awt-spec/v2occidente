@@ -724,8 +724,6 @@ const ModulesSection = () => {
             </motion.div>
           </motion.div>
 
-          </motion.div>
-
           {/* ── COL 3: API Integrations ── */}
           <motion.div {...fade(0.35)} className="lg:w-[230px] xl:w-[260px] flex-shrink-0 p-5 lg:border-l border-t lg:border-t-0 border-border bg-muted/30">
             <div className="flex items-center gap-2 mb-3">
