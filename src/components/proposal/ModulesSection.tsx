@@ -520,7 +520,7 @@ const ModulesSection = () => {
         </motion.div>
 
         {/* ═══ HORIZONTAL FLOW ═══ */}
-        <div className="flex flex-col lg:flex-row lg:items-start">
+        <div className="flex flex-col lg:flex-row lg:items-stretch gap-0 rounded-2xl border border-border overflow-hidden bg-card shadow-sm">
 
           {/* ── COL 1: Origination ── */}
           <motion.div {...fade(0.05)} className="lg:w-[190px] xl:w-[210px] flex-shrink-0">
