@@ -294,6 +294,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
   icon: React.ElementType; label: string; color: string; lightBg: string; border: string; nodes: FlowNode[]; delay: number;
 }) => {
   const [open, setOpen] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -373,7 +374,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[95vw] w-[95vw] h-[85vh] p-0 overflow-hidden flex flex-col bg-[hsl(var(--background))] border-border/30 shadow-2xl [&]:top-[55%]">
+        <DialogContent className={`p-0 overflow-hidden flex flex-col bg-[hsl(var(--background))] border-border/30 shadow-2xl ${fullscreen ? "max-w-[100vw] w-[100vw] h-[100vh] rounded-none [&]:top-[50%]" : "max-w-[95vw] w-[95vw] h-[85vh] [&]:top-[55%]"}`}>
           <DialogTitle className="sr-only">{label}</DialogTitle>
           <div className="flex items-center gap-3 px-5 py-3 border-b border-border/50 bg-[hsl(var(--muted)/0.5)] backdrop-blur-md flex-shrink-0">
             <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center shadow-md`}>
@@ -392,7 +393,9 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
               <span className="text-[10px] font-mono text-muted-foreground w-10 text-center">{Math.round(zoom * 100)}%</span>
               <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} className="p-1.5 rounded hover:bg-card transition-colors"><ZoomIn className="h-3.5 w-3.5 text-muted-foreground" /></button>
             </div>
-            
+            <button onClick={() => setFullscreen(f => !f)} className="p-1.5 rounded-lg hover:bg-muted border border-border transition-colors" title={fullscreen ? "Salir de pantalla completa" : "Pantalla completa"}>
+              <Maximize2 className="h-4 w-4 text-muted-foreground" />
+            </button>
           </div>
           <div
             className="flex-1 overflow-hidden relative select-none"
@@ -503,6 +506,7 @@ const ApiCard = ({
 const ModulesSection = () => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [processesOpen, setProcessesOpen] = useState(false);
+  const [stepsRevealed, setStepsRevealed] = useState(false);
 
   return (
     <section className="py-16 md:py-28 bg-background overflow-hidden">
@@ -590,7 +594,19 @@ const ModulesSection = () => {
               </div>
 
               {/* Interactive step cards */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+              <motion.div 
+                className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4"
+                onViewportEnter={() => {
+                  if (!stepsRevealed) {
+                    setStepsRevealed(true);
+                    coreSteps.forEach((_, i) => {
+                      setTimeout(() => setActiveStep(prev => prev === null ? i : prev), 400 + i * 600);
+                    });
+                    setTimeout(() => setActiveStep(null), 400 + coreSteps.length * 600 + 1500);
+                  }
+                }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
                 {coreSteps.map((step, i) => (
                   <motion.button
                     key={step.label}
@@ -602,7 +618,7 @@ const ModulesSection = () => {
                     onClick={() => setActiveStep(activeStep === i ? null : i)}
                     className={`relative text-left p-3 rounded-xl border transition-all duration-300 ${
                       activeStep === i
-                        ? "border-sysde-red/40 bg-sysde-red/5 shadow-lg"
+                        ? "border-sysde-red/40 bg-sysde-red/5 shadow-lg ring-1 ring-sysde-red/20"
                         : "border-border/50 bg-card/80 hover:border-sysde-red/20 hover:shadow-md"
                     }`}
                   >
@@ -630,7 +646,7 @@ const ModulesSection = () => {
                     )}
                   </motion.button>
                 ))}
-              </div>
+              </motion.div>
 
             </div>
 
