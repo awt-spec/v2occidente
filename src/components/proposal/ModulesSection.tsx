@@ -726,11 +726,10 @@ const ModulesSection = () => {
             </motion.div>
           </motion.div>
 
-          <HArrow />
-          <VArrow />
+          </motion.div>
 
           {/* ── COL 3: API Integrations ── */}
-          <motion.div {...fade(0.35)} className="lg:w-[220px] xl:w-[250px] flex-shrink-0">
+          <motion.div {...fade(0.35)} className="lg:w-[230px] xl:w-[260px] flex-shrink-0 p-5 lg:border-l border-t lg:border-t-0 border-border bg-muted/30">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-5 h-5 rounded-md bg-[hsl(var(--flow-blue))] text-primary-foreground text-[9px] font-bold flex items-center justify-center">
                 <Code2 className="h-3 w-3" />
