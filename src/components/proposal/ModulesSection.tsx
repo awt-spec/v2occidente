@@ -520,10 +520,10 @@ const ModulesSection = () => {
         </motion.div>
 
         {/* ═══ HORIZONTAL FLOW ═══ */}
-        <div className="flex flex-col lg:flex-row lg:items-start">
+        <div className="flex flex-col lg:flex-row lg:items-stretch gap-0 rounded-2xl border border-border overflow-hidden bg-card shadow-sm">
 
           {/* ── COL 1: Origination ── */}
-          <motion.div {...fade(0.05)} className="lg:w-[190px] xl:w-[210px] flex-shrink-0">
+          <motion.div {...fade(0.05)} className="lg:w-[210px] xl:w-[230px] flex-shrink-0 p-5 lg:border-r border-b lg:border-b-0 border-border bg-muted/30">
             <StepLabel num="1" text="Originación" />
             <div className="flex flex-row flex-wrap lg:flex-col gap-2">
               <AnimatePresence mode="popLayout">
@@ -550,11 +550,8 @@ const ModulesSection = () => {
             </div>
           </motion.div>
 
-          <HArrow />
-          <VArrow />
-
           {/* ── COL 2: FileMaster Core ── */}
-          <motion.div {...fade(0.15)} className="flex-1 min-w-0">
+          <motion.div {...fade(0.15)} className="flex-1 min-w-0 p-5 border-b lg:border-b-0 border-border">
             <StepLabel num="2" text="FileMaster — Gestión de Flujos" />
 
             {/* Main engine */}
@@ -727,11 +724,8 @@ const ModulesSection = () => {
             </motion.div>
           </motion.div>
 
-          <HArrow />
-          <VArrow />
-
           {/* ── COL 3: API Integrations ── */}
-          <motion.div {...fade(0.35)} className="lg:w-[220px] xl:w-[250px] flex-shrink-0">
+          <motion.div {...fade(0.35)} className="lg:w-[230px] xl:w-[260px] flex-shrink-0 p-5 lg:border-l border-t lg:border-t-0 border-border bg-muted/30">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-5 h-5 rounded-md bg-[hsl(var(--flow-blue))] text-primary-foreground text-[9px] font-bold flex items-center justify-center">
                 <Code2 className="h-3 w-3" />
