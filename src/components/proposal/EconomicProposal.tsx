@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { CreditCard, FileCheck, Calendar, Shield, Star, Workflow } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CreditCard, FileCheck, Calendar, Shield, Star, Workflow, ChevronDown, Users } from "lucide-react";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 } as const,
