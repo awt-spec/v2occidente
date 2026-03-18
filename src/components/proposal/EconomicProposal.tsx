@@ -96,36 +96,65 @@ const EconomicProposal = () => {
               </tbody>
             </table>
           </div>
+          {/* Nota de usuarios adicionales */}
+          <div className="mt-3 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-muted/50 border border-border/50">
+            <Users className="h-4 w-4 text-sysde-red flex-shrink-0" />
+            <p className="text-xs text-muted-foreground">
+              <span className="font-semibold text-foreground">Usuarios adicionales:</span> cada usuario después de los 20 incluidos tiene un costo de <span className="font-bold text-foreground">USD $15.00/mes</span>
+            </p>
+          </div>
         </motion.div>
 
-        {/* FileMaster Champions */}
+        {/* FileMaster Champions — Toggle */}
         <motion.div {...fade(0.25)} className="mb-12">
-          <div className="p-6 rounded-2xl border-2 border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] relative overflow-hidden">
+          <button
+            onClick={() => setChampionsOpen(!championsOpen)}
+            className="w-full p-5 rounded-2xl border-2 border-[hsl(var(--flow-orange)/0.3)] bg-[hsl(var(--flow-orange-light))] relative overflow-hidden text-left transition-all hover:shadow-lg"
+          >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[hsl(var(--flow-orange))] to-[hsl(var(--sysde-red))]" />
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-2xl bg-[hsl(var(--flow-orange))] flex items-center justify-center">
                 <Star className="h-5 w-5 text-primary-foreground" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h4 className="font-bold text-foreground text-lg">FileMaster Champions</h4>
-                <p className="text-sm text-muted-foreground">Diseña tus propios flujos con apoyo experto</p>
+                <p className="text-sm text-muted-foreground">Diseña tus propios flujos con apoyo experto — <span className="font-bold text-foreground">USD $30/hora</span></p>
               </div>
+              <motion.div animate={{ rotate: championsOpen ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                <ChevronDown className="h-5 w-5 text-muted-foreground" />
+              </motion.div>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
-            </p>
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-foreground">$30</p>
-                <p className="text-xs text-muted-foreground">USD / hora</p>
-              </div>
-              <div className="w-px h-10 bg-border" />
-              <div className="text-sm text-muted-foreground">
-                <p className="font-medium text-foreground mb-1">Acompañamiento por hora</p>
-                <p className="text-xs">Un Champion te guía en el diseño, configuración y puesta en marcha de cada flujo que tu equipo cree.</p>
-              </div>
-            </div>
-          </div>
+          </button>
+          <AnimatePresence>
+            {championsOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="pt-3 px-1">
+                  <div className="p-5 rounded-xl border border-[hsl(var(--flow-orange)/0.2)] bg-card">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                      AFP Occidente puede diseñar y configurar sus propios flujos digitales sin depender del equipo de SYSDE. Nuestros <strong className="text-foreground">FileMaster Champions</strong> son consultores certificados que acompañan a tu equipo en la creación de flujos personalizados.
+                    </p>
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 border border-border">
+                      <div className="text-center">
+                        <p className="text-2xl font-bold text-foreground">$30</p>
+                        <p className="text-xs text-muted-foreground">USD / hora</p>
+                      </div>
+                      <div className="w-px h-10 bg-border" />
+                      <div className="text-sm text-muted-foreground">
+                        <p className="font-medium text-foreground mb-1">Acompañamiento por hora</p>
+                        <p className="text-xs">Un Champion te guía en el diseño, configuración y puesta en marcha de cada flujo que tu equipo cree.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         {/* Payment + Terms Grid */}
