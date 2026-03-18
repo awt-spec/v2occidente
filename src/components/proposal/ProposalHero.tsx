@@ -75,7 +75,7 @@ const ProposalHero = () => (
           className="text-sm"
         >
           <p className="opacity-80 max-w-2xl leading-relaxed">
-            Automatización de procesos de AFP Occidente: afiliación, atención al afiliado, procesos ISO y más.
+            Automatización de todos los procesos manuales de AFPC Occidente.
           </p>
         </motion.div>
       </motion.div>
