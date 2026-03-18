@@ -643,84 +643,104 @@ const ModulesSection = () => {
               />
             </div>
 
-            {/* ── Other Flows ── */}
+            {/* ── Toggle: Procesos a automatizar ── */}
             <motion.div {...fade(0.3)} className="mt-4">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-px h-4 bg-border" />
-                <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Automatizar procesos manuales de AFP Occidente</span>
-                <div className="flex-1 h-px bg-border" />
-              </div>
-              <div className="flex flex-col gap-3">
-                <FlowDiagram
-                  icon={HeadphonesIcon}
-                  label="Atención al Afiliado"
-                  color="bg-[hsl(var(--flow-teal))]"
-                  lightBg="bg-[hsl(var(--flow-teal-light))]"
-                  border="border-[hsl(var(--flow-teal)/0.3)]"
-                  nodes={affiliateFlow}
-                  delay={0.35}
-                />
-                <FlowDiagram
-                  icon={Award}
-                  label="Procesos ISO"
-                  color="bg-[hsl(var(--flow-green))]"
-                  lightBg="bg-[hsl(var(--flow-green-light))]"
-                  border="border-[hsl(var(--flow-green)/0.3)]"
-                  nodes={isoFlow}
-                  delay={0.4}
-                />
-
-                {/* Flujos Adicionales — interactive */}
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.45, duration: 0.4 }}
-                  className="group relative p-3 md:p-4 rounded-xl border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] hover:border-[hsl(var(--flow-purple)/0.5)] hover:shadow-lg transition-all duration-300 cursor-default"
-                >
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[hsl(var(--flow-purple))] flex items-center justify-center"
-                      whileHover={{ scale: 1.1, rotate: 90 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <Plus className="h-5 w-5 text-primary-foreground" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <p className="text-xs md:text-sm font-bold text-foreground">Flujos Adicionales</p>
-                      <p className="text-[9px] md:text-[10px] text-muted-foreground">AFP Occidente puede crear flujos ilimitados — <span className="font-bold text-foreground">USD $99/mes</span> cada uno</p>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <motion.span
-                        animate={{ scale: [1, 1.08, 1] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        className="px-2 py-0.5 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground text-[8px] font-bold"
-                      >
-                        ILIMITADOS
-                      </motion.span>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {["RRHH", "Compras", "Legal", "Cumplimiento", "Operaciones", "Tu proceso..."].map((tag, i) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + i * 0.05 }}
-                        whileHover={{ scale: 1.08, y: -1 }}
-                        className={`px-2.5 py-1 rounded-full text-[9px] font-medium border cursor-default transition-colors ${
-                          tag === "Tu proceso..."
-                            ? "bg-[hsl(var(--flow-purple))] text-primary-foreground border-[hsl(var(--flow-purple))]"
-                            : "bg-card border-[hsl(var(--flow-purple)/0.2)] text-foreground hover:bg-[hsl(var(--flow-purple)/0.1)]"
-                        }`}
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </div>
+              <button
+                onClick={() => setProcessesOpen(!processesOpen)}
+                className="w-full flex items-center gap-3 p-3 rounded-xl border border-[hsl(var(--flow-teal)/0.3)] bg-[hsl(var(--flow-teal-light))] hover:shadow-md transition-all text-left"
+              >
+                <div className="w-9 h-9 rounded-xl bg-[hsl(var(--flow-teal))] flex items-center justify-center flex-shrink-0">
+                  <Workflow className="h-4 w-4 text-primary-foreground" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs md:text-sm font-bold text-foreground">Procesos a Automatizar en AFPC Occidente</p>
+                  <p className="text-[9px] md:text-[10px] text-muted-foreground">Gestión Comercial CRM, Atención al Afiliado, ISO y más</p>
+                </div>
+                <motion.div animate={{ rotate: processesOpen ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
                 </motion.div>
-              </div>
+              </button>
+              <AnimatePresence>
+                {processesOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="flex flex-col gap-3 pt-3">
+                      <FlowDiagram
+                        icon={HeadphonesIcon}
+                        label="Atención al Afiliado"
+                        color="bg-[hsl(var(--flow-teal))]"
+                        lightBg="bg-[hsl(var(--flow-teal-light))]"
+                        border="border-[hsl(var(--flow-teal)/0.3)]"
+                        nodes={affiliateFlow}
+                        delay={0}
+                      />
+                      <FlowDiagram
+                        icon={Award}
+                        label="Procesos ISO"
+                        color="bg-[hsl(var(--flow-green))]"
+                        lightBg="bg-[hsl(var(--flow-green-light))]"
+                        border="border-[hsl(var(--flow-green)/0.3)]"
+                        nodes={isoFlow}
+                        delay={0.05}
+                      />
+
+                      {/* Flujos Adicionales — interactive */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1, duration: 0.4 }}
+                        className="group relative p-3 md:p-4 rounded-xl border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] hover:border-[hsl(var(--flow-purple)/0.5)] hover:shadow-lg transition-all duration-300 cursor-default"
+                      >
+                        <div className="flex items-center gap-3">
+                          <motion.div
+                            className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[hsl(var(--flow-purple))] flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 90 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <Plus className="h-5 w-5 text-primary-foreground" />
+                          </motion.div>
+                          <div className="flex-1">
+                            <p className="text-xs md:text-sm font-bold text-foreground">Flujos Adicionales</p>
+                            <p className="text-[9px] md:text-[10px] text-muted-foreground">AFP Occidente puede crear flujos ilimitados — <span className="font-bold text-foreground">USD $99/mes</span> cada uno</p>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <motion.span
+                              animate={{ scale: [1, 1.08, 1] }}
+                              transition={{ repeat: Infinity, duration: 2 }}
+                              className="px-2 py-0.5 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground text-[8px] font-bold"
+                            >
+                              ILIMITADOS
+                            </motion.span>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {["RRHH", "Compras", "Legal", "Cumplimiento", "Operaciones", "Tu proceso..."].map((tag, i) => (
+                            <motion.span
+                              key={tag}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.15 + i * 0.05 }}
+                              whileHover={{ scale: 1.08, y: -1 }}
+                              className={`px-2.5 py-1 rounded-full text-[9px] font-medium border cursor-default transition-colors ${
+                                tag === "Tu proceso..."
+                                  ? "bg-[hsl(var(--flow-purple))] text-primary-foreground border-[hsl(var(--flow-purple))]"
+                                  : "bg-card border-[hsl(var(--flow-purple)/0.2)] text-foreground hover:bg-[hsl(var(--flow-purple)/0.1)]"
+                              }`}
+                            >
+                              {tag}
+                            </motion.span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </motion.div>
 
