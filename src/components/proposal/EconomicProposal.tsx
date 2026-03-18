@@ -42,7 +42,7 @@ const EconomicProposal = () => {
             <span className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-primary-foreground shadow transition-transform ${annual ? "translate-x-7" : ""}`} />
           </button>
           <span className={`text-sm font-medium transition-colors ${annual ? "text-foreground" : "text-muted-foreground"}`}>
-            Anual <span className="text-sysde-red font-bold">Ahorra</span>
+            Anual <span className="text-sysde-red font-bold">-10%</span>
           </span>
         </motion.div>
 
@@ -76,7 +76,7 @@ const EconomicProposal = () => {
                       <div>
                         <span className="text-muted-foreground line-through text-sm block">USD ${(monthlyPrice * 12).toLocaleString()}</span>
                         <span className="text-foreground font-bold text-xl block">USD ${annualTotal.toLocaleString()}</span>
-                        <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes</p>
+                        <p className="text-xs text-sysde-red font-medium mt-1">USD ${annualMonthly}/mes · 10% de descuento</p>
                       </div>
                     ) : (
                       <span className="text-foreground font-bold text-xl">USD ${monthlyPrice.toLocaleString()}.00</span>
