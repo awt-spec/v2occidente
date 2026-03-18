@@ -594,7 +594,19 @@ const ModulesSection = () => {
               </div>
 
               {/* Interactive step cards */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4">
+              <motion.div 
+                className="grid grid-cols-2 lg:grid-cols-4 gap-2 mb-4"
+                onViewportEnter={() => {
+                  if (!stepsRevealed) {
+                    setStepsRevealed(true);
+                    coreSteps.forEach((_, i) => {
+                      setTimeout(() => setActiveStep(prev => prev === null ? i : prev), 400 + i * 600);
+                    });
+                    setTimeout(() => setActiveStep(null), 400 + coreSteps.length * 600 + 1500);
+                  }
+                }}
+                viewport={{ once: true, margin: "-100px" }}
+              >
                 {coreSteps.map((step, i) => (
                   <motion.button
                     key={step.label}
@@ -606,7 +618,7 @@ const ModulesSection = () => {
                     onClick={() => setActiveStep(activeStep === i ? null : i)}
                     className={`relative text-left p-3 rounded-xl border transition-all duration-300 ${
                       activeStep === i
-                        ? "border-sysde-red/40 bg-sysde-red/5 shadow-lg"
+                        ? "border-sysde-red/40 bg-sysde-red/5 shadow-lg ring-1 ring-sysde-red/20"
                         : "border-border/50 bg-card/80 hover:border-sysde-red/20 hover:shadow-md"
                     }`}
                   >
@@ -634,7 +646,7 @@ const ModulesSection = () => {
                     )}
                   </motion.button>
                 ))}
-              </div>
+              </motion.div>
 
             </div>
 
