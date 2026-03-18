@@ -506,6 +506,7 @@ const ApiCard = ({
 const ModulesSection = () => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [processesOpen, setProcessesOpen] = useState(false);
+  const [stepsRevealed, setStepsRevealed] = useState(false);
 
   return (
     <section className="py-16 md:py-28 bg-background overflow-hidden">
