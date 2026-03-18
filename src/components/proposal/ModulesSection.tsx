@@ -294,6 +294,7 @@ const FlowDiagram = ({ icon: Icon, label, color, lightBg, border, nodes, delay }
   icon: React.ElementType; label: string; color: string; lightBg: string; border: string; nodes: FlowNode[]; delay: number;
 }) => {
   const [open, setOpen] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [zoom, setZoom] = useState(0.8);
   const [pan, setPan] = useState({ x: 0, y: 0 });
