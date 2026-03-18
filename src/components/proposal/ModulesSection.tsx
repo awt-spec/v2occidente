@@ -523,7 +523,7 @@ const ModulesSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-stretch gap-0 rounded-2xl border border-border overflow-hidden bg-card shadow-sm">
 
           {/* ── COL 1: Origination ── */}
-          <motion.div {...fade(0.05)} className="lg:w-[190px] xl:w-[210px] flex-shrink-0">
+          <motion.div {...fade(0.05)} className="lg:w-[210px] xl:w-[230px] flex-shrink-0 p-5 lg:border-r border-b lg:border-b-0 border-border bg-muted/30">
             <StepLabel num="1" text="Originación" />
             <div className="flex flex-row flex-wrap lg:flex-col gap-2">
               <AnimatePresence mode="popLayout">
