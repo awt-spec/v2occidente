@@ -672,6 +672,57 @@ const ModulesSection = () => {
                   nodes={isoFlow}
                   delay={0.4}
                 />
+
+                {/* Flujos Adicionales — interactive */}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.45, duration: 0.4 }}
+                  className="group relative p-3 md:p-4 rounded-xl border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))] hover:border-[hsl(var(--flow-purple)/0.5)] hover:shadow-lg transition-all duration-300 cursor-default"
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-[hsl(var(--flow-purple))] flex items-center justify-center"
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <Plus className="h-5 w-5 text-primary-foreground" />
+                    </motion.div>
+                    <div className="flex-1">
+                      <p className="text-xs md:text-sm font-bold text-foreground">Flujos Adicionales</p>
+                      <p className="text-[9px] md:text-[10px] text-muted-foreground">AFP Occidente puede crear flujos ilimitados — <span className="font-bold text-foreground">USD $99/mes</span> cada uno</p>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <motion.span
+                        animate={{ scale: [1, 1.08, 1] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="px-2 py-0.5 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground text-[8px] font-bold"
+                      >
+                        ILIMITADOS
+                      </motion.span>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {["RRHH", "Compras", "Legal", "Cumplimiento", "Operaciones", "Tu proceso..."].map((tag, i) => (
+                      <motion.span
+                        key={tag}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 + i * 0.05 }}
+                        whileHover={{ scale: 1.08, y: -1 }}
+                        className={`px-2.5 py-1 rounded-full text-[9px] font-medium border cursor-default transition-colors ${
+                          tag === "Tu proceso..."
+                            ? "bg-[hsl(var(--flow-purple))] text-primary-foreground border-[hsl(var(--flow-purple))]"
+                            : "bg-card border-[hsl(var(--flow-purple)/0.2)] text-foreground hover:bg-[hsl(var(--flow-purple)/0.1)]"
+                        }`}
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>
