@@ -106,6 +106,34 @@ const EconomicProposal = () => {
           </div>
         </motion.div>
 
+        {/* Flujos Adicionales */}
+        <motion.div {...fade(0.22)} className="mb-12">
+          <div className="p-6 rounded-2xl border-2 border-dashed border-[hsl(var(--flow-purple)/0.3)] bg-[hsl(var(--flow-purple-light))]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-[hsl(var(--flow-purple))] flex items-center justify-center">
+                  <Workflow className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-foreground text-lg">Flujos Adicionales</h4>
+                  <p className="text-sm text-muted-foreground">AFP Occidente puede crear flujos ilimitados — <span className="font-bold text-foreground">USD $99/mes</span> cada uno</p>
+                </div>
+              </div>
+              <span className="px-3 py-1 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground text-xs font-bold uppercase tracking-wider">Ilimitados</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {["Procesos ISO", "Atención al Afiliado", "RRHH", "Compras", "Legal", "Cumplimiento", "Operaciones"].map((tag) => (
+                <span key={tag} className="px-3 py-1.5 rounded-full bg-card border border-border text-xs font-medium text-foreground">
+                  {tag}
+                </span>
+              ))}
+              <span className="px-3 py-1.5 rounded-full bg-[hsl(var(--flow-purple))] text-primary-foreground text-xs font-medium">
+                Tu proceso…
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
         {/* FileMaster Champions — Toggle */}
         <motion.div {...fade(0.25)} className="mb-12">
           <button
