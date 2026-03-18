@@ -632,16 +632,6 @@ const ModulesSection = () => {
                 ))}
               </div>
 
-              {/* CRM Flow */}
-              <FlowDiagram
-                icon={Contact}
-                label="Gestión Comercial (funcionalidad CRM)"
-                color="bg-[hsl(var(--flow-orange))]"
-                lightBg="bg-[hsl(var(--flow-orange-light))]"
-                border="border-[hsl(var(--flow-orange)/0.25)]"
-                nodes={crmFlow}
-                delay={0.3}
-              />
             </div>
 
             {/* ── Toggle: Procesos a automatizar ── */}
@@ -672,13 +662,22 @@ const ModulesSection = () => {
                   >
                     <div className="flex flex-col gap-3 pt-3">
                       <FlowDiagram
+                        icon={Contact}
+                        label="Gestión Comercial (funcionalidad CRM)"
+                        color="bg-[hsl(var(--flow-orange))]"
+                        lightBg="bg-[hsl(var(--flow-orange-light))]"
+                        border="border-[hsl(var(--flow-orange)/0.25)]"
+                        nodes={crmFlow}
+                        delay={0}
+                      />
+                      <FlowDiagram
                         icon={HeadphonesIcon}
                         label="Atención al Afiliado"
                         color="bg-[hsl(var(--flow-teal))]"
                         lightBg="bg-[hsl(var(--flow-teal-light))]"
                         border="border-[hsl(var(--flow-teal)/0.3)]"
                         nodes={affiliateFlow}
-                        delay={0}
+                        delay={0.02}
                       />
                       <FlowDiagram
                         icon={Award}
